@@ -1,0 +1,45 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "airbnb-typescript"
+    ],
+    "ignorePatterns": ["dist"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": ["tsconfig.json", "tsconfig.node.json"]
+    },
+    "plugins": [
+        "react",
+        "react-refresh",
+        "@typescript-eslint",
+        "@tanstack/eslint-plugin-query"
+    ],
+    "rules": {
+        // в 18 реакте нет необходимости импортить React в .tsx/.jsx файлах
+        "react/react-in-jsx-scope": 0,
+
+        // prefer arrow func
+        "import/prefer-default-export": 0,
+        "react/function-component-definition": 0,
+
+        // часто есть кейсы с пропс дриллингом, например ui компоненты, пейджы etc
+        "react/jsx-props-no-spreading": 0,
+
+        //
+        "arrow-body-style": 0,
+        "react/require-default-props": 0,
+
+        // не критично, часто используется при моках
+        "react/no-array-index-key": 0
+    }
+}
