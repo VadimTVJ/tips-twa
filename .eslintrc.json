@@ -25,6 +25,13 @@
         "@tanstack/eslint-plugin-query"
     ],
     "rules": {
+        "import/no-extraneous-dependencies": [
+            "error", {
+                "devDependencies": true
+            }
+        ],
+
+
         // в 18 реакте нет необходимости импортить React в .tsx/.jsx файлах
         "react/react-in-jsx-scope": 0,
 
