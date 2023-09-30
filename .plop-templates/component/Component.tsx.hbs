@@ -1,0 +1,13 @@
+import { classNames } from '@vkontakte/vkui';
+import { ComponentPropsWithRef } from 'react';
+
+import styles from './{{properCase componentName}}.module.scss';
+
+interface {{properCase componentName}}Props extends ComponentPropsWithRef<'div'> {}
+
+export function {{properCase componentName}}({ className }: {{properCase componentName}}Props) {
+  const rootClassName = classNames(className, styles.{{properCase componentName}});
+  return (
+    <div className={rootClassName} />
+  );
+}

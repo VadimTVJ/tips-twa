@@ -30,6 +30,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "husky": "^8.0.3",
+    "plop": "^4.0.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
