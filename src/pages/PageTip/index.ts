@@ -1,0 +1,1 @@
+export { PageTip } from './PageTip';
