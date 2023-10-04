@@ -1,13 +1,14 @@
-import { classNames } from '@vkontakte/vkui';
 import { ComponentPropsWithRef } from 'react';
 
+import { clsx } from 'clsx';
 import styles from './{{properCase componentName}}.module.scss';
 
 interface {{properCase componentName}}Props extends ComponentPropsWithRef<'div'> {}
 
-export function {{properCase componentName}}({ className }: {{properCase componentName}}Props) {
-  const rootClassName = classNames(className, styles.{{properCase componentName}});
+export const {{properCase componentName}} = ({ className, ...rest }: {{properCase componentName}}Props) => {
+  const rootClassName = clsx(className, styles.{{properCase componentName}});
+
   return (
-    <div className={rootClassName} />
+    <div className={rootClassName} {...rest} />
   );
-}
+};

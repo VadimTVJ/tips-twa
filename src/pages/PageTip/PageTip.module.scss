@@ -1,5 +1,6 @@
 .PageTip {
-  width: 80vw;
-  height: 80vh;
-  background: green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

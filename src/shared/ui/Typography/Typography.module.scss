@@ -1,0 +1,40 @@
+.Typography {
+  font-weight: var(--Typography__weight);
+
+  &_normalized {
+    margin: 0;
+  }
+
+  &_variant {
+
+    &_h1 {
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    &_h2 {
+      font-size: 22px;
+      line-height: 28px;
+    }
+
+    &_h3 {
+      font-size: 18px;
+      line-height: 28px;
+    }
+
+    &_text {
+      font-size: 17px;
+      line-height: 22px;
+    }
+
+    &_subtitle1 {
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    &_subtitle2 {
+      font-size: 13px;
+      line-height: 18px;
+    }
+  }
+}
