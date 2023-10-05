@@ -16,7 +16,7 @@ interface ConfigProviderProps extends ComponentPropsWithRef<'div'> {
 }
 
 export const ConfigProvider = ({
-  className, theme = 'dark', ...rest
+  className, theme = 'var(--App__theme)' as ThemeUnion, ...rest
 }: ConfigProviderProps) => {
   const rootClassName = clsx(
     className,
