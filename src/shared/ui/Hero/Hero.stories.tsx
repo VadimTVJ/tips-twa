@@ -1,17 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Hero, HeroProps } from './Hero';
 
-const meta: Meta<HeroProps> = { // todo props instead of typeof
+const meta: Meta<HeroProps> = {
   title: 'Common/Hero',
   component: Hero,
-  parameters: {
-    docs: {
-      description: {
-        component: 'Компонент-надрстройка над нативным input[type=radio]',
-      },
-    },
-  },
-  tags: ['autodocs'],
+
   args: {
     heading: 'Hello world!',
     subheading: 'Описание',
@@ -19,26 +12,29 @@ const meta: Meta<HeroProps> = { // todo props instead of typeof
     stretched: false,
     icon: true,
   },
+
   argTypes: {
     heading: {
-      // todo добавить пометку, что может принимать ReactNode - если стринг,
-      //  то оборачивается в типографию
-      description: 'Заголовок',
-      control: 'text',
-      table: {
-        type: { summary: 'ReactNode' },
-      },
+      description: 'Hero heading',
     },
     subheading: {
-      description: 'Подпись',
-      control: 'text',
+      description: 'Hero subheading',
+    },
+    filled: {
+      description: 'Fill Hero to content background',
       table: {
-        type: { summary: 'ReactNode' },
+        defaultValue: { summary: false },
+      },
+    },
+    stretched: {
+      description: 'Stretch hero to full available height',
+      table: {
+        defaultValue: { summary: false },
       },
     },
     icon: {
       control: 'boolean',
-      description: 'qqq',
+      description: 'Hero icon',
     },
   },
 };

@@ -1,8 +1,10 @@
-import { ComponentPropsWithRef, MouseEvent } from 'react';
+import { ElementType, MouseEvent } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Button.module.scss';
 import { Typography } from '../Typography';
+import { PolymorphicComponentProp } from '../generics';
+import { Component } from '../Component';
 
 export enum ButtonSize {
   SMALL = 's',
@@ -19,15 +21,15 @@ export enum ButtonMode {
 
 type ButtonModeUnion = `${ButtonMode}`;
 
-export interface ButtonProps extends ComponentPropsWithRef<'button'> {
+export type ButtonProps<C extends ElementType> = PolymorphicComponentProp<C, {
   size?: ButtonSize | ButtonSizeUnion;
   mode?: ButtonMode | ButtonModeUnion;
   stretched?: boolean;
-}
+}>;
 
-export const Button = ({
-  className, size = 'm', mode = 'primary', stretched, children, disabled, onClick: onClickProp, ...rest
-}: ButtonProps) => {
+export const Button = <C extends ElementType>({
+  className, size = 'm', mode = 'primary', stretched, children, disabled, onClick: onClickProp, as = 'button' as C, ...rest
+}: ButtonProps<C>) => {
   const rootClassName = clsx(
     className,
     styles.Button,
@@ -46,20 +48,16 @@ export const Button = ({
     onClickProp?.(e);
   };
 
-  // todo тут надо через as
   return (
-    <button
-      type="button"
+    <Component
       className={rootClassName}
       onClick={onClick}
+      as={as as ElementType}
       {...rest}
     >
-      <Typography
-        variant="text"
-        as="span"
-      >
+      <Typography variant="text" as="span">
         {children}
       </Typography>
-    </button>
+    </Component>
   );
 };

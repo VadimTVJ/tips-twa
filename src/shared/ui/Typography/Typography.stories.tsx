@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { ElementType } from 'react';
 import { Typography, TypographyProps } from './Typography';
-import { asPropArgType } from '../../../../.storybook/constants';
+import { Section } from '../Section';
 
-const meta: Meta<TypographyProps<'h1'>> = {
+const meta: Meta<TypographyProps<ElementType>> = {
   title: 'Common/Typography',
   component: Typography,
-  tags: ['autodocs'],
+
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     variant: 'h1',
@@ -15,23 +15,21 @@ const meta: Meta<TypographyProps<'h1'>> = {
     weight: 400,
     as: 'h1',
   },
+
   argTypes: {
     variant: {
-      description: 'Стиль элемента',
+      description: 'The variant to use',
     },
     normalize: {
-      description: 'Флаг, который убирает стандартные margin-отступы',
+      description: 'Reset browser\'s margins',
     },
     children: {
-      description: 'Текст',
-      table: {
-        type: { summary: 'ReactNode' },
-      },
+      description: 'Text or children component',
     },
     weight: {
-      description: 'Насыщенность шрифта',
+      description: 'Weight (or boldness) of the font',
     },
-    as: asPropArgType,
+    as: { table: { disable: true } },
   },
 };
 
@@ -39,5 +37,9 @@ export default meta;
 type Story = StoryObj<TypographyProps<ElementType>>;
 
 export const Playground: Story = {
-  render: ({ ...args }) => <Typography {...args} />,
+  render: ({ ...args }) => (
+    <Section>
+      <Typography {...args} />
+    </Section>
+  ),
 };

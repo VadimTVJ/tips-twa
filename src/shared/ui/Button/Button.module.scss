@@ -4,10 +4,12 @@
   border-radius: var(--Button_radius);
   min-height: var(--Button_min-height);
   padding: 0 18px;
-  display: block;
-  cursor: pointer; // todo disabled
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  &:hover {
+  &:hover:not(&_disabled) {
+    cursor: pointer;
     opacity: .85;
     transition: opacity .15s;
   }

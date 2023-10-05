@@ -9,15 +9,16 @@ import { Component } from '../Component';
 import Icon from '../../../pages/PageHome/Icon.svg?react';
 import { InfoRows } from '../InfoRows';
 
-export interface ListItemProps {
+export type ListItemProps<C extends ElementType> = PolymorphicComponentProp<C, {
   before?: ReactNode;
   after?: ReactNode;
   disabled?: boolean;
-}
+}>;
 
+// todo убедиться что все полиморф компоненты норм вынесен тип
 export const ListItem = <C extends ElementType>({
   className, children, before, after, disabled, onClick: onClickProp, ...rest
-}: PolymorphicComponentProp<C, ListItemProps>) => {
+}: ListItemProps<C>) => {
   const hasAction = onClickProp;
 
   const rootClassName = clsx(className, styles.ListItem, {

@@ -4,22 +4,22 @@ import { InfoRows, InfoRowsProps } from './InfoRows';
 import { ListItem } from '../ListItem';
 import { Radio } from '../Radio';
 
-const meta: Meta<InfoRowsProps> = { // todo props instead of typeof
+const meta: Meta<InfoRowsProps> = {
   title: 'Common/InfoRows',
   component: InfoRows,
-  parameters: {
-    docs: {
-      description: {
-        component: 'Компонент-надрстройка над нативным input[type=radio]',
-      },
-    },
-  },
-  tags: ['autodocs'],
+
   args: {
     primary: 'Primary text',
     secondary: 'Secondary text',
   },
+
   argTypes: {
+    primary: {
+      description: 'Primary text',
+    },
+    secondary: {
+      description: 'Secondary text',
+    },
   },
 };
 

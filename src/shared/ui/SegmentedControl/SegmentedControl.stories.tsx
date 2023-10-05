@@ -7,7 +7,22 @@ import { Section } from '../Section';
 const meta: Meta<SegmentedControlProps> = {
   title: 'Common/SegmentedControl',
   component: SegmentedControl,
-  tags: ['autodocs'],
+
+  argTypes: {
+    items: {
+      description: 'Array of items',
+      control: false,
+    },
+    name: {
+      description: 'HTML attribute "name", which is thrown for each input [type=radio]',
+    },
+    onChange: {
+      description: 'onChange handler',
+    },
+    value: {
+      description: 'SegmentedControl value',
+    },
+  },
 };
 
 export default meta;
@@ -19,8 +34,8 @@ export const Playground: Story = {
 
     return (
       <Section
-        header="SegmentedControl"
-        description="Является надстройкой над input[type=radio]"
+        header="SegmentedControl component"
+        description="The SegmentedControl is a wrapper for the native HTML input[type=radio] elements"
       >
         <SegmentedControl
           value={value}

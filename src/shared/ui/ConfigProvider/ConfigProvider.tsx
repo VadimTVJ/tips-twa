@@ -1,6 +1,5 @@
-import { ComponentPropsWithRef, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
-import { clsx } from 'clsx';
 import styles from './ConfigProvider.module.scss';
 
 export enum Theme {
@@ -10,19 +9,14 @@ export enum Theme {
 
 type ThemeUnion = `${Theme}`;
 
-// todo
-interface ConfigProviderProps extends ComponentPropsWithRef<'div'> {
+export interface ConfigProviderProps {
   theme: Theme | ThemeUnion;
+  children: ReactNode;
 }
 
 export const ConfigProvider = ({
-  className, theme = 'var(--App__theme)' as ThemeUnion, ...rest
+  theme = 'var(--App__theme)' as ThemeUnion, ...rest
 }: ConfigProviderProps) => {
-  const rootClassName = clsx(
-    className,
-    styles.ConfigProvider,
-  );
-
   useEffect(() => {
     const bodyClassName = ['tipsUI', `tipsUI_${theme}`];
 
@@ -34,6 +28,6 @@ export const ConfigProvider = ({
   }, [theme]);
 
   return (
-    <div className={rootClassName} {...rest} />
+    <div className={styles.ConfigProvider} {...rest} />
   );
 };

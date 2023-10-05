@@ -15,6 +15,7 @@ const preview: Preview = {
     },
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
+      expanded: true,
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/,
@@ -40,7 +41,6 @@ const preview: Preview = {
   },
   argTypes: {
     ref: { table: { disable: true } },
-    as: { table: { disable: true } },
   },
   decorators: [withUIWrapper],
 };

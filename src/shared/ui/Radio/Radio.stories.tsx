@@ -3,17 +3,9 @@ import { useState } from 'react';
 import { Radio, RadioProps } from './Radio';
 import { Section } from '../Section';
 
-const meta: Meta<RadioProps> = { // todo props instead of typeof
+const meta: Meta<RadioProps> = {
   title: 'Forms/Radio',
   component: Radio,
-  parameters: {
-    docs: {
-      description: {
-        component: 'Компонент-надрстройка над нативным input[type=radio]',
-      },
-    },
-  },
-  tags: ['autodocs'],
 };
 
 export default meta;
@@ -30,7 +22,10 @@ export const Playground: Story = {
     ];
 
     return (
-      <Section>
+      <Section
+        header="Radio component"
+        description="The Radio is a wrapper for the native HTML input[type=radio] element"
+      >
         {values.map((props) => (
           <Radio
             checked={props.value === value}

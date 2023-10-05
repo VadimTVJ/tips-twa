@@ -4,23 +4,29 @@ import { SectionMode, SectionProps } from './Section';
 import { ListItem } from '../ListItem';
 import { Radio } from '../Radio';
 
-const meta: Meta<SectionProps> = { // todo props instead of typeof
+const meta: Meta<SectionProps> = {
   title: 'Common/Section',
   component: Section,
-  parameters: {
-    docs: {
-      description: {
-        component: 'Компонент-надрстройка над нативным input[type=radio]',
-      },
-    },
-  },
-  tags: ['autodocs'],
+
   args: {
     header: 'Section header',
     description: 'Section description',
     mode: SectionMode.COMPACT,
   },
+
   argTypes: {
+    header: {
+      description: 'Section header',
+    },
+    description: {
+      description: 'Section description',
+    },
+    mode: {
+      description: 'Section mode',
+      table: {
+        defaultValue: { summary: 'compact' },
+      },
+    },
   },
 };
 

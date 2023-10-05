@@ -1,34 +1,42 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ElementType } from 'react';
 import { ListItem } from '.';
 import { Section } from '../Section';
 import { ListItemProps } from './ListItem';
 import { InfoRows } from '../InfoRows';
 
-const meta: Meta<ListItemProps> = { // todo props instead of typeof
+const meta: Meta<ListItemProps<ElementType>> = {
   title: 'Common/ListItem',
   component: ListItem,
-  parameters: {
-    docs: {
-      description: {
-        component: 'Компонент-надрстройка над нативным input[type=radio]',
-      },
-    },
-  },
-  tags: ['autodocs'],
+
   args: {
     disabled: false,
   },
+
   argTypes: {
-    before: { table: { disable: true } },
-    after: { table: { disable: true } },
+    disabled: {
+      description: 'Is item disabled',
+    },
+    before: {
+      description: 'Before node (left side), e.g. icon, avatar, InfoRow',
+      control: false,
+    },
+    after: {
+      description: 'After node (right side), e.g. icon, avatar, InfoRow',
+      control: false,
+    },
+    onClick: {
+      description: 'onClick handler. If the handler is passed, then an icon appears on the right side',
+    },
+    as: { table: { disable: true } },
   },
 };
 
 export default meta;
-type Story = StoryObj<ListItemProps>;
+type Story = StoryObj<ListItemProps<ElementType>>;
 
 export const Playground: Story = {
-  render: ({ ...args }) => {
+  render: ({ onClick, ...args }) => {
     return (
       <Section>
         <ListItem
