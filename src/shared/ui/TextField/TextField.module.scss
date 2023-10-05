@@ -31,10 +31,12 @@
   &__field {
     @extend .Typography_variant_text;
 
+    color: var(--App__text-color_primary);
+
     flex-grow: 1;
 
     &::placeholder {
-      color: #8E8E93; // todo to var
+      color: var(--App__separator-color_primary);
     }
   }
 }

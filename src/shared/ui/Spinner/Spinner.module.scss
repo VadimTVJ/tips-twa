@@ -1,6 +1,7 @@
 .Spinner {
 
   &__icon {
+    color: var(--App__separator-color_primary);
     animation: rotating .8s linear infinite;
   }
 }

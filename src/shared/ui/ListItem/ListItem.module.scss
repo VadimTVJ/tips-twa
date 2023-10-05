@@ -1,7 +1,7 @@
 .ListItem {
   padding: var(--App__padding-vertical) var(--App__padding-horizontal);
   border-radius: var(--App__radius);
-  background: #ffffff;
+  background: var(--App__background-color_content);
   min-height: 48px;
   display: flex;
   align-items: center;
