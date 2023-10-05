@@ -6,10 +6,11 @@
     "extends": [
         "plugin:react/recommended",
         "airbnb",
-        "airbnb-typescript"
+        "airbnb-typescript",
+        "plugin:storybook/recommended"
     ],
-    "ignorePatterns": ["dist"],
     "parser": "@typescript-eslint/parser",
+    "ignorePatterns": ["dist", "!.storybook/"],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true

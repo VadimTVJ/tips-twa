@@ -1,35 +1,43 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Typography, TypographyVariant } from './Typography';
+import { ElementType } from 'react';
+import { Typography, TypographyProps } from './Typography';
+import { asPropArgType } from '../../../../.storybook/constants';
 
-const meta: Meta<typeof Typography> = {
-  title: 'Typography',
+const meta: Meta<TypographyProps<'h1'>> = {
+  title: 'Common/Typography',
   component: Typography,
   tags: ['autodocs'],
+  args: {
+    children: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    variant: 'h1',
+    normalize: true,
+    weight: 400,
+    as: 'h1',
+  },
   argTypes: {
     variant: {
-      description: 'qqqqggggg',
-      control: {
-        type: 'select',
-      },
-      options: Object.values(TypographyVariant),
+      description: 'Стиль элемента',
     },
     normalize: {
-      description: 'qqqq',
-      control: 'boolean',
-      defaultValue: 'true',
+      description: 'Флаг, который убирает стандартные margin-отступы',
     },
     children: {
-      control: 'input',
+      description: 'Текст',
+      table: {
+        type: { summary: 'ReactNode' },
+      },
     },
+    weight: {
+      description: 'Насыщенность шрифта',
+    },
+    as: asPropArgType,
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Typography>;
+type Story = StoryObj<TypographyProps<ElementType>>;
 
-export const H1: Story = { args: { variant: 'h1', children: 'Hello world' } };
-export const H2: Story = { args: { ...H1.args, variant: 'h2' } };
-export const H3: Story = { args: { ...H1.args, variant: 'h3' } };
-export const subtitle1: Story = { args: { ...H1.args, variant: 'subtitle1' } };
-export const subtitle2: Story = { args: { ...H1.args, variant: 'subtitle2' } };
+export const Playground: Story = {
+  render: ({ ...args }) => <Typography {...args} />,
+};

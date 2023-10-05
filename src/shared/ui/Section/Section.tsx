@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import styles from './Section.module.scss';
 import { Typography } from '../Typography';
 
-enum SectionMode {
+export enum SectionMode {
   FULL = 'full',
   COMPACT = 'compact',
 }

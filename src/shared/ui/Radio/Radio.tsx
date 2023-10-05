@@ -5,13 +5,17 @@ import styles from './Radio.module.scss';
 import { Typography } from '../Typography';
 import { IconCheckbox, IconCircle } from '../../lib/icons';
 
-interface RadioProps extends ComponentPropsWithRef<'input'> {}
+export interface RadioProps extends ComponentPropsWithRef<'input'> {}
 
 // todo перепроверить порядок rest, чтобы не затирались нужные пропы
+/**
+ * # The Radio component
+ * Shows a button
+ */
 export const Radio = ({ className, children, ...rest }: RadioProps) => {
   const inputId = useId();
 
-  const rootClassName = clsx(className, styles.Radio);
+  const rootClassName = clsx(className, styles.Radio); // todo добавить ховер
 
   return (
     <label
@@ -28,9 +32,9 @@ export const Radio = ({ className, children, ...rest }: RadioProps) => {
         ? <IconCheckbox className={styles.Radio__icon} />
         : <IconCircle className={styles.Radio__icon} />}
 
-      <Typography variant="text">
-        {children}
-      </Typography>
+      {typeof children === 'string'
+        ? <Typography variant="text">{children}</Typography>
+        : children}
     </label>
   );
 };
