@@ -37,6 +37,7 @@ export function PageHome({ className }: PageHomeProps) {
           before={<IconScan />}
           as={Link}
           to="tip"
+          hasAction
         >
           <InfoRows
             primary="Отсканировать QR-код"
@@ -46,6 +47,7 @@ export function PageHome({ className }: PageHomeProps) {
 
         <ListItem
           before={<IconID />}
+          hasAction
         >
           <InfoRows
             primary="Ввести ID официанта вручную"
@@ -55,6 +57,7 @@ export function PageHome({ className }: PageHomeProps) {
 
         <ListItem
           before={<IconCurrency />}
+          hasAction
         >
           <InfoRows
             primary="История чаевых"

@@ -11,6 +11,7 @@ const meta: Meta<ListItemProps<ElementType>> = {
 
   args: {
     disabled: false,
+    hasAction: true,
   },
 
   argTypes: {
@@ -25,8 +26,8 @@ const meta: Meta<ListItemProps<ElementType>> = {
       description: 'After node (right side), e.g. icon, avatar, InfoRow',
       control: false,
     },
-    onClick: {
-      description: 'onClick handler. If the handler is passed, then an icon appears on the right side',
+    hasAction: {
+      description: 'Set hasAction if ListItem has some action, e.g. onClick, href. If hasAction is true, an arrow icon will be displayed on the right',
     },
     as: { table: { disable: true } },
   },

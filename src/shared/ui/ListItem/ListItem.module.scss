@@ -36,6 +36,7 @@
   }
 
   &__arrow {
-    margin-left: var(--App_gap);
+    margin-left: 12px;
+    flex-shrink: 0;
   }
 }

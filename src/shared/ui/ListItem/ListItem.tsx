@@ -13,13 +13,12 @@ export type ListItemProps<C extends ElementType> = PolymorphicComponentProp<C, {
   before?: ReactNode;
   after?: ReactNode;
   disabled?: boolean;
+  hasAction?: boolean;
 }>;
 
 export const ListItem = <C extends ElementType>({
-  className, children, before, after, disabled, onClick: onClickProp, ...rest
+  className, children, before, after, disabled, onClick: onClickProp, hasAction, ...rest
 }: ListItemProps<C>) => {
-  const hasAction = onClickProp;
-
   const rootClassName = clsx(className, styles.ListItem, {
     [styles.ListItem_interactive]: hasAction,
     [styles.ListItem_disabled]: disabled,
