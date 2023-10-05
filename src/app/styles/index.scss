@@ -1,0 +1,16 @@
+@import './normalize';
+@import './transitions';
+@import './variables';
+
+html, body, #root {
+  height: 100%;
+}
+
+*:not(input):not(textarea),
+::after,
+::before {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

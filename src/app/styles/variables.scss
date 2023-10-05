@@ -1,0 +1,39 @@
+:root {
+  --tg-theme-secondary-bg-color: #f4f4f5;
+  --tg-theme-bg-color: #ffffff;
+  --tg-theme-hint-color: #707579;
+  --tg-theme-text-color: #000000;
+
+
+  --tg-color-scheme: light;
+  --tg-theme-button-color: #3390ec;
+  --tg-theme-button-text-color: #ffffff;
+  --tg-theme-link-color: #00488f;
+  --tg-viewport-height: 100vh;
+  --tg-viewport-stable-height: 100vh;
+}
+
+:root {
+  --App__background-color_body: var(--tg-theme-secondary-bg-color);
+  --App__background-color_content: var(--tg-theme-bg-color);
+  --App__background-color_secondary: #74748014;
+
+  --App__text-color_primary: var(--tg-theme-text-color);
+  --App__text-color_secondary: var(--tg-theme-hint-color);
+
+  --App__radius_small: 8px;
+  --App__radius_medium: 12px;
+  --App__radius_large: 16px;
+
+  --App__separator-color: #dce1e6;
+
+  --App__gap-horizontal: 12px;
+  --App__gap-vertical: 10px;
+}
+
+body {
+  background: var(--App__background-color_body);
+  color: var(--App__text-color_primary);
+
+  font-family: -apple-system,system-ui,"Helvetica Neue",Roboto,sans-serif;
+}

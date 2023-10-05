@@ -1,0 +1,18 @@
+.Radio {
+  background: var(--App__background-color_content);
+  border-radius: var(--App__radius_medium);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &__icon {
+    margin-right: 10px; // todo
+    width: 22px;
+    height: 22px;
+  }
+
+  input[type=radio] {
+    @include visuallyHidden;
+  }
+}

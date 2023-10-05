@@ -1,0 +1,11 @@
+.Spinner {
+
+  &__icon {
+    animation: rotating .8s linear infinite;
+  }
+}
+
+@keyframes rotating {
+    from{ transform: rotate(0deg) }
+    to{ transform: rotate(360deg) }
+}

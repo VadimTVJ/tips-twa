@@ -1,0 +1,35 @@
+@import '../Typography/Typography.module';
+
+.TextField {
+  border-radius: var(--App__radius_medium);
+  background: var(--App__background-color_content);
+  padding: var(--App__gap-vertical) 16px;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+
+  &_as {
+
+    &_input {
+
+    }
+
+    &_textarea {
+      resize: none;
+    }
+  }
+
+  &__after {
+    margin-left: var(--App__gap-horizontal);
+  }
+
+  &__field {
+    @extend .Typography_variant_text;
+
+    flex-grow: 1;
+
+    &::placeholder {
+      color: #8E8E93; // todo to var
+    }
+  }
+}

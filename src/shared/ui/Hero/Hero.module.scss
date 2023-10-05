@@ -1,0 +1,26 @@
+.Hero {
+  --Hero__background: transparent;
+
+  background: var(--Hero__background);
+  padding: 40px 28px 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  &_filled {
+    --Hero__background: var(--App__background-color_content);
+  }
+
+  &__subheading {
+    color: var(--App__text-color_secondary);
+
+    margin: 8px 0 0;
+  }
+
+  &__heading {}
+
+  &__icon {
+    margin-bottom: 10px;
+  }
+}
