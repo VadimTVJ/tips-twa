@@ -8,4 +8,6 @@ export * from './Section';
 export * from './TextField';
 export * from './Radio';
 export * from './Spinner';
+export * from './Button';
+export * from './InfoRows';
 export * from './ConfigProvider';

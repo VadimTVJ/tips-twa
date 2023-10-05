@@ -1,4 +1,7 @@
 .Section {
+  --Section__padding: 0;
+
+  padding: var(--Section__padding);
   width: 100%;
   margin-bottom: 24px; // todo not last child
 
@@ -9,7 +12,7 @@
     }
 
     &_compact {
-
+      --Section__padding: 16px;
     }
   }
 

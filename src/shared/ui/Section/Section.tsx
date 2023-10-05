@@ -12,7 +12,7 @@ export enum SectionMode {
 type SectionModeUnion = `${SectionMode}`;
 
 // todo сделать все компоненты polymorphic
-interface SectionProps extends ComponentPropsWithRef<'div'> {
+export interface SectionProps extends ComponentPropsWithRef<'div'> {
   header?: string;
   description?: string;
   mode?: SectionMode | SectionModeUnion;

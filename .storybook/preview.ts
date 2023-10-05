@@ -8,6 +8,7 @@ import { Theme } from '../src/shared/ui';
 
 const preview: Preview = {
   parameters: {
+    layout: 'fullscreen',
     viewport: {
       viewports: INITIAL_VIEWPORTS,
       defaultViewport: 'iphone6',
@@ -38,7 +39,8 @@ const preview: Preview = {
     },
   },
   argTypes: {
-    ref: { control: false, table: { disable: true } },
+    ref: { table: { disable: true } },
+    as: { table: { disable: true } },
   },
   decorators: [withUIWrapper],
 };

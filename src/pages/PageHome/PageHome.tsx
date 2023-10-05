@@ -3,9 +3,10 @@ import { ComponentPropsWithRef, useState } from 'react';
 import { clsx } from 'clsx';
 import styles from './PageHome.module.scss';
 import {
+  Button,
   Component,
   ConfigProvider,
-  Hero,
+  Hero, InfoRows,
   ListItem,
   Page,
   Radio,
@@ -29,8 +30,8 @@ const test2 = [
 
 // todo проверять, доступен ли скан куаркода, если нет, то делать listItem disabled
 export function PageHome({ className }: PageHomeProps) {
-  const [control, setControl] = useState(test2[0].value);
-  const [control2, setControl2] = useState(test2[0].value);
+  const [control, setControl] = useState<string | undefined | number>(test2[0].value);
+  const [control2, setControl2] = useState<string | undefined | number>(test2[0].value);
   const [theme, setTheme] = useState(Theme.LIGHT);
 
   const rootClassName = clsx(className, styles.PageHome);
@@ -44,6 +45,18 @@ export function PageHome({ className }: PageHomeProps) {
           icon={<img src="./test.png" alt="" />}
         />
 
+        <Button size="s" stretched>Button 1</Button>
+        <br />
+        <Button size="m" stretched>Button 2</Button>
+        <br />
+        <Button size="l" stretched>Button 3</Button>
+        <br />
+        <Button size="s" stretched mode="secondary">Button 1</Button>
+        <br />
+        <Button size="m" stretched mode="secondary">Button 2</Button>
+        <br />
+        <Button size="l" stretched mode="secondary">Попробовать еще раз</Button>
+
         <Component as={Hero} heading="asd">
           123
         </Component>
@@ -51,7 +64,7 @@ export function PageHome({ className }: PageHomeProps) {
         <div style={{ padding: 10, boxSizing: 'border-box', width: '100%' }}>
           <Section header="Hello world" description="Hello world">
             <ListItem before={<Logo />} onClick={() => {}}>
-              <ListItem.Text primary="Hello" secondary="World" />
+              <InfoRows primary="Hello" secondary="World" />
             </ListItem>
 
             <ListItem
@@ -89,8 +102,7 @@ export function PageHome({ className }: PageHomeProps) {
               checked={theme === 'light'}
               onChange={() => setTheme(Theme.LIGHT)}
             >
-              {/* todo ListItem.text сделать отдельным абстрактным компонентом */}
-              <ListItem.Text primary="Фиксированная сумма" secondary="Test" />
+              <InfoRows primary="Фиксированная сумма" secondary="Test" />
             </Radio>
             <Radio
               checked={theme === 'dark'}

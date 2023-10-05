@@ -12,6 +12,11 @@
     --Hero__background: var(--App__background-color_content);
   }
 
+  &_stretched {
+    flex-grow: 1;
+    justify-content: center;
+  }
+
   &__subheading {
     color: var(--App__text-color_secondary);
 

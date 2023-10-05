@@ -4,19 +4,21 @@ import { clsx } from 'clsx';
 import styles from './Hero.module.scss';
 import { Typography } from '../Typography';
 
-interface HeroProps extends ComponentPropsWithRef<'div'> {
+export interface HeroProps extends ComponentPropsWithRef<'div'> {
   heading: ReactNode;
 
   icon?: ReactNode;
   subheading?: ReactNode;
   filled?: boolean;
+  stretched?: boolean;
 }
 
 export const Hero = forwardRef<HTMLDivElement, HeroProps>(({
-  className, icon, heading, subheading, filled, ...rest
+  className, icon, heading, subheading, filled, stretched, ...rest
 }, ref) => {
   const rootClassName = clsx(className, styles.Hero, {
     [styles.Hero_filled]: filled,
+    [styles.Hero_stretched]: stretched,
   });
 
   return (

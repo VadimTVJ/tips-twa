@@ -1,0 +1,13 @@
+.InfoRows {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__primary {
+
+  }
+
+  &__secondary {
+    color: var(--App__text-color_secondary);
+  }
+}

@@ -5,8 +5,6 @@
   background: var(--App__background-color_content);
   padding: var(--App__gap-vertical) 16px;
   width: 100%;
-  display: flex;
-  align-items: flex-start;
 
   &_as {
 
@@ -16,6 +14,15 @@
 
     &_textarea {
       resize: none;
+    }
+  }
+
+  &__in {
+    display: flex;
+    align-items: flex-start;
+
+    .TextField_disabled & {
+      opacity: .5;
     }
   }
 

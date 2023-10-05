@@ -2,9 +2,22 @@
   background: var(--App__background-color_content);
   border-radius: var(--App__radius_medium);
   padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+  width: 100%;
+
+  &:hover:not(&_disabled) {
+    cursor: pointer;
+    background: var(--App__background-color_hover);
+    transition: background .15s ease-out,opacity .15s ease-out;
+  }
+
+  &__in {
+    display: flex;
+    align-items: center;
+
+    .Radio_disabled & {
+      opacity: .5;
+    }
+  }
 
   &__icon {
     margin-right: 10px; // todo

@@ -1,0 +1,53 @@
+.Button {
+  background: var(--Button__background); // todo --Button_background instead --Button__background
+  color: var(--Button__color);
+  border-radius: var(--Button_radius);
+  min-height: var(--Button_min-height);
+  padding: 0 18px;
+  display: block;
+  cursor: pointer; // todo disabled
+
+  &:hover {
+    opacity: .85;
+    transition: opacity .15s;
+  }
+
+  &_disabled {
+    opacity: .5;
+  }
+
+  &_stretched {
+    width: 100%;
+  }
+
+  &_mode {
+
+    &_primary {
+      --Button__background: var(--App_tg-background);
+      --Button__color: var(--App_tg-color);
+    }
+
+    &_secondary {
+      --Button__background: var(--App__background-color_secondary);
+      --Button__color: var(--App__text-color_primary);
+    }
+  }
+
+  &_size {
+
+    &_s {
+      --Button_min-height: 28px;
+      --Button_radius: 8px; // todo
+    }
+
+    &_m {
+      --Button_min-height: 40px;
+      --Button_radius: 8px; // todo
+    }
+
+    &_l {
+      --Button_min-height: 50px;
+      --Button_radius: var(--App__radius_medium);
+    }
+  }
+}

@@ -1,3 +1,4 @@
+// todo remove as prop from storybook
 export const asPropArgType = {
   description: 'HTML-тег для рут компонента',
   control: 'select',

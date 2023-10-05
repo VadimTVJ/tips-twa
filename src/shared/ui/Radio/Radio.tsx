@@ -12,29 +12,36 @@ export interface RadioProps extends ComponentPropsWithRef<'input'> {}
  * # The Radio component
  * Shows a button
  */
-export const Radio = ({ className, children, ...rest }: RadioProps) => {
+export const Radio = ({
+  className, children, disabled, ...rest
+}: RadioProps) => {
   const inputId = useId();
 
-  const rootClassName = clsx(className, styles.Radio); // todo добавить ховер
+  const rootClassName = clsx(className, styles.Radio, {
+    [styles.Radio_disabled]: disabled,
+  }); // todo добавить ховер
 
   return (
     <label
       className={rootClassName}
       htmlFor={inputId}
     >
-      <input
-        id={inputId}
-        type="radio"
-        {...rest}
-      />
+      <div className={styles.Radio__in}>
+        <input
+          id={inputId}
+          type="radio"
+          disabled={disabled}
+          {...rest}
+        />
 
-      {rest.checked
-        ? <IconCheckbox className={styles.Radio__icon} />
-        : <IconCircle className={styles.Radio__icon} />}
+        {rest.checked
+          ? <IconCheckbox className={styles.Radio__icon} />
+          : <IconCircle className={styles.Radio__icon} />}
 
-      {typeof children === 'string'
-        ? <Typography variant="text">{children}</Typography>
-        : children}
+        {typeof children === 'string'
+          ? <Typography variant="text">{children}</Typography>
+          : children}
+      </div>
     </label>
   );
 };

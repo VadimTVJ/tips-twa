@@ -5,12 +5,19 @@
   min-height: 48px;
   display: flex;
   align-items: center;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
 
-  &_interactive {
+  &_disabled {
+    opacity: .5;
+  }
+
+  &_interactive:not(&_disabled) {
     cursor: pointer;
 
     &:hover {
-      background: rgba(0, 16, 61, 0.04);
+      background: var(--App__background-color_hover);
       transition: background .15s ease-out,opacity .15s ease-out;
     }
   }
@@ -25,20 +32,10 @@
 
   &__after {
     margin-left: var(--App__gap-horizontal);
+    text-align: right;
   }
 
   &__arrow {
     margin-left: var(--App__gap-horizontal);
-  }
-}
-
-.ListItemText {
-
-  &__primary {
-
-  }
-
-  &__secondary {
-    color: var(--App__text-color_secondary);
   }
 }

@@ -24,12 +24,12 @@ export const ConfigProvider = ({
   );
 
   useEffect(() => {
-    const bodyClassName = `tipsUI_${theme}`;
+    const bodyClassName = ['tipsUI', `tipsUI_${theme}`];
 
-    window.document.body.classList.add(bodyClassName);
+    window.document.body.classList.add(...bodyClassName);
 
     return () => {
-      window.document.body.classList.remove(bodyClassName);
+      window.document.body.classList.remove(...bodyClassName);
     };
   }, [theme]);
 

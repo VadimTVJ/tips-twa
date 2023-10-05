@@ -169,6 +169,7 @@ textarea {
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
+  text-align: left;
 }
 
 /**
@@ -368,7 +369,6 @@ textarea
 
 	/* Browsers have different default form fonts */
 	font-size:13px;
-	font-family:Arial;
 }
 
 /* Remove the stupid outer glow in Webkit */
