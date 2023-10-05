@@ -6,8 +6,8 @@ import { clsx } from 'clsx';
 import styles from './ListItem.module.scss';
 import { PolymorphicComponentProp } from '../generics';
 import { Component } from '../Component';
-import Icon from '../../../pages/PageHome/Icon.svg?react';
 import { InfoRows } from '../InfoRows';
+import { IconChevronRight } from '../../lib/icons';
 
 export type ListItemProps<C extends ElementType> = PolymorphicComponentProp<C, {
   before?: ReactNode;
@@ -47,7 +47,7 @@ export const ListItem = <C extends ElementType>({
 
       {after && <div className={styles.ListItem__after}>{after}</div>}
 
-      {hasAction && <Icon className={styles.ListItem__arrow} />}
+      {hasAction && <IconChevronRight className={styles.ListItem__arrow} />}
     </Component>
   );
 };

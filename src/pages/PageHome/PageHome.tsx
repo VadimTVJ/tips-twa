@@ -1,165 +1,67 @@
-import { ComponentPropsWithRef, useState } from 'react';
+import { ComponentPropsWithRef } from 'react';
 
 import { clsx } from 'clsx';
+import { Link } from 'react-router-dom';
 import styles from './PageHome.module.scss';
 import {
-  Button,
-  Component,
-  ConfigProvider,
-  Hero, InfoRows,
-  ListItem,
+  Hero, InfoRows, ListItem,
   Page,
-  Radio,
   Section,
-  SegmentedControl,
-  Spinner,
-  TextField,
-  Theme,
-  Typography,
 } from '../../shared/ui';
-import Logo from './scan-icon.svg?react';
+import { IconCurrency, IconID, IconScan } from '../../shared/lib/icons';
 
 interface PageHomeProps extends ComponentPropsWithRef<'div'> {}
 
-const test2 = [
-  { label: '10%', value: '10' },
-  { label: '15%', value: '15' },
-  { label: '20%', value: '20' },
-  { label: '30%', value: '30' },
-];
-
 // todo проверять, доступен ли скан куаркода, если нет, то делать listItem disabled
 export function PageHome({ className }: PageHomeProps) {
-  const [control, setControl] = useState<string | undefined | number>(test2[0].value);
-  const [control2, setControl2] = useState<string | undefined | number>(test2[0].value);
-  const [theme, setTheme] = useState(Theme.LIGHT);
-
   const rootClassName = clsx(className, styles.PageHome);
+
   return (
-    <ConfigProvider theme={theme}>
-      <Page className={rootClassName}>
-        <Hero
-          heading="Отправим чаевые?"
-          subheading="Выберите более подходящий вариант"
-          filled
-          icon={<img src="./test.png" alt="" />}
-        />
+    <Page className={rootClassName}>
+      <Hero
+        className={styles.PageHome__hero}
+        filled
+        icon={(
+          <img
+            className={styles.PageHome__heroIcon}
+            src="./emoji-money.webp"
+            alt="Telegram web app tips"
+          />
+        )}
+        heading="Отправим чаевые?"
+        subheading={'Выберите более подходящий\u00A0вариант'}
+      />
 
-        <Button size="s" stretched>Button 1</Button>
-        <br />
-        <Button size="m" stretched>Button 2</Button>
-        <br />
-        <Button size="l" stretched>Button 3</Button>
-        <br />
-        <Button size="s" stretched mode="secondary">Button 1</Button>
-        <br />
-        <Button size="m" stretched mode="secondary">Button 2</Button>
-        <br />
-        <Button size="l" stretched mode="secondary">Попробовать еще раз</Button>
-
-        <Component as={Hero} heading="asd">
-          123
-        </Component>
-
-        <div style={{ padding: 10, boxSizing: 'border-box', width: '100%' }}>
-          <Section header="Hello world" description="Hello world">
-            <ListItem before={<Logo />} onClick={() => {}}>
-              <InfoRows primary="Hello" secondary="World" />
-            </ListItem>
-
-            <ListItem
-              onClick={() => {}}
-              after={(
-                <div>
-                  <Typography variant="text">500Р</Typography>
-                  <Typography variant="subtitle1">10%</Typography>
-                </div>
-          )}
-            >
-              123213
-            </ListItem>
-
-            <ListItem>
-              123213
-            </ListItem>
-
-            <TextField
-              as="input"
-              placeholder="Input text..."
-              disabled
-              value="1232132"
-              after={<Spinner />}
-            />
-          </Section>
-
-          <Section header="Textarea">
-            <TextField
-              as="textarea"
-              after={<div style={{ width: 22, height: 22, background: 'red' }} />}
-              placeholder="Input text..."
-            />
-            <Radio
-              checked={theme === 'light'}
-              onChange={() => setTheme(Theme.LIGHT)}
-            >
-              <InfoRows primary="Фиксированная сумма" secondary="Test" />
-            </Radio>
-            <Radio
-              checked={theme === 'dark'}
-              onChange={() => setTheme(Theme.DARK)}
-            >
-              Процентом от покупки
-            </Radio>
-          </Section>
-        </div>
-
-        <Section
-          mode="full"
-          header="Hello world"
-          description="Hello world"
+      <Section>
+        <ListItem
+          before={<IconScan />}
+          as={Link}
+          to="tip"
         >
-          <ListItem
-            onClick={() => {}}
-            after={(
-              <div>
-                <Typography variant="text">500Р</Typography>
-                <Typography variant="subtitle1">10%</Typography>
-              </div>
-          )}
-          >
-            123213
-          </ListItem>
-
-          <ListItem>
-            123213
-          </ListItem>
-        </Section>
-
-        <div style={{ padding: 10, boxSizing: 'border-box', width: '100%' }}>
-          <SegmentedControl
-            name="test"
-            items={test2}
-            value={control}
-            onChange={setControl}
+          <InfoRows
+            primary="Отсканировать QR-код"
+            secondary="Отсканируйте куракод с чека, чтобы оставить чаевые официанту"
           />
-        </div>
+        </ListItem>
 
-        <div style={{ padding: 10, boxSizing: 'border-box', width: '100%' }}>
-          <SegmentedControl
-            name="test2"
-            items={test2}
-            value={control2}
-            onChange={setControl2}
+        <ListItem
+          before={<IconID />}
+        >
+          <InfoRows
+            primary="Ввести ID официанта вручную"
+            secondary="Спросите у официанта его персональный код, чтобы оставить чаевые"
           />
-        </div>
+        </ListItem>
 
-        <Typography variant="h1">H1. Hello world! How are you?</Typography>
-        <Typography variant="h2">H2. Hello world! How are you?</Typography>
-        <Typography variant="h3">H3. Hello world! How are you?</Typography>
-        <Typography variant="text">TEXT. Hello world! How are you?</Typography>
-        <Typography variant="subtitle1">SUB1. Hello world! How are you?</Typography>
-        <Typography variant="subtitle2">SUB2. Hello world! How are you?</Typography>
-      </Page>
-    </ConfigProvider>
+        <ListItem
+          before={<IconCurrency />}
+        >
+          <InfoRows
+            primary="История чаевых"
+            secondary="История Ваших переводов"
+          />
+        </ListItem>
+      </Section>
+    </Page>
   );
 }

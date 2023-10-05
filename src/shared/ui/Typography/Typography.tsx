@@ -32,7 +32,7 @@ export type TypographyProps<C extends ElementType> = PolymorphicComponentProp<C,
 }>;
 
 export const Typography = <C extends ElementType>({
-  className, variant = 'h1', normalize = true, style, weight = 400, as, ...rest
+  className, variant = 'text', normalize = true, style, weight = 400, as, ...rest
 }: TypographyProps<C>) => {
   const rootClassName = clsx(
     className,
