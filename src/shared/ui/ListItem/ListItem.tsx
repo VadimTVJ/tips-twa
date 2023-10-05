@@ -15,7 +15,6 @@ export type ListItemProps<C extends ElementType> = PolymorphicComponentProp<C, {
   disabled?: boolean;
 }>;
 
-// todo убедиться что все полиморф компоненты норм вынесен тип
 export const ListItem = <C extends ElementType>({
   className, children, before, after, disabled, onClick: onClickProp, ...rest
 }: ListItemProps<C>) => {
@@ -26,7 +25,7 @@ export const ListItem = <C extends ElementType>({
     [styles.ListItem_disabled]: disabled,
   });
 
-  const onClick = (e: MouseEvent<ElementType>) => {
+  const onClick = (e: MouseEvent<C>) => {
     if (disabled) { return; }
 
     onClickProp?.(e);
@@ -39,11 +38,13 @@ export const ListItem = <C extends ElementType>({
       {...rest}
     >
       {before && <div className={styles.ListItem__before}>{before}</div>}
+
       <div className={styles.ListItem__content}>
         {typeof children === 'string'
           ? <InfoRows className={styles.ListItem__content} primary={children} />
           : children}
       </div>
+
       {after && <div className={styles.ListItem__after}>{after}</div>}
 
       {hasAction && <Icon className={styles.ListItem__arrow} />}

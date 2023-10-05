@@ -1,16 +1,14 @@
 @import '../Typography/Typography.module';
 
 .TextField {
-  border-radius: var(--App__radius_medium);
+  border-radius: var(--App__radius);
   background: var(--App__background-color_content);
-  padding: var(--App__gap-vertical) 16px;
+  padding: var(--App__padding-vertical) var(--App__padding-horizontal);
   width: 100%;
 
   &_as {
 
-    &_input {
-
-    }
+    &_input {}
 
     &_textarea {
       resize: none;
@@ -27,7 +25,7 @@
   }
 
   &__after {
-    margin-left: var(--App__gap-horizontal);
+    margin-left: var(--App_gap);
   }
 
   &__field {

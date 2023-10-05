@@ -41,8 +41,7 @@ export const Button = <C extends ElementType>({
     },
   );
 
-  // todo проверить онклик у всех интерактивных элементов
-  const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const onClick = (e: MouseEvent<C>) => {
     if (disabled) { return; }
 
     onClickProp?.(e);

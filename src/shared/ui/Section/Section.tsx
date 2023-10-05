@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Section.module.scss';
@@ -11,8 +11,7 @@ export enum SectionMode {
 
 type SectionModeUnion = `${SectionMode}`;
 
-// todo сделать все компоненты polymorphic
-export interface SectionProps extends ComponentPropsWithRef<'div'> {
+export interface SectionProps extends ComponentPropsWithoutRef<'div'> {
   header?: string;
   description?: string;
   mode?: SectionMode | SectionModeUnion;

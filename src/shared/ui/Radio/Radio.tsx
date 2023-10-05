@@ -1,17 +1,12 @@
-import { ComponentPropsWithRef, useId } from 'react';
+import { ComponentPropsWithoutRef, useId } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Radio.module.scss';
 import { Typography } from '../Typography';
 import { IconCheckbox, IconCircle } from '../../lib/icons';
 
-export interface RadioProps extends ComponentPropsWithRef<'input'> {}
+export interface RadioProps extends ComponentPropsWithoutRef<'input'> {}
 
-// todo перепроверить порядок rest, чтобы не затирались нужные пропы
-/**
- * # The Radio component
- * Shows a button
- */
 export const Radio = ({
   className, children, disabled, ...rest
 }: RadioProps) => {
@@ -19,7 +14,7 @@ export const Radio = ({
 
   const rootClassName = clsx(className, styles.Radio, {
     [styles.Radio_disabled]: disabled,
-  }); // todo добавить ховер
+  });
 
   return (
     <label
@@ -29,9 +24,9 @@ export const Radio = ({
       <div className={styles.Radio__in}>
         <input
           id={inputId}
-          type="radio"
           disabled={disabled}
           {...rest}
+          type="radio"
         />
 
         {rest.checked

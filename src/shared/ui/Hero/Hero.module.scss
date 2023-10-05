@@ -1,5 +1,5 @@
 .Hero {
-  --Hero__background: transparent;
+  --Hero_background: transparent;
 
   background: var(--Hero__background);
   padding: 40px 28px 56px;
@@ -20,12 +20,12 @@
   &__subheading {
     color: var(--App__text-color_secondary);
 
-    margin: 8px 0 0;
+    margin: var(--App_gap) 0 0;
   }
 
   &__heading {}
 
   &__icon {
-    margin-bottom: 10px;
+    margin-bottom: var(--App_gap);
   }
 }

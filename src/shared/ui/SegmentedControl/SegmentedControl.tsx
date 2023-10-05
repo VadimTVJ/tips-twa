@@ -1,5 +1,5 @@
 import {
-  ComponentPropsWithoutRef, ReactNode, useId, // todo чек про ComponentPropsWithRef
+  ComponentPropsWithoutRef, ReactNode, useId,
 } from 'react';
 
 import { clsx } from 'clsx';
@@ -8,7 +8,7 @@ import { SegmentedControlItem } from './parts';
 
 type SegmentedControlValue = string | number | undefined;
 
-export interface SegmentedControlProps extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
+export interface SegmentedControlProps extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange' | 'children'> {
   items: {
     label: ReactNode;
     value: HTMLInputElement['value'];
@@ -19,14 +19,14 @@ export interface SegmentedControlProps extends Omit<ComponentPropsWithoutRef<'di
 }
 
 export function SegmentedControl({
-  className, name, items, value, onChange,
+  className, name, items, value, onChange, ...rest
 }: SegmentedControlProps) {
   const id = useId();
 
   const rootClassName = clsx(className, styles.SegmentedControl);
 
   return (
-    <div className={rootClassName}>
+    <div className={rootClassName} {...rest}>
       <div className={styles.SegmentedControl__in} role="radiogroup">
         <span
           aria-hidden

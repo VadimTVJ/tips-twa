@@ -1,6 +1,6 @@
 .ListItem {
-  padding: var(--App__gap-vertical) 16px; // todo to var
-  border-radius: var(--App__radius_large);
+  padding: var(--App__padding-vertical) var(--App__padding-horizontal);
+  border-radius: var(--App__radius);
   background: #ffffff;
   min-height: 48px;
   display: flex;
@@ -27,15 +27,15 @@
   }
 
   &__before {
-    margin-right: var(--App__gap-horizontal);
+    margin-right: var(--App_gap);
   }
 
   &__after {
-    margin-left: var(--App__gap-horizontal);
+    margin-left: var(--App_gap);
     text-align: right;
   }
 
   &__arrow {
-    margin-left: var(--App__gap-horizontal);
+    margin-left: var(--App_gap);
   }
 }

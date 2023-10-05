@@ -1,17 +1,17 @@
 .Button {
-  background: var(--Button__background); // todo --Button_background instead --Button__background
-  color: var(--Button__color);
-  border-radius: var(--Button_radius);
+  background: var(--Button_background);
+  color: var(--Button_color);
+  border-radius: var(--App__radius);
   min-height: var(--Button_min-height);
-  padding: 0 18px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity .15s ease-out;
 
   &:hover:not(&_disabled) {
     cursor: pointer;
     opacity: .85;
-    transition: opacity .15s;
   }
 
   &_disabled {
@@ -25,13 +25,13 @@
   &_mode {
 
     &_primary {
-      --Button__background: var(--App_tg-background);
-      --Button__color: var(--App_tg-color);
+      --Button_background: var(--App_tg-background);
+      --Button_color: var(--App_tg-color);
     }
 
     &_secondary {
-      --Button__background: var(--App__background-color_secondary);
-      --Button__color: var(--App__text-color_primary);
+      --Button_background: var(--App__background-color_secondary);
+      --Button_color: var(--App__text-color_primary);
     }
   }
 
@@ -39,17 +39,14 @@
 
     &_s {
       --Button_min-height: 28px;
-      --Button_radius: 8px; // todo
     }
 
     &_m {
       --Button_min-height: 40px;
-      --Button_radius: 8px; // todo
     }
 
     &_l {
       --Button_min-height: 50px;
-      --Button_radius: var(--App__radius_medium);
     }
   }
 }

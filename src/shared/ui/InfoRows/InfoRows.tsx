@@ -1,10 +1,10 @@
-import { ComponentPropsWithRef, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './InfoRows.module.scss';
 import { Typography } from '../Typography';
 
-export interface InfoRowsProps extends Omit<ComponentPropsWithRef<'div'>, 'children'> {
+export interface InfoRowsProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
   primary?: ReactNode;
   secondary?: ReactNode;
 }
@@ -14,7 +14,6 @@ export const InfoRows = ({
 }: InfoRowsProps) => {
   const rootClassName = clsx(className, styles.InfoRows);
 
-  // todo у всех ui компонентов добавить {...rest}
   return (
     <div className={rootClassName} {...rest}>
       {primary && (
