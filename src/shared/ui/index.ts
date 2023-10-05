@@ -8,3 +8,4 @@ export * from './Section';
 export * from './TextField';
 export * from './Radio';
 export * from './Spinner';
+export * from './ConfigProvider';

@@ -26,13 +26,6 @@
         "@tanstack/eslint-plugin-query"
     ],
     "rules": {
-        "import/no-extraneous-dependencies": [
-            "error", {
-                "devDependencies": true
-            }
-        ],
-
-
         // в 18 реакте нет необходимости импортить React в .tsx/.jsx файлах
         "react/react-in-jsx-scope": 0,
 
@@ -46,6 +39,9 @@
         //
         "arrow-body-style": 0,
         "react/require-default-props": 0,
+
+        // некорректно работает с devDependencies
+        "import/no-extraneous-dependencies": 0,
 
         // не критично, часто используется при моках
         "react/no-array-index-key": 0

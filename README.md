@@ -2,7 +2,7 @@
 - инструкция по сборке фронта (мб через git docks)
 - инструкция по запуску бекенда
 - указать лицензию
-- написать мини гайдбук по мини-приложениям (viewport, eruda, amplitude)
+- написать мини гайдбук по мини-приложениям (viewport, eruda, amplitude, eruda)
 - указать фичи проекта (simple ui kit, интеграция с тг, FSD, .storybook, plop, husky, eruda)
 - указать стек (recoil, useQuery, etc)
 - перевести на англ
