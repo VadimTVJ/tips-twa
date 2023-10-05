@@ -1,36 +1,42 @@
-import { ComponentPropsWithRef, useId } from 'react';
+import { ComponentPropsWithoutRef, useId } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Radio.module.scss';
 import { Typography } from '../Typography';
 import { IconCheckbox, IconCircle } from '../../lib/icons';
 
-interface RadioProps extends ComponentPropsWithRef<'input'> {}
+export interface RadioProps extends ComponentPropsWithoutRef<'input'> {}
 
-// todo перепроверить порядок rest, чтобы не затирались нужные пропы
-export const Radio = ({ className, children, ...rest }: RadioProps) => {
+export const Radio = ({
+  className, children, disabled, ...rest
+}: RadioProps) => {
   const inputId = useId();
 
-  const rootClassName = clsx(className, styles.Radio);
+  const rootClassName = clsx(className, styles.Radio, {
+    [styles.Radio_disabled]: disabled,
+  });
 
   return (
     <label
       className={rootClassName}
       htmlFor={inputId}
     >
-      <input
-        id={inputId}
-        type="radio"
-        {...rest}
-      />
+      <div className={styles.Radio__in}>
+        <input
+          id={inputId}
+          disabled={disabled}
+          {...rest}
+          type="radio"
+        />
 
-      {rest.checked
-        ? <IconCheckbox className={styles.Radio__icon} />
-        : <IconCircle className={styles.Radio__icon} />}
+        {rest.checked
+          ? <IconCheckbox className={styles.Radio__icon} />
+          : <IconCircle className={styles.Radio__icon} />}
 
-      <Typography variant="text">
-        {children}
-      </Typography>
+        {typeof children === 'string'
+          ? <Typography variant="text">{children}</Typography>
+          : children}
+      </div>
     </label>
   );
 };

@@ -1,9 +1,9 @@
-import { ComponentPropsWithRef } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Page.module.scss';
 
-interface PageProps extends ComponentPropsWithRef<'section'> {
+interface PageProps extends ComponentPropsWithoutRef<'section'> {
   centered?: boolean;
 }
 

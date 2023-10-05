@@ -1,12 +1,12 @@
-import { ComponentPropsWithRef } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Spinner.module.scss';
 import { IconSpinner } from '../../lib/icons';
 
-interface SpinnerProps extends ComponentPropsWithRef<'div'> {}
+export interface SpinnerProps extends Omit<ComponentPropsWithoutRef<'span'>, 'children'> {}
 
-export const Spinner = ({ className, ...rest }: SpinnerProps) => {
+export const Spinner = ({ className = '', ...rest }: SpinnerProps) => {
   const rootClassName = clsx(className, styles.Spinner);
 
   return (

@@ -1,35 +1,32 @@
 import {
-  ComponentPropsWithoutRef, ReactNode, useId, // todo чек про ComponentPropsWithRef
+  ComponentPropsWithoutRef, ReactNode, useId,
 } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './SegmentedControl.module.scss';
-import { Typography } from '../Typography';
+import { SegmentedControlItem } from './parts';
 
-type SegmentedControlItemValue = string;
+type SegmentedControlValue = string | number | undefined;
 
-interface SegmentedControlItem {
-  label: ReactNode;
-  value: SegmentedControlItemValue;
-}
-
-// todo декомпозировать items, вынести в отдельные компоненты
-interface SegmentedControlProps extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> {
-  items: SegmentedControlItem[];
-  name: string;
-  onChange?: (value: SegmentedControlItemValue) => void;
-  value: SegmentedControlItemValue;
+export interface SegmentedControlProps extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange' | 'children'> {
+  items: {
+    label: ReactNode;
+    value: HTMLInputElement['value'];
+  }[];
+  name?: string;
+  onChange?: (value: SegmentedControlValue) => void;
+  value?: SegmentedControlValue;
 }
 
 export function SegmentedControl({
-  className, name, items, onChange, value,
+  className, name, items, value, onChange, ...rest
 }: SegmentedControlProps) {
-  const inputId = useId();
+  const id = useId();
 
   const rootClassName = clsx(className, styles.SegmentedControl);
 
   return (
-    <div className={rootClassName}>
+    <div className={rootClassName} {...rest}>
       <div className={styles.SegmentedControl__in} role="radiogroup">
         <span
           aria-hidden
@@ -40,28 +37,16 @@ export function SegmentedControl({
           }}
         />
 
-        {items.map(({ value: itemValue, label }) => (
-          <label
-            htmlFor={inputId}
+        {items.map(({ label, value: itemValue }) => (
+          <SegmentedControlItem
             key={itemValue}
-            className={styles.SegmentedControl__option}
+            name={name ?? id}
+            onChange={({ target }) => onChange?.(target.value)}
+            checked={itemValue === value}
+            value={itemValue}
           >
-            <input
-              id={inputId}
-              type="radio"
-              name={name}
-              value={itemValue}
-              checked={itemValue === value}
-              onChange={({ target }) => onChange?.(target.value)}
-            />
-
-            <Typography
-              variant="subtitle2"
-              weight={500}
-            >
-              {label}
-            </Typography>
-          </label>
+            {label}
+          </SegmentedControlItem>
         ))}
       </div>
     </div>

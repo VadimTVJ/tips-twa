@@ -1,15 +1,29 @@
 .Radio {
   background: var(--App__background-color_content);
-  border-radius: var(--App__radius_medium);
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+  border-radius: var(--App__radius);
+  padding: var(--App__padding-vertical) var(--App__padding-horizontal);
+  width: 100%;
+  transition: background .15s ease-out,opacity .15s ease-out;
+
+  &:hover:not(&_disabled) {
+    cursor: pointer;
+    background: var(--App__background-color_hover);
+  }
+
+  &__in {
+    display: flex;
+    align-items: center;
+
+    .Radio_disabled & {
+      opacity: .5;
+    }
+  }
 
   &__icon {
-    margin-right: 10px; // todo
+    margin-right: var(--App_gap);
     width: 22px;
     height: 22px;
+    color: var(--App__separator-color_secondary);
   }
 
   input[type=radio] {

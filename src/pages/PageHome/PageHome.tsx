@@ -1,138 +1,70 @@
-import { ComponentPropsWithRef, useState } from 'react';
+import { ComponentPropsWithRef } from 'react';
 
 import { clsx } from 'clsx';
+import { Link } from 'react-router-dom';
 import styles from './PageHome.module.scss';
 import {
-  Page, Hero, SegmentedControl, Component, Typography, ListItem, Section, TextField, Radio, Spinner,
+  Hero, InfoRows, ListItem,
+  Page,
+  Section,
 } from '../../shared/ui';
-import Logo from './scan-icon.svg?react';
+import { IconCurrency, IconID, IconScan } from '../../shared/lib/icons';
 
 interface PageHomeProps extends ComponentPropsWithRef<'div'> {}
 
-const test2 = [
-  { label: '10%', value: '10' },
-  { label: '15%', value: '15' },
-  { label: '20%', value: '20' },
-  { label: '30%', value: '30' },
-];
-
+// todo проверять, доступен ли скан куаркода, если нет, то делать listItem disabled
 export function PageHome({ className }: PageHomeProps) {
-  const [control, setControl] = useState(test2[0].value);
-  const [control2, setControl2] = useState(test2[0].value);
-
   const rootClassName = clsx(className, styles.PageHome);
+
   return (
     <Page className={rootClassName}>
       <Hero
-        heading="Отправим чаевые?"
-        subheading="Выберите более подходящий вариант"
+        className={styles.PageHome__hero}
         filled
-        icon={<img src="./test.png" alt="" />}
+        icon={(
+          <img
+            className={styles.PageHome__heroIcon}
+            src="./emoji-money.webp"
+            alt="Telegram web app tips"
+          />
+        )}
+        heading="Отправим чаевые?"
+        subheading={'Выберите более подходящий\u00A0вариант'}
       />
 
-      <Component as={Hero} heading="asd">
-        123
-      </Component>
-
-      <div style={{ padding: 10, boxSizing: 'border-box', width: '100%' }}>
-        <Section header="Hello world" description="Hello world">
-          <ListItem before={<Logo />} onClick={() => {}}>
-            <ListItem.Text primary="Hello" secondary="World" />
-          </ListItem>
-
-          <ListItem
-            onClick={() => {}}
-            after={(
-              <div>
-                <Typography variant="text">500Р</Typography>
-                <Typography variant="subtitle1">10%</Typography>
-              </div>
-          )}
-          >
-            123213
-          </ListItem>
-
-          <ListItem>
-            123213
-          </ListItem>
-
-          <TextField
-            as="input"
-            placeholder="Input text..."
-            disabled
-            value="1232132"
-            after={<Spinner />}
-          />
-        </Section>
-
-        <Section header="Textarea">
-          <TextField
-            as="textarea"
-            after={<div style={{ width: 22, height: 22, background: 'red' }} />}
-            placeholder="Input text..."
-          />
-          <Radio
-            checked={control === test2[0].value}
-            onChange={() => setControl(test2[0].value)}
-          >
-            {/* todo ListItem.text сделать отдельным абстрактным компонентом */}
-            <ListItem.Text primary="Фиксированная сумма" secondary="Test" />
-          </Radio>
-          <Radio
-            checked={control === test2[1].value}
-            onChange={() => setControl(test2[1].value)}
-          >
-            Процентом от покупки
-          </Radio>
-        </Section>
-      </div>
-
-      <Section
-        mode="full"
-        header="Hello world"
-        description="Hello world"
-      >
+      <Section>
         <ListItem
-          onClick={() => {}}
-          after={(
-            <div>
-              <Typography variant="text">500Р</Typography>
-              <Typography variant="subtitle1">10%</Typography>
-            </div>
-          )}
+          before={<IconScan />}
+          as={Link}
+          to="tip"
+          hasAction
         >
-          123213
+          <InfoRows
+            primary="Отсканировать QR-код"
+            secondary="Отсканируйте куракод с чека, чтобы оставить чаевые официанту"
+          />
         </ListItem>
 
-        <ListItem>
-          123213
+        <ListItem
+          before={<IconID />}
+          hasAction
+        >
+          <InfoRows
+            primary="Ввести ID официанта вручную"
+            secondary="Спросите у официанта его персональный код, чтобы оставить чаевые"
+          />
+        </ListItem>
+
+        <ListItem
+          before={<IconCurrency />}
+          hasAction
+        >
+          <InfoRows
+            primary="История чаевых"
+            secondary="История Ваших переводов"
+          />
         </ListItem>
       </Section>
-
-      <div style={{ padding: 10, boxSizing: 'border-box', width: '100%' }}>
-        <SegmentedControl
-          name="test"
-          items={test2}
-          value={control}
-          onChange={setControl}
-        />
-      </div>
-
-      <div style={{ padding: 10, boxSizing: 'border-box', width: '100%' }}>
-        <SegmentedControl
-          name="test2"
-          items={test2}
-          value={control2}
-          onChange={setControl2}
-        />
-      </div>
-
-      <Typography variant="h1">H1. Hello world! How are you?</Typography>
-      <Typography variant="h2">H2. Hello world! How are you?</Typography>
-      <Typography variant="h3">H3. Hello world! How are you?</Typography>
-      <Typography variant="text">TEXT. Hello world! How are you?</Typography>
-      <Typography variant="subtitle1">SUB1. Hello world! How are you?</Typography>
-      <Typography variant="subtitle2">SUB2. Hello world! How are you?</Typography>
     </Page>
   );
 }

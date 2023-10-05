@@ -1,6 +1,8 @@
 .SegmentedControl {
+  --SegmentedControl__indicator_background: var(--App__background-color_content);
+
   background: var(--App__background-color_secondary);
-  border-radius: var(--App__radius_small);
+  border-radius: 8px;
   width: 100%;
   padding: 2px;
 
@@ -11,7 +13,7 @@
   }
 
   &__indicator {
-    background: var(--App__background-color_content);
+    background: var(--SegmentedControl__indicator_background);
     position: absolute;
     height: 100%;
     transition: transform .15s;
@@ -33,5 +35,9 @@
     input[type=radio] {
       @include visuallyHidden;
     }
+  }
+
+  :global(.tipsUI_dark) & {
+    --SegmentedControl__indicator_background: #626364;
   }
 }

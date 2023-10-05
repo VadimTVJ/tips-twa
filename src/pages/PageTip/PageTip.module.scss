@@ -1,6 +1,10 @@
 .PageTip {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+  &__hero {
+
+    &Icon {
+      width: 112px;
+      aspect-ratio: 1;
+    }
+  }
 }

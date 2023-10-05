@@ -1,35 +1,42 @@
 @import '../Typography/Typography.module';
 
 .TextField {
-  border-radius: var(--App__radius_medium);
+  border-radius: var(--App__radius);
   background: var(--App__background-color_content);
-  padding: var(--App__gap-vertical) 16px;
+  padding: var(--App__padding-vertical) var(--App__padding-horizontal);
   width: 100%;
-  display: flex;
-  align-items: flex-start;
 
   &_as {
 
-    &_input {
-
-    }
+    &_input {}
 
     &_textarea {
       resize: none;
     }
   }
 
+  &__in {
+    display: flex;
+    align-items: flex-start;
+
+    .TextField_disabled & {
+      opacity: .5;
+    }
+  }
+
   &__after {
-    margin-left: var(--App__gap-horizontal);
+    margin-left: var(--App_gap);
   }
 
   &__field {
     @extend .Typography_variant_text;
 
+    color: var(--App__text-color_primary);
+
     flex-grow: 1;
 
     &::placeholder {
-      color: #8E8E93; // todo to var
+      color: var(--App__separator-color_primary);
     }
   }
 }

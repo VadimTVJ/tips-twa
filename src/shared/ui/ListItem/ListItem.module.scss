@@ -1,16 +1,23 @@
 .ListItem {
-  padding: var(--App__gap-vertical) 16px; // todo to var
-  border-radius: var(--App__radius_large);
-  background: #ffffff;
+  padding: var(--App__padding-vertical) var(--App__padding-horizontal);
+  border-radius: var(--App__radius);
+  background: var(--App__background-color_content);
   min-height: 48px;
   display: flex;
   align-items: center;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
 
-  &_interactive {
+  &_disabled {
+    opacity: .5;
+  }
+
+  &_interactive:not(&_disabled) {
     cursor: pointer;
 
     &:hover {
-      background: rgba(0, 16, 61, 0.04);
+      background: var(--App__background-color_hover);
       transition: background .15s ease-out,opacity .15s ease-out;
     }
   }
@@ -20,25 +27,16 @@
   }
 
   &__before {
-    margin-right: var(--App__gap-horizontal);
+    margin-right: var(--App_gap);
   }
 
   &__after {
-    margin-left: var(--App__gap-horizontal);
+    margin-left: var(--App_gap);
+    text-align: right;
   }
 
   &__arrow {
-    margin-left: var(--App__gap-horizontal);
-  }
-}
-
-.ListItemText {
-
-  &__primary {
-
-  }
-
-  &__secondary {
-    color: var(--App__text-color_secondary);
+    margin-left: 12px;
+    flex-shrink: 0;
   }
 }
