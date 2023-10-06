@@ -1,6 +1,7 @@
 import { ElementType, MouseEvent } from 'react';
 
 import { clsx } from 'clsx';
+import { useSDK } from '@tma.js/sdk-react';
 import styles from './Button.module.scss';
 import { Typography } from '../Typography';
 import { PolymorphicComponentProp } from '../generics';
@@ -25,11 +26,14 @@ export type ButtonProps<C extends ElementType> = PolymorphicComponentProp<C, {
   size?: ButtonSize | ButtonSizeUnion;
   mode?: ButtonMode | ButtonModeUnion;
   stretched?: boolean;
+  withHaptic?: boolean;
 }>;
 
 export const Button = <C extends ElementType>({
-  className, size = 'm', mode = 'primary', stretched, children, disabled, onClick: onClickProp, as = 'button' as C, ...rest
+  className, size = 'm', mode = 'primary', stretched, children, disabled, onClick, as = 'button' as C, withHaptic = false, ...rest
 }: ButtonProps<C>) => {
+  const SDK = useSDK();
+
   const rootClassName = clsx(
     className,
     styles.Button,
@@ -41,16 +45,23 @@ export const Button = <C extends ElementType>({
     },
   );
 
-  const onClick = (e: MouseEvent<C>) => {
+  const clickHandler = (e: MouseEvent<C>) => {
     if (disabled) { return; }
+    onClick?.(e);
 
-    onClickProp?.(e);
+    if (
+      SDK.didInit
+      && SDK.components
+      && SDK.components.haptic.supports('impactOccurred')
+      && withHaptic) {
+      SDK.components.haptic.impactOccurred('light');
+    }
   };
 
   return (
     <Component
       className={rootClassName}
-      onClick={onClick}
+      onClick={clickHandler}
       as={as as ElementType}
       {...rest}
     >

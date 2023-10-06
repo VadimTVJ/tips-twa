@@ -1,5 +1,5 @@
 import {
-  Route, Routes, useLocation,
+  Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 import { useBackButton, useWebApp } from '@tma.js/sdk-react';
 import { useEffect } from 'react';
@@ -10,17 +10,29 @@ import { PageTransactions } from './PageTransactions';
 
 export const Pages = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const backButton = useBackButton();
   const webApp = useWebApp();
 
+  const routes = [
+    { path: '/', element: <PageHome /> },
+    { path: '/tip', element: <PageTip /> },
+    { path: '/result', element: <PageTipResult /> },
+    { path: '/transactions', element: <PageTransactions /> },
+  ];
+
   useEffect(() => {
     webApp.ready();
 
-    webApp.setBackgroundColor('#e30808');
-    webApp.setHeaderColor('#1b9a6e');
+    const listener = () => {
+      if (window.location.pathname === routes[0].path) {
+        webApp.close();
+      } else {
+        navigate(-1);
+      }
+    };
 
-    const listener = () => console.log('qqq');
     backButton.on('click', listener);
     backButton.show();
 
@@ -28,14 +40,12 @@ export const Pages = () => {
       backButton.off('click', listener);
       backButton.hide();
     };
-  }, [backButton, webApp]);
+  }, [backButton, webApp, navigate]);
 
+  // todo as object
   return (
     <Routes location={location}>
-      <Route path="/" element={<PageHome />} />
-      <Route path="/tip" element={<PageTip />} />
-      <Route path="/result" element={<PageTipResult />} />
-      <Route path="/transactions" element={<PageTransactions />} />
+      {routes.map((route) => <Route {...route} />)}
     </Routes>
   );
 };

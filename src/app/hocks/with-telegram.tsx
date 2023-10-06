@@ -21,6 +21,7 @@ const withTelegramSDK = (Component: ComponentType) => () => {
 
 const withTelegramLoader = (Component: ComponentType) => () => {
   const { didInit, components, error } = useSDK();
+
   const errorMessage = useMemo<null | string>(() => {
     if (!error) {
       return null;
@@ -29,6 +30,7 @@ const withTelegramLoader = (Component: ComponentType) => () => {
     return error instanceof Error ? error.message : 'Unknown error';
   }, [error]);
 
+  // todo
   if (!didInit) {
     return <div>SDK init function is not yet called.</div>;
   }
@@ -54,7 +56,7 @@ const withTelegramLoader = (Component: ComponentType) => () => {
   return <Component />;
 };
 
-export const withTelegram = (Component: ComponentType) => compose(
+export const withTelegram = compose(
   withTelegramSDK,
   withTelegramLoader,
-)(Component);
+);

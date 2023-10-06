@@ -1,8 +1,10 @@
 import {
+  ChangeEvent,
   ComponentPropsWithoutRef, ReactNode, useId,
 } from 'react';
 
 import { clsx } from 'clsx';
+import { useSDK } from '@tma.js/sdk-react';
 import styles from './SegmentedControl.module.scss';
 import { SegmentedControlItem } from './parts';
 
@@ -16,14 +18,28 @@ export interface SegmentedControlProps extends Omit<ComponentPropsWithoutRef<'di
   name?: string;
   onChange?: (value: SegmentedControlValue) => void;
   value?: SegmentedControlValue;
+  withHaptic?: boolean;
 }
 
 export function SegmentedControl({
-  className, name, items, value, onChange, ...rest
+  className, name, items, value, onChange, withHaptic = true, ...rest
 }: SegmentedControlProps) {
   const id = useId();
+  const SDK = useSDK();
 
   const rootClassName = clsx(className, styles.SegmentedControl);
+
+  const changeHandler = ({ target: { value: newValue } }: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(newValue);
+
+    if (
+      SDK.didInit
+      && SDK.components
+      && SDK.components.haptic.supports('selectionChanged')
+      && withHaptic) {
+      SDK.components.haptic.selectionChanged();
+    }
+  };
 
   return (
     <div className={rootClassName} {...rest}>
@@ -41,7 +57,7 @@ export function SegmentedControl({
           <SegmentedControlItem
             key={itemValue}
             name={name ?? id}
-            onChange={({ target }) => onChange?.(target.value)}
+            onChange={changeHandler}
             checked={itemValue === value}
             value={itemValue}
           >

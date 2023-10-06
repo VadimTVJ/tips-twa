@@ -1,6 +1,7 @@
 import { ComponentPropsWithRef } from 'react';
 
 import { clsx } from 'clsx';
+import { useThemeParams } from '@tma.js/sdk-react';
 import styles from './PageTip.module.scss';
 import {
   Hero, Page, Radio, Section, SegmentedControl, TextField,
@@ -9,10 +10,17 @@ import {
 interface PageTipProps extends ComponentPropsWithRef<'div'> {}
 
 export const PageTip = ({ className }: PageTipProps) => {
-  const rootClassName = clsx(className, styles.PageTip);
+  const { secondaryBackgroundColor } = useThemeParams();
 
+  const rootClassName = clsx(className, styles.PageTip);
   return (
-    <Page className={rootClassName}>
+    <Page
+      className={rootClassName}
+      backgroundColor={secondaryBackgroundColor}
+      headerBackgroundColor={secondaryBackgroundColor}
+      withCloseAppConfirmation
+      shouldExpanded
+    >
       <Hero
         icon={(
           <img
@@ -29,7 +37,6 @@ export const PageTip = ({ className }: PageTipProps) => {
         header="Официант"
       >
         <TextField
-          disabled
           value="Иван Иванов"
         />
       </Section>
@@ -45,6 +52,32 @@ export const PageTip = ({ className }: PageTipProps) => {
         <TextField
           disabled
           value="3000"
+        />
+      </Section>
+
+      <Section
+        header="Процент от суммы"
+      >
+        <SegmentedControl
+          items={[
+            { label: '10%', value: '10' },
+            { label: '15%', value: '15' },
+            { label: '20%', value: '20' },
+            { label: '30%', value: '30' },
+          ]}
+        />
+      </Section>
+
+      <Section
+        header="Процент от суммы"
+      >
+        <SegmentedControl
+          items={[
+            { label: '10%', value: '10' },
+            { label: '15%', value: '15' },
+            { label: '20%', value: '20' },
+            { label: '30%', value: '30' },
+          ]}
         />
       </Section>
 

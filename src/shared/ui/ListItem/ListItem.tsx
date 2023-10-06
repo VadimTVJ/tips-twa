@@ -3,6 +3,7 @@ import {
 } from 'react';
 
 import { clsx } from 'clsx';
+import { useSDK } from '@tma.js/sdk-react';
 import styles from './ListItem.module.scss';
 import { PolymorphicComponentProp } from '../generics';
 import { Component } from '../Component';
@@ -14,26 +15,36 @@ export type ListItemProps<C extends ElementType> = PolymorphicComponentProp<C, {
   after?: ReactNode;
   disabled?: boolean;
   hasAction?: boolean;
+  withHaptic?: boolean;
 }>;
 
 export const ListItem = <C extends ElementType>({
-  className, children, before, after, disabled, onClick: onClickProp, hasAction, ...rest
+  className, children, before, after, disabled, onClick, hasAction, withHaptic = false, ...rest
 }: ListItemProps<C>) => {
+  const SDK = useSDK();
+
   const rootClassName = clsx(className, styles.ListItem, {
     [styles.ListItem_interactive]: hasAction,
     [styles.ListItem_disabled]: disabled,
   });
 
-  const onClick = (e: MouseEvent<C>) => {
+  const clickHandler = (e: MouseEvent<C>) => {
     if (disabled) { return; }
+    onClick?.(e);
 
-    onClickProp?.(e);
+    if (
+      SDK.didInit
+      && SDK.components
+      && SDK.components.haptic.supports('impactOccurred')
+      && withHaptic) {
+      SDK.components.haptic.impactOccurred('light');
+    }
   };
 
   return (
     <Component
       className={rootClassName}
-      onClick={onClick}
+      onClick={clickHandler}
       {...rest}
     >
       {before && <div className={styles.ListItem__before}>{before}</div>}

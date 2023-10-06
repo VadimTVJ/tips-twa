@@ -2,7 +2,7 @@ import { ComponentPropsWithRef } from 'react';
 
 import { clsx } from 'clsx';
 import { Link } from 'react-router-dom';
-import { useQRScanner } from '@tma.js/sdk-react';
+import { useQRScanner, useThemeParams } from '@tma.js/sdk-react';
 import styles from './PageHome.module.scss';
 import {
   Hero, InfoRows, ListItem,
@@ -15,13 +15,16 @@ interface PageHomeProps extends ComponentPropsWithRef<'div'> {}
 
 // todo проверять, доступен ли скан куаркода, если нет, то делать listItem disabled
 export function PageHome({ className }: PageHomeProps) {
-  const rootClassName = clsx(className, styles.PageHome);
   const qrScanner = useQRScanner();
+  const { backgroundColor, secondaryBackgroundColor } = useThemeParams();
 
-  console.log('supports', qrScanner.supports('open'));
-
+  const rootClassName = clsx(className, styles.PageHome);
   return (
-    <Page className={rootClassName}>
+    <Page
+      className={rootClassName}
+      backgroundColor={secondaryBackgroundColor}
+      headerBackgroundColor={backgroundColor}
+    >
       <Hero
         className={styles.PageHome__hero}
         filled
@@ -42,6 +45,7 @@ export function PageHome({ className }: PageHomeProps) {
           as={Link}
           to="tip"
           hasAction
+          withHaptic
         >
           <InfoRows
             primary="Отсканировать QR-код"
@@ -53,6 +57,7 @@ export function PageHome({ className }: PageHomeProps) {
           before={<IconID />}
           hasAction
           onClick={() => qrScanner.open('Hello world')}
+          withHaptic
         >
           <InfoRows
             primary="Ввести ID официанта вручную"
@@ -63,6 +68,7 @@ export function PageHome({ className }: PageHomeProps) {
         <ListItem
           before={<IconCurrency />}
           hasAction
+          withHaptic
         >
           <InfoRows
             primary="История чаевых"
