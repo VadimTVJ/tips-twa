@@ -10,12 +10,12 @@ export enum Theme {
 type ThemeUnion = `${Theme}`;
 
 export interface ConfigProviderProps {
-  theme: Theme | ThemeUnion;
   children: ReactNode;
+  theme?: Theme | ThemeUnion;
 }
 
 export const ConfigProvider = ({
-  theme = 'var(--App__theme)' as ThemeUnion, ...rest
+  theme = 'light' as ThemeUnion, ...rest
 }: ConfigProviderProps) => {
   useEffect(() => {
     const bodyClassName = ['tipsUI', `tipsUI_${theme}`];

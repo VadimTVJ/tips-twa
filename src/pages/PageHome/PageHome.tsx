@@ -2,6 +2,7 @@ import { ComponentPropsWithRef } from 'react';
 
 import { clsx } from 'clsx';
 import { Link } from 'react-router-dom';
+import { useQRScanner } from '@tma.js/sdk-react';
 import styles from './PageHome.module.scss';
 import {
   Hero, InfoRows, ListItem,
@@ -15,6 +16,9 @@ interface PageHomeProps extends ComponentPropsWithRef<'div'> {}
 // todo проверять, доступен ли скан куаркода, если нет, то делать listItem disabled
 export function PageHome({ className }: PageHomeProps) {
   const rootClassName = clsx(className, styles.PageHome);
+  const qrScanner = useQRScanner();
+
+  console.log('supports', qrScanner.supports('open'));
 
   return (
     <Page className={rootClassName}>
@@ -48,6 +52,7 @@ export function PageHome({ className }: PageHomeProps) {
         <ListItem
           before={<IconID />}
           hasAction
+          onClick={() => qrScanner.open('Hello world')}
         >
           <InfoRows
             primary="Ввести ID официанта вручную"
