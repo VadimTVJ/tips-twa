@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Section } from '.';
+import { Section } from './index';
 import { SectionMode, SectionProps } from './Section';
 import { ListItem } from '../ListItem';
 import { Radio } from '../Radio';

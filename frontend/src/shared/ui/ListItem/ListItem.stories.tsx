@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ElementType } from 'react';
-import { ListItem } from '.';
+import { ListItem } from './index';
 import { Section } from '../Section';
 import { ListItemProps } from './ListItem';
 import { InfoRows } from '../InfoRows';

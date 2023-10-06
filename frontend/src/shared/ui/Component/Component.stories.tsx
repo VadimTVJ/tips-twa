@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ElementType } from 'react';
-import { Component } from '.';
+import { Component } from './index';
 import { Section } from '../Section';
 import { PolymorphicComponentProp } from '../generics';
 
