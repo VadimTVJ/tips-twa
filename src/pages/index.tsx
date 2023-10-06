@@ -3,6 +3,7 @@ import {
 } from 'react-router-dom';
 import { useBackButton, useWebApp } from '@tma.js/sdk-react';
 import { useEffect } from 'react';
+import { RouteProps } from 'react-router';
 import { PageHome } from './PageHome';
 import { PageTip } from './PageTip';
 import { PageTipResult } from './PageTipResult';
@@ -15,15 +16,15 @@ export const Pages = () => {
   const backButton = useBackButton();
   const webApp = useWebApp();
 
-  const routes = [
+  const routes: RouteProps[] = [
     { path: '/', element: <PageHome /> },
-    { path: '/tip', element: <PageTip /> },
+    { path: '/tip/:tipId?', element: <PageTip /> },
     { path: '/result', element: <PageTipResult /> },
     { path: '/transactions', element: <PageTransactions /> },
   ];
 
   useEffect(() => {
-    webApp.ready();
+    webApp.ready(); // todo after prefetches
 
     const listener = () => {
       if (window.location.pathname === routes[0].path) {
@@ -34,6 +35,7 @@ export const Pages = () => {
     };
 
     backButton.on('click', listener);
+    backButton.hide();
     backButton.show();
 
     return () => {
@@ -42,7 +44,6 @@ export const Pages = () => {
     };
   }, [backButton, webApp, navigate]);
 
-  // todo as object
   return (
     <Routes location={location}>
       {routes.map((route) => <Route {...route} />)}

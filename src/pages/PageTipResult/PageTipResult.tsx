@@ -1,14 +1,18 @@
 import { ComponentPropsWithRef } from 'react';
 
 import { clsx } from 'clsx';
+import { useNavigate } from 'react-router-dom';
 import styles from './PageTipResult.module.scss';
 import { Button, Hero, Page } from '../../shared/ui';
 
 interface PageTipResultProps extends ComponentPropsWithRef<'div'> {}
 
 export const PageTipResult = ({ className }: PageTipResultProps) => {
-  const rootClassName = clsx(className, styles.PageTipResult);
+  const navigate = useNavigate();
 
+  // todo hideBack button if success, show if error
+
+  const rootClassName = clsx(className, styles.PageTipResult);
   return (
     <Page className={rootClassName}>
       <Hero
@@ -29,6 +33,15 @@ export const PageTipResult = ({ className }: PageTipResultProps) => {
           size="l"
           stretched
           mode="secondary"
+          onClick={() => navigate(-1)}
+        >
+          Попробовать еще раз
+        </Button>
+        <Button
+          size="l"
+          stretched
+          mode="secondary"
+          onClick={() => navigate(-1)}
         >
           Попробовать еще раз
         </Button>

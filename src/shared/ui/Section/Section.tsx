@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Section.module.scss';
@@ -12,8 +12,8 @@ export enum SectionMode {
 type SectionModeUnion = `${SectionMode}`;
 
 export interface SectionProps extends ComponentPropsWithoutRef<'div'> {
-  header?: string;
-  description?: string;
+  header?: ReactNode;
+  description?: ReactNode;
   mode?: SectionMode | SectionModeUnion;
 }
 
@@ -35,6 +35,7 @@ export const Section = ({
         <Typography
           className={styles.Section__header}
           variant="subtitle2"
+          as="div"
         >
           {header}
         </Typography>
@@ -46,6 +47,7 @@ export const Section = ({
         <Typography
           className={styles.Section__description}
           variant="subtitle2"
+          as="div"
         >
           {description}
         </Typography>

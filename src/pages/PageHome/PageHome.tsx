@@ -2,7 +2,7 @@ import { ComponentPropsWithRef } from 'react';
 
 import { clsx } from 'clsx';
 import { Link } from 'react-router-dom';
-import { useQRScanner, useThemeParams } from '@tma.js/sdk-react';
+import { useThemeParams } from '@tma.js/sdk-react';
 import styles from './PageHome.module.scss';
 import {
   Hero, InfoRows, ListItem,
@@ -10,12 +10,12 @@ import {
   Section,
 } from '../../shared/ui';
 import { IconCurrency, IconID, IconScan } from '../../shared/lib/icons';
+import { ScanQRButton } from '../../features/tip/scan/ui';
 
 interface PageHomeProps extends ComponentPropsWithRef<'div'> {}
 
 // todo проверять, доступен ли скан куаркода, если нет, то делать listItem disabled
 export function PageHome({ className }: PageHomeProps) {
-  const qrScanner = useQRScanner();
   const { backgroundColor, secondaryBackgroundColor } = useThemeParams();
 
   const rootClassName = clsx(className, styles.PageHome);
@@ -40,24 +40,28 @@ export function PageHome({ className }: PageHomeProps) {
       />
 
       <Section>
-        <ListItem
-          before={<IconScan />}
-          as={Link}
-          to="tip"
-          hasAction
-          withHaptic
-        >
-          <InfoRows
-            primary="Отсканировать QR-код"
-            secondary="Отсканируйте куракод с чека, чтобы оставить чаевые официанту"
-          />
-        </ListItem>
+        <ScanQRButton>
+          {(openScanner, isSupported) => isSupported && (
+            <ListItem
+              before={<IconScan />}
+              hasAction
+              withHaptic
+              onClick={openScanner}
+            >
+              <InfoRows
+                primary="Отсканировать QR-код"
+                secondary="Отсканируйте куракод с чека, чтобы оставить чаевые официанту"
+              />
+            </ListItem>
+          )}
+        </ScanQRButton>
 
         <ListItem
           before={<IconID />}
           hasAction
-          onClick={() => qrScanner.open('Hello world')}
           withHaptic
+          as={Link}
+          to="tip"
         >
           <InfoRows
             primary="Ввести ID официанта вручную"

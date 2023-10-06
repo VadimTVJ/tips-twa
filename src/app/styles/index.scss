@@ -14,3 +14,10 @@ html, body, #root {
   -ms-user-select: none;
   user-select: none;
 }
+
+.color {
+
+  &_red {
+    color: red;
+  }
+}

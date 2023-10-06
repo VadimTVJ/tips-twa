@@ -1,16 +1,25 @@
-import { ComponentPropsWithRef } from 'react';
+import { ComponentPropsWithRef, useEffect } from 'react';
 
 import { clsx } from 'clsx';
 import { useThemeParams } from '@tma.js/sdk-react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './PageTip.module.scss';
 import {
-  Hero, Page, Radio, Section, SegmentedControl, TextField,
+  Hero, Page,
 } from '../../shared/ui';
+import { TipForm } from '../../widgets';
 
 interface PageTipProps extends ComponentPropsWithRef<'div'> {}
 
 export const PageTip = ({ className }: PageTipProps) => {
+  const { tipId } = useParams<{ tipId?: string; }>();
+  const navigate = useNavigate();
+
   const { secondaryBackgroundColor } = useThemeParams();
+
+  useEffect(() => {
+    console.log(tipId);
+  }, []);
 
   const rootClassName = clsx(className, styles.PageTip);
   return (
@@ -20,6 +29,10 @@ export const PageTip = ({ className }: PageTipProps) => {
       headerBackgroundColor={secondaryBackgroundColor}
       withCloseAppConfirmation
       shouldExpanded
+      withMainButton={{
+        text: 'Gogogog',
+        action: () => navigate('/result'),
+      }}
     >
       <Hero
         icon={(
@@ -33,66 +46,7 @@ export const PageTip = ({ className }: PageTipProps) => {
         subheading={'Запросите у\u00A0официанта его индивидуальный код и\u00A0заполните все поля'}
       />
 
-      <Section
-        header="Официант"
-      >
-        <TextField
-          value="Иван Иванов"
-        />
-      </Section>
-
-      <Section header="Чаевые">
-        <Radio checked>Фиксированная сумма</Radio>
-        <Radio>Процент от покупки</Radio>
-      </Section>
-
-      <Section
-        header="Сумма чека, ₽"
-      >
-        <TextField
-          disabled
-          value="3000"
-        />
-      </Section>
-
-      <Section
-        header="Процент от суммы"
-      >
-        <SegmentedControl
-          items={[
-            { label: '10%', value: '10' },
-            { label: '15%', value: '15' },
-            { label: '20%', value: '20' },
-            { label: '30%', value: '30' },
-          ]}
-        />
-      </Section>
-
-      <Section
-        header="Процент от суммы"
-      >
-        <SegmentedControl
-          items={[
-            { label: '10%', value: '10' },
-            { label: '15%', value: '15' },
-            { label: '20%', value: '20' },
-            { label: '30%', value: '30' },
-          ]}
-        />
-      </Section>
-
-      <Section
-        header="Процент от суммы"
-      >
-        <SegmentedControl
-          items={[
-            { label: '10%', value: '10' },
-            { label: '15%', value: '15' },
-            { label: '20%', value: '20' },
-            { label: '30%', value: '30' },
-          ]}
-        />
-      </Section>
+      <TipForm />
     </Page>
   );
 };

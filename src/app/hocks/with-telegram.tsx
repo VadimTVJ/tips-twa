@@ -7,7 +7,7 @@ import compose from 'compose-function';
 const options: SDKInitOptions = {
   acceptScrollbarStyle: true,
   checkCompat: true,
-  debug: false,
+  debug: true, // todo if dev env
   cssVars: true,
 };
 
