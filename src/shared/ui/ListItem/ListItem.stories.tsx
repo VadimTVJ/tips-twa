@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ElementType } from 'react';
-import { ListItem } from './index';
+import { ListItem, ListItemProps } from './ListItem';
 import { Section } from '../Section';
-import { ListItemProps } from './ListItem';
 import { InfoRows } from '../InfoRows';
 
 const meta: Meta<ListItemProps<ElementType>> = {

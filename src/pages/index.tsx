@@ -47,7 +47,7 @@ export const Pages = () => {
 
   return (
     <Routes location={location}>
-      {routes.map((route) => <Route {...route} />)}
+      {routes.map((route) => <Route key={route.path} {...route} />)}
     </Routes>
   );
 };

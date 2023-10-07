@@ -3,7 +3,6 @@
 .TextField {
   border-radius: var(--App__radius);
   background: var(--App__background-color_content);
-  padding: var(--App__padding-vertical) var(--App__padding-horizontal);
   width: 100%;
 
   &_as {
@@ -17,7 +16,7 @@
 
   &__in {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
 
     .TextField_disabled & {
       opacity: .5;
@@ -25,14 +24,15 @@
   }
 
   &__after {
-    margin-left: var(--App_gap);
+    margin: 0 var(--App_gap);
   }
 
   &__field {
     @extend .Typography_variant_text;
 
     color: var(--App__text-color_primary);
-
+    padding: 0 var(--App__padding-horizontal);
+    min-height: 42px;
     flex-grow: 1;
 
     &::placeholder {

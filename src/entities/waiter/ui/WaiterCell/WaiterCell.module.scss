@@ -1,0 +1,10 @@
+.WaiterCell {
+
+  &__avatar {
+    width: 48px;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+}

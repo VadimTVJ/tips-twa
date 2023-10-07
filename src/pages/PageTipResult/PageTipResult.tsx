@@ -1,20 +1,14 @@
-import { ComponentPropsWithRef } from 'react';
-
-import { clsx } from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import styles from './PageTipResult.module.scss';
 import { Button, Hero, Page } from '../../shared/ui';
 
-interface PageTipResultProps extends ComponentPropsWithRef<'div'> {}
-
-export const PageTipResult = ({ className }: PageTipResultProps) => {
+export const PageTipResult = () => {
   const navigate = useNavigate();
 
   // todo hideBack button if success, show if error
 
-  const rootClassName = clsx(className, styles.PageTipResult);
   return (
-    <Page className={rootClassName}>
+    <Page className={styles.PageTipResult}>
       <Hero
         icon={(
           <img

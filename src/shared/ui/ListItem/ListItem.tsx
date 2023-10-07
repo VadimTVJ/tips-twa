@@ -10,7 +10,7 @@ import { Component } from '../Component';
 import { InfoRows } from '../InfoRows';
 import { IconChevronRight } from '../../lib/icons';
 
-export type ListItemProps<C extends ElementType> = PolymorphicComponentProp<C, {
+export type ListItemProps<C extends ElementType = 'div'> = PolymorphicComponentProp<C, {
   before?: ReactNode;
   after?: ReactNode;
   disabled?: boolean;
@@ -51,7 +51,7 @@ export const ListItem = <C extends ElementType>({
 
       <div className={styles.ListItem__content}>
         {typeof children === 'string'
-          ? <InfoRows className={styles.ListItem__content} primary={children} />
+          ? <InfoRows primary={children} />
           : children}
       </div>
 

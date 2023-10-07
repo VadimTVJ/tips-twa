@@ -1,6 +1,3 @@
-import { ComponentPropsWithRef } from 'react';
-
-import { clsx } from 'clsx';
 import { Link } from 'react-router-dom';
 import { useThemeParams } from '@tma.js/sdk-react';
 import styles from './PageHome.module.scss';
@@ -12,16 +9,12 @@ import {
 import { IconCurrency, IconID, IconScan } from '../../shared/lib/icons';
 import { ScanQRButton } from '../../features/tip/scan/ui';
 
-interface PageHomeProps extends ComponentPropsWithRef<'div'> {}
-
-// todo проверять, доступен ли скан куаркода, если нет, то делать listItem disabled
-export function PageHome({ className }: PageHomeProps) {
+export function PageHome() {
   const { backgroundColor, secondaryBackgroundColor } = useThemeParams();
 
-  const rootClassName = clsx(className, styles.PageHome);
   return (
     <Page
-      className={rootClassName}
+      className={styles.PageHome}
       backgroundColor={secondaryBackgroundColor}
       headerBackgroundColor={backgroundColor}
     >

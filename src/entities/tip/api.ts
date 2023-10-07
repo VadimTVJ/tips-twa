@@ -11,36 +11,37 @@ export const useTipsQuery = ({ options }: UseTipsQueryConfig = {}) => {
     data, isError, isLoading, refetch, ...rest
   } = useQuery({
     queryKey: ['tips'],
-    queryFn: async () => Api.tip.get({ pageNum: 1 }),
-
-    refetchOnWindowFocus: false,
-    refetchInterval: 0,
-
+    queryFn: async () => Api.tip.get(),
     ...options,
   });
+
+  const hasTips = !isLoading && !isError && data?.length > 0;
 
   return {
     fetchTips: refetch,
     tips: data,
     isTipsError: isError,
     isTipsLoading: isLoading,
+    hasTips,
     ...rest,
   };
 };
 
 type UseInvoiceLinkQueryConfig = {
-  options?: Omit<UseQueryOptions<InvoiceLink, Error, InvoiceLink, string[]>, 'queryFn' | 'queryKey'>
+  params: {
+    waiterId: number;
+    tipsAmount: number;
+    currency: string;
+  };
+  options?: Omit<UseQueryOptions<InvoiceLink, Error, InvoiceLink, string[]>, 'queryFn' | 'queryKey'>;
 };
 
-export const useInvoiceLinkQuery = ({ options }: UseInvoiceLinkQueryConfig = {}) => {
+export const useInvoiceLinkQuery = ({ options, params }: UseInvoiceLinkQueryConfig) => {
   const {
     data, isError, isLoading, refetch, ...rest
   } = useQuery({
     queryKey: ['invoice-link'],
-    queryFn: async () => Api.tip.getInvoiceLink({ waiterId: 1, amount: 100 }),
-
-    refetchOnWindowFocus: false,
-    refetchInterval: 0,
+    queryFn: async () => Api.tip.getInvoiceLink(params),
     enabled: false,
 
     ...options,

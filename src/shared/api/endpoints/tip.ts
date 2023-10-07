@@ -1,17 +1,14 @@
 import { axiosInstance } from '../instance';
-import { ApiInvoiceLink, ApiTip } from '../entities';
+import { ApiInvoiceLink, ApiTip, ApiWaiter } from '../entities';
 
-type GetMethodParams = {
-  pageNum: number;
-};
-
-export const get = (params: GetMethodParams) => {
-  return axiosInstance.post<never, ApiTip[]>('tip.get', params);
+export const get = () => {
+  return axiosInstance.post<never, ApiTip[]>('tip.get');
 };
 
 type GetInvoiceLinkMethodParams = {
-  waiterId: number;
-  amount: number;
+  waiterId: ApiWaiter['id'];
+  tipsAmount: number;
+  currency: string;
 };
 
 export const getInvoiceLink = (params: GetInvoiceLinkMethodParams) => {

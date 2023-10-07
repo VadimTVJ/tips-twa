@@ -1,78 +1,63 @@
 import { ComponentPropsWithRef, useEffect } from 'react';
 
 import { clsx } from 'clsx';
-import { Controller, useForm } from 'react-hook-form';
-import { useMainButton, useWebApp } from '@tma.js/sdk-react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import styles from './TipForm.module.scss';
 import {
-  Radio, Section, SegmentedControl, TextField,
+  Button,
+  ButtonMode,
+  ButtonSize,
+  Radio,
+  Section,
+  SegmentedControl, Spinner,
+  TextField,
 } from '../../shared/ui';
-import { useInvoiceLinkQuery } from '../../entities/tip/api';
+import { waiterApi, WaiterCell } from '../../entities/waiter';
+import { useAddTip } from '../../features/tip';
+import { buildAmountWithCurrency, currencies } from '../../shared/config';
 
 interface TipFormProps extends ComponentPropsWithRef<'form'> {
   waiterId?: number;
 }
 
-export const TipForm = ({ className, ...rest }: TipFormProps) => {
-  const webApp = useWebApp();
-  const mainButton = useMainButton();
+export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFormProps) => {
+  const navigate = useNavigate();
 
   const {
-    control, watch,
+    control, setValue,
   } = useForm({
     defaultValues: {
-      calculationMode: 'fix',
-      waiterId: '',
-      total: '1000',
-      percent: '20',
-      tipsAmount: '100',
+      waiterId: initialWaiterId,
+      calculationMode: 'percent',
+      currency: currencies[0].code,
+      checkPrice: 0,
+      percent: 20,
+      tipsAmount: 0,
     },
   });
 
-  const calculationMode = watch('calculationMode');
-  const tipsAmount = watch('tipsAmount');
+  const [waiterId, calculationMode, checkPrice, percent, tipsAmount, currency] = useWatch({
+    control,
+    name: ['waiterId', 'calculationMode', 'checkPrice', 'percent', 'tipsAmount', 'currency'],
+  });
 
-  const { invoiceLink, fetchInvoiceLink } = useInvoiceLinkQuery();
+  useAddTip({
+    form: { waiterId, tipsAmount, currency },
+    onSuccess: () => navigate('/result'),
+  });
 
-  useEffect(() => {
-    if (invoiceLink) {
-      webApp.openInvoice(invoiceLink);
-    }
-  }, [invoiceLink]);
+  const {
+    isWaiterError, waiter, fetchWaiter, waiterFetchStatus,
+  } = waiterApi.useWaiterByIdQuery({
+    params: { waiterId: Number(waiterId) },
+  });
 
-  useEffect(() => {
-    if (mainButton.isEnabled && mainButton.isVisible) {
-      // todo добавить лоадер
-      console.log('actopn added');
-      mainButton.on('click', fetchInvoiceLink);
-
-      return () => {
-        console.log('action removed'); // todo check
-        mainButton.off('clock', fetchInvoiceLink);
-      };
-    }
-
-    return () => {};
-  }, [mainButton.isEnabled, mainButton.isVisible]);
+  const currencyInfo = currencies.find(({ code }) => code === currency) || currencies[0];
 
   useEffect(() => {
-    if (Number(tipsAmount)) {
-      mainButton.enable();
-    } else {
-      mainButton.disable();
-    }
-  }, [tipsAmount]);
-
-  useEffect(() => {
-    mainButton.hideProgress();
-    mainButton.setText('Pay');
-    mainButton.disable();
-    mainButton.show();
-
-    return () => {
-      mainButton.hide();
-    };
-  }, []);
+    setValue('tipsAmount', Math.round((checkPrice / 100) * percent) || 0);
+  }, [checkPrice, percent]);
 
   const rootClassName = clsx(className, styles.TipForm);
   return (
@@ -80,40 +65,60 @@ export const TipForm = ({ className, ...rest }: TipFormProps) => {
       className={rootClassName}
       {...rest}
     >
-      <Controller
-        name="waiterId"
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({
-          field,
-        }) => (
-          <Section
-            header="Код официанта"
-            description={<span className="color_red">Официант не найден</span>}
-          >
-            <TextField {...field} placeholder="Код официанта" />
-          </Section>
-        )}
-      />
+      {waiter && (
+        <Section header="Официант">
+          <WaiterCell
+            waiter={waiter}
+            after={(
+              <Button
+                type="button"
+                size={ButtonSize.SMALL}
+                mode={ButtonMode.TERTIARY}
+              >
+                Отвенить
+              </Button>
+            )}
+          />
+        </Section>
+      )}
 
-      <Section header="Чаевые">
+      {!waiter && (
         <Controller
-          name="calculationMode"
+          name="waiterId"
           control={control}
           render={({
             field,
           }) => (
-            <Radio
-              {...field}
-              value="fix"
-              checked={calculationMode === 'fix'} // todo RadioGroup instead checked prop
+            <Section
+              header="Код официанта"
+              description={isWaiterError && <span className="color_red">Официант не найден</span>}
             >
-              Фиксированная сумма
-            </Radio>
+              <TextField
+                {...field}
+                placeholder="Код официанта"
+                after={(
+                  <>
+                    {waiterFetchStatus === 'fetching' && <Spinner />}
+
+                    {waiterFetchStatus !== 'fetching' && waiterId && (
+                      <Button
+                        type="button"
+                        size={ButtonSize.SMALL}
+                        mode={ButtonMode.TERTIARY}
+                        onClick={() => fetchWaiter()}
+                      >
+                        Найти
+                      </Button>
+                    )}
+                  </>
+                )}
+              />
+            </Section>
           )}
         />
+      )}
+
+      <Section header="Чаевые">
         <Controller
           name="calculationMode"
           control={control}
@@ -129,18 +134,59 @@ export const TipForm = ({ className, ...rest }: TipFormProps) => {
             </Radio>
           )}
         />
+        <Controller
+          name="calculationMode"
+          control={control}
+          render={({
+            field,
+          }) => (
+            <Radio
+              {...field}
+              value="fix"
+              // todo RadioGroup wrapper with context instead of checked prop
+              checked={calculationMode === 'fix'}
+            >
+              Фиксированная сумма
+            </Radio>
+          )}
+        />
       </Section>
+
+      <Controller
+        name="currency"
+        control={control}
+        render={({
+          field,
+        }) => (
+          <Section
+            header="Валюта"
+            description={`Min: ${buildAmountWithCurrency(currencyInfo.min, currency)}, max: ${buildAmountWithCurrency(currencyInfo.max, currency)}`}
+          >
+            <SegmentedControl
+              {...field}
+              items={currencies.map(({ code }) => ({
+                value: code,
+                label: code,
+              }))}
+            />
+          </Section>
+        )}
+      />
 
       {calculationMode === 'percent' && (
         <>
           <Controller
-            name="total"
+            name="checkPrice"
             control={control}
             render={({
-              field,
+              field: { value, ...restField },
             }) => (
-              <Section header="Сумма чека, ₽">
-                <TextField {...field} />
+              <Section header="Сумма чека">
+                <TextField
+                  placeholder="Укажите сумму чека"
+                  value={value || ''}
+                  {...restField}
+                />
               </Section>
             )}
           />
@@ -170,14 +216,15 @@ export const TipForm = ({ className, ...rest }: TipFormProps) => {
       <Controller
         name="tipsAmount"
         control={control}
-        rules={{
-          required: true,
-        }}
         render={({
-          field,
+          field: { value, ...restField },
         }) => (
           <Section header="Чаевые">
-            <TextField {...field} />
+            <TextField
+              placeholder="Укажите размер чаевых"
+              value={value || ''}
+              {...restField}
+            />
           </Section>
         )}
       />

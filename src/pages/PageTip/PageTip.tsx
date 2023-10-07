@@ -1,6 +1,4 @@
-import { ComponentPropsWithRef, useEffect } from 'react';
-
-import { clsx } from 'clsx';
+import { useEffect } from 'react';
 import { useThemeParams } from '@tma.js/sdk-react';
 import { useParams } from 'react-router-dom';
 import styles from './PageTip.module.scss';
@@ -9,9 +7,7 @@ import {
 } from '../../shared/ui';
 import { TipForm } from '../../widgets';
 
-interface PageTipProps extends ComponentPropsWithRef<'div'> {}
-
-export const PageTip = ({ className }: PageTipProps) => {
+export const PageTip = () => {
   const { tipId } = useParams<{ tipId?: string; }>();
 
   const { secondaryBackgroundColor } = useThemeParams();
@@ -20,10 +16,9 @@ export const PageTip = ({ className }: PageTipProps) => {
     console.log(tipId);
   }, []);
 
-  const rootClassName = clsx(className, styles.PageTip);
   return (
     <Page
-      className={rootClassName}
+      className={styles.PageTip}
       backgroundColor={secondaryBackgroundColor}
       headerBackgroundColor={secondaryBackgroundColor}
       withCloseAppConfirmation

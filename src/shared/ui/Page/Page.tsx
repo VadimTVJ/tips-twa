@@ -7,7 +7,7 @@ import {
 import { RGB } from '@tma.js/colors';
 import styles from './Page.module.scss';
 
-interface PageProps extends ComponentPropsWithoutRef<'section'> {
+export interface PageProps extends ComponentPropsWithoutRef<'section'> {
   centered?: boolean;
 
   backgroundColor?: RGB | null;

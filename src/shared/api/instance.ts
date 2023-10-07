@@ -5,6 +5,8 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
+  console.log('axios', window.location.hash);
+
   const hash = window.location.hash.slice(1);
   const params = new URLSearchParams(hash);
   const initData = params.get('tgWebAppData');

@@ -22,7 +22,7 @@
   },
   "include": [
     "src",
-    "frontend/.storybook/**/*"
+    ".storybook/**/*"
   ],
   "references": [{ "path": "./tsconfig.node.json"}]
 }

@@ -3,7 +3,7 @@
   color: var(--Button_color);
   border-radius: var(--App__radius);
   min-height: var(--Button_min-height);
-  padding: 0 16px;
+  padding: 0 var(--Button_padding-horizontal);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,19 +33,27 @@
       --Button_background: var(--App__background-color_secondary);
       --Button_color: var(--App__text-color_primary);
     }
+
+    &_tertiary {
+      --Button_background: transparent;
+      --Button_color: var(--App__text-color_link);
+    }
   }
 
   &_size {
 
     &_s {
+      --Button_padding-horizontal: 8px;
       --Button_min-height: 28px;
     }
 
     &_m {
+      --Button_padding-horizontal: 16px;
       --Button_min-height: 40px;
     }
 
     &_l {
+      --Button_padding-horizontal: 16px;
       --Button_min-height: 50px;
     }
   }

@@ -1,0 +1,1 @@
+export { WaiterCell } from './WaiterCell';

@@ -18,6 +18,7 @@ type ButtonSizeUnion = `${ButtonSize}`;
 export enum ButtonMode {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
+  TERTIARY = 'tertiary',
 }
 
 type ButtonModeUnion = `${ButtonMode}`;
@@ -29,7 +30,7 @@ export type ButtonProps<C extends ElementType> = PolymorphicComponentProp<C, {
   withHaptic?: boolean;
 }>;
 
-export const Button = <C extends ElementType>({
+export const Button = <C extends ElementType = 'button'>({
   className, size = 'm', mode = 'primary', stretched, children, disabled, onClick, as = 'button' as C, withHaptic = false, ...rest
 }: ButtonProps<C>) => {
   const SDK = useSDK();
@@ -65,7 +66,7 @@ export const Button = <C extends ElementType>({
       as={as as ElementType}
       {...rest}
     >
-      <Typography variant="text" as="span">
+      <Typography variant="text" as="span" weight={500}>
         {children}
       </Typography>
     </Component>

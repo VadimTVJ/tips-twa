@@ -1,20 +1,59 @@
-import { ComponentPropsWithRef } from 'react';
-
-import { clsx } from 'clsx';
+import { useThemeParams } from '@tma.js/sdk-react';
 import styles from './PageTips.module.scss';
-import { Hero } from '../../shared/ui';
+import {
+  Hero, Page, Section,
+  SectionMode,
+} from '../../shared/ui';
+import { useTipsQuery } from '../../entities/tip/api';
+import { TipCell } from '../../entities/tip/ui';
 
-interface PageTipsProps extends ComponentPropsWithRef<'div'> {}
+export const PageTips = () => {
+  const { secondaryBackgroundColor } = useThemeParams();
+  const {
+    tips, isTipsError, isTipsLoading, hasTips,
+  } = useTipsQuery();
 
-export const PageTips = ({ className, ...rest }: PageTipsProps) => {
-  const rootClassName = clsx(className, styles.PageTips);
+  const tipsNode = !isTipsError && !isTipsLoading && tips?.map((tip) => (
+    <TipCell key={tip.id} tip={tip} />
+  ));
+
+  const tipsSkeleton = isTipsLoading && [...Array(5).keys()].map((key) => (
+    <TipCell.Skeleton key={key} />
+  ));
 
   return (
-    <div className={rootClassName} {...rest}>
+    <Page
+      className={styles.PageTips}
+      backgroundColor={secondaryBackgroundColor}
+      headerBackgroundColor={secondaryBackgroundColor}
+      shouldExpanded
+    >
       <Hero
-        heading="123213"
-        subheading="fgergre"
+        icon={(
+          <img
+            className={styles.PageTips__heroIcon}
+            src="./emoji-monkey.webp"
+            alt=""
+          />
+        )}
+        heading={hasTips
+          ? 'Ваша история'
+          : 'История пуста'}
+        subheading={hasTips
+          ? 'Здесь вы&nbsp;сможете посмотреть всю история отправленных Вами чаевых'
+          : 'text'}
+        stretched={!hasTips}
       />
-    </div>
+
+      {hasTips && (
+        <Section
+          mode={SectionMode.FULL}
+          header="История чаевых"
+        >
+          {tipsNode}
+          {tipsSkeleton}
+        </Section>
+      )}
+    </Page>
   );
 };
