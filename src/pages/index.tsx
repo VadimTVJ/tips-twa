@@ -36,8 +36,6 @@ export const Pages = () => {
     };
 
     backButton.on('click', listener);
-    backButton.hide();
-    backButton.show();
 
     return () => {
       backButton.off('click', listener);

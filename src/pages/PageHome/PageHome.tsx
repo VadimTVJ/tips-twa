@@ -7,7 +7,7 @@ import {
   Section,
 } from '../../shared/ui';
 import { IconCurrency, IconID, IconScan } from '../../shared/lib/icons';
-import { ScanQRButton } from '../../features/tip/scan/ui';
+import { ScanQRButton } from '../../features/tip';
 
 export function PageHome() {
   const { backgroundColor, secondaryBackgroundColor } = useThemeParams();

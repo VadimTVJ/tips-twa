@@ -1,17 +1,13 @@
 import axios from 'axios';
+import { retrieveLaunchParams } from '@tma.js/sdk';
 
 export const axiosInstance = axios.create({
   baseURL: 'http://localhost:3333/api', // todo to env
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  console.log('axios', window.location.hash);
-
-  const hash = window.location.hash.slice(1);
-  const params = new URLSearchParams(hash);
-  const initData = params.get('tgWebAppData');
-
-  config.headers.setAuthorization(initData);
+  const launchParams = retrieveLaunchParams();
+  config.headers.setAuthorization(launchParams.initDataRaw!);
 
   return config;
 }, (error) => {

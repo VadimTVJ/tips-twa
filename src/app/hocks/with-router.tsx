@@ -1,8 +1,8 @@
 import { ComponentType } from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 export const withRouter = (Component: ComponentType) => () => (
-  <MemoryRouter>
+  <BrowserRouter>
     <Component />
-  </MemoryRouter>
+  </BrowserRouter>
 );
