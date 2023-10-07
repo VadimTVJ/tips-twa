@@ -2,7 +2,7 @@ import { ComponentPropsWithRef, useEffect } from 'react';
 
 import { clsx } from 'clsx';
 import { useThemeParams } from '@tma.js/sdk-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styles from './PageTip.module.scss';
 import {
   Hero, Page,
@@ -13,7 +13,6 @@ interface PageTipProps extends ComponentPropsWithRef<'div'> {}
 
 export const PageTip = ({ className }: PageTipProps) => {
   const { tipId } = useParams<{ tipId?: string; }>();
-  const navigate = useNavigate();
 
   const { secondaryBackgroundColor } = useThemeParams();
 
@@ -29,10 +28,6 @@ export const PageTip = ({ className }: PageTipProps) => {
       headerBackgroundColor={secondaryBackgroundColor}
       withCloseAppConfirmation
       shouldExpanded
-      withMainButton={{
-        text: 'Gogogog',
-        action: () => navigate('/result'),
-      }}
     >
       <Hero
         icon={(

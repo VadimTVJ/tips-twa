@@ -7,7 +7,7 @@ import { RouteProps } from 'react-router';
 import { PageHome } from './PageHome';
 import { PageTip } from './PageTip';
 import { PageTipResult } from './PageTipResult';
-import { PageTransactions } from './PageTransactions';
+import { PageTips } from './PageTips';
 
 export const Pages = () => {
   const location = useLocation();
@@ -15,12 +15,13 @@ export const Pages = () => {
 
   const backButton = useBackButton();
   const webApp = useWebApp();
+  console.log('22', window.location.hash);
 
   const routes: RouteProps[] = [
     { path: '/', element: <PageHome /> },
     { path: '/tip/:tipId?', element: <PageTip /> },
     { path: '/result', element: <PageTipResult /> },
-    { path: '/transactions', element: <PageTransactions /> },
+    { path: '/tips', element: <PageTips /> },
   ];
 
   useEffect(() => {

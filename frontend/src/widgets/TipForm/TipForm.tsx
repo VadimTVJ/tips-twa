@@ -1,17 +1,22 @@
-import { ComponentPropsWithRef } from 'react';
+import { ComponentPropsWithRef, useEffect } from 'react';
 
 import { clsx } from 'clsx';
 import { Controller, useForm } from 'react-hook-form';
+import { useMainButton, useWebApp } from '@tma.js/sdk-react';
 import styles from './TipForm.module.scss';
 import {
   Radio, Section, SegmentedControl, TextField,
 } from '../../shared/ui';
+import { useInvoiceLinkQuery } from '../../entities/tip/api';
 
 interface TipFormProps extends ComponentPropsWithRef<'form'> {
   waiterId?: number;
 }
 
 export const TipForm = ({ className, ...rest }: TipFormProps) => {
+  const webApp = useWebApp();
+  const mainButton = useMainButton();
+
   const {
     control, watch,
   } = useForm({
@@ -25,6 +30,49 @@ export const TipForm = ({ className, ...rest }: TipFormProps) => {
   });
 
   const calculationMode = watch('calculationMode');
+  const tipsAmount = watch('tipsAmount');
+
+  const { invoiceLink, fetchInvoiceLink } = useInvoiceLinkQuery();
+
+  useEffect(() => {
+    if (invoiceLink) {
+      webApp.openInvoice(invoiceLink);
+    }
+  }, [invoiceLink]);
+
+  useEffect(() => {
+    if (mainButton.isEnabled && mainButton.isVisible) {
+      // todo добавить лоадер
+      console.log('actopn added');
+      mainButton.on('click', fetchInvoiceLink);
+
+      return () => {
+        console.log('action removed'); // todo check
+        mainButton.off('clock', fetchInvoiceLink);
+      };
+    }
+
+    return () => {};
+  }, [mainButton.isEnabled, mainButton.isVisible]);
+
+  useEffect(() => {
+    if (Number(tipsAmount)) {
+      mainButton.enable();
+    } else {
+      mainButton.disable();
+    }
+  }, [tipsAmount]);
+
+  useEffect(() => {
+    mainButton.hideProgress();
+    mainButton.setText('Pay');
+    mainButton.disable();
+    mainButton.show();
+
+    return () => {
+      mainButton.hide();
+    };
+  }, []);
 
   const rootClassName = clsx(className, styles.TipForm);
   return (

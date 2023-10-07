@@ -14,7 +14,10 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.35.7",
+    "@tanstack/react-query-devtools": "^4.35.7",
     "@tma.js/sdk-react": "^0.4.7",
+    "axios": "^1.5.1",
     "compose-function": "^3.0.3",
     "eruda": "^3.0.1",
     "react": "^18.2.0",

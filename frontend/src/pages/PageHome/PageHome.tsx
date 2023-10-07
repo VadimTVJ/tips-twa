@@ -72,6 +72,8 @@ export function PageHome({ className }: PageHomeProps) {
         <ListItem
           before={<IconCurrency />}
           hasAction
+          as={Link}
+          to="/tips"
           withHaptic
         >
           <InfoRows
