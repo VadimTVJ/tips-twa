@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useThemeParams } from '@tma.js/sdk-react';
 import { useParams } from 'react-router-dom';
 import styles from './PageTip.module.scss';
@@ -6,15 +5,12 @@ import {
   Hero, Page,
 } from '../../shared/ui';
 import { TipForm } from '../../widgets';
+import emojiPen from '../../shared/assets/emoji-pen.webp';
 
 export const PageTip = () => {
-  const { tipId } = useParams<{ tipId?: string; }>();
+  const { waiterId } = useParams<{ waiterId?: string; }>();
 
   const { secondaryBackgroundColor } = useThemeParams();
-
-  useEffect(() => {
-    console.log(tipId);
-  }, []);
 
   return (
     <Page
@@ -28,7 +24,7 @@ export const PageTip = () => {
         icon={(
           <img
             className={styles.PageTip__heroIcon}
-            src="./emoji-pen.webp"
+            src={emojiPen}
             alt=""
           />
         )}
@@ -36,7 +32,7 @@ export const PageTip = () => {
         subheading={'Запросите у\u00A0официанта его индивидуальный код и\u00A0заполните все поля'}
       />
 
-      <TipForm />
+      <TipForm waiterId={Number(waiterId) || undefined} />
     </Page>
   );
 };

@@ -6,6 +6,7 @@ import {
 } from '../../shared/ui';
 import { useTipsQuery } from '../../entities/tip/api';
 import { TipCell } from '../../entities/tip/ui';
+import emojiMonkey from '../../shared/assets/emoji-monkey.webp';
 
 export const PageTips = () => {
   const { secondaryBackgroundColor } = useThemeParams();
@@ -32,7 +33,7 @@ export const PageTips = () => {
         icon={(
           <img
             className={styles.PageTips__heroIcon}
-            src="./emoji-monkey.webp"
+            src={emojiMonkey}
             alt=""
           />
         )}

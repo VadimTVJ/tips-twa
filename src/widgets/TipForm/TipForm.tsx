@@ -59,6 +59,12 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
     setValue('tipsAmount', Math.round((checkPrice / 100) * percent) || 0);
   }, [checkPrice, percent]);
 
+  useEffect(() => {
+    if (initialWaiterId) {
+      fetchWaiter();
+    }
+  }, []);
+
   const rootClassName = clsx(className, styles.TipForm);
   return (
     <form

@@ -8,6 +8,7 @@ import {
 } from '../../shared/ui';
 import { IconCurrency, IconID, IconScan } from '../../shared/lib/icons';
 import { ScanQRButton } from '../../features/tip';
+import emojiMoney from '../../shared/assets/emoji-money.webp';
 
 export function PageHome() {
   const { backgroundColor, secondaryBackgroundColor } = useThemeParams();
@@ -24,7 +25,7 @@ export function PageHome() {
         icon={(
           <img
             className={styles.PageHome__heroIcon}
-            src="./emoji-money.webp"
+            src={emojiMoney}
             alt="Telegram web app tips"
           />
         )}
@@ -54,7 +55,7 @@ export function PageHome() {
           hasAction
           withHaptic
           as={Link}
-          to="tip"
+          to="/tip/3"
         >
           <InfoRows
             primary="Ввести ID официанта вручную"

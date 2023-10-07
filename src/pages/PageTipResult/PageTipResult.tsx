@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './PageTipResult.module.scss';
 import { Button, Hero, Page } from '../../shared/ui';
+import emojiSuccess from '../../shared/assets/emoji-success.webp';
 
 export const PageTipResult = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export const PageTipResult = () => {
         icon={(
           <img
             className={styles.PageTipResult__heroIcon}
-            src="./emoji-success.webp"
+            src={emojiSuccess}
             alt=""
           />
         )}

@@ -18,9 +18,9 @@ export const Pages = () => {
 
   const routes: (RouteProps & { withQuit?: boolean; })[] = [
     { path: '/', element: <PageHome />, withQuit: true },
-    { path: '/tip/:tipId?', element: <PageTip /> },
-    { path: '/result', element: <PageTipResult /> },
-    { path: '/tips', element: <PageTips />, withQuit: true },
+    { path: '/tip/:waiterId?', element: <PageTip /> },
+    { path: '/tips', element: <PageTips /> },
+    { path: '/result', element: <PageTipResult />, withQuit: true },
   ];
 
   useEffect(() => {
