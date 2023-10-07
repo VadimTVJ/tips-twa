@@ -15,25 +15,29 @@ export const Pages = () => {
 
   const backButton = useBackButton();
   const webApp = useWebApp();
-  console.log('22', window.location.hash);
 
-  const routes: RouteProps[] = [
-    { path: '/', element: <PageHome /> },
+  const routes: (RouteProps & { withQuit?: boolean; })[] = [
+    { path: '/', element: <PageHome />, withQuit: true },
     { path: '/tip/:tipId?', element: <PageTip /> },
     { path: '/result', element: <PageTipResult /> },
-    { path: '/tips', element: <PageTips /> },
+    { path: '/tips', element: <PageTips />, withQuit: true },
   ];
+
+  useEffect(() => {
+    const curPathname = location.pathname;
+    const route = routes.find(({ path }) => path === curPathname);
+
+    if (route?.withQuit) {
+      backButton.hide();
+    } else {
+      backButton.show();
+    }
+  }, [location]);
 
   useEffect(() => {
     webApp.ready(); // todo after prefetches
 
-    const listener = () => {
-      if (window.location.pathname === routes[0].path) {
-        webApp.close();
-      } else {
-        navigate(-1);
-      }
-    };
+    const listener = () => navigate(-1);
 
     backButton.on('click', listener);
 
@@ -45,7 +49,7 @@ export const Pages = () => {
 
   return (
     <Routes location={location}>
-      {routes.map((route) => <Route key={route.path} {...route} />)}
+      {routes.map(({ withQuit, ...route }) => <Route key={route.path} {...route} />)}
     </Routes>
   );
 };
