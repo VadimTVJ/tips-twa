@@ -53,14 +53,31 @@ type Story = StoryObj<ButtonProps>;
 export const Playground: Story = {
   render: ({ ...args }) => {
     return (
-      <Section
-        header="Button component"
-        description="The Button is a wrapper for the native HTML button element"
-      >
-        <Button {...args}>
-          Button
-        </Button>
-      </Section>
+      <>
+        <Section
+          header="Button component"
+          description="The Button is a wrapper for the native HTML button element"
+        >
+          <Button {...args}>
+            Button
+          </Button>
+        </Section>
+
+        <Section
+          header="Button component as anchor"
+          description="Wrap anchor into Button component and add asChild prop"
+        >
+          <Button {...args} asChild>
+            <a
+              href="https://i.imgur.com/KFEnxtU.png"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Im link!
+            </a>
+          </Button>
+        </Section>
+      </>
     );
   },
 };

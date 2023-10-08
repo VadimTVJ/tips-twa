@@ -1,4 +1,8 @@
+@import '../Typography/Typography.module';
+
 .Button {
+  @extend .Typography_variant_text;
+
   background: var(--Button_background);
   color: var(--Button_color);
   border-radius: var(--App__radius);
@@ -8,6 +12,7 @@
   align-items: center;
   justify-content: center;
   transition: opacity .15s ease-out;
+  text-decoration: none;
 
   &:hover:not(&_disabled) {
     cursor: pointer;

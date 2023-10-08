@@ -69,11 +69,11 @@ export const Playground: Story = {
         <Section>
           <ListItem asChild {...args}>
             <a
-              href="https://github.com/VadimTVJ/tips-twa"
+              href="https://i.imgur.com/fJDSm0v.png"
               target="_blank"
               rel="noreferrer"
             >
-              With asChild prop (anchor)
+              ListItem as link
             </a>
           </ListItem>
         </Section>

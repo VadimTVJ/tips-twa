@@ -6,7 +6,6 @@ import { clsx } from 'clsx';
 import { useSDK } from '@tma.js/sdk-react';
 import { Slot } from '@radix-ui/react-slot';
 import styles from './Button.module.scss';
-import { Typography } from '../Typography';
 
 export enum ButtonSize {
   SMALL = 's',
@@ -71,9 +70,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(({
       ref={ref}
       {...rest}
     >
-      <Typography variant="text" as="span" weight={500}>
-        {children}
-      </Typography>
+      {children}
     </Root>
   );
 });
