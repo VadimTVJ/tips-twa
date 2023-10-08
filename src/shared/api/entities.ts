@@ -10,6 +10,7 @@ export type ApiTip = {
   create_date: string;
   waiter: ApiWaiter;
   amount: number;
+  currency: string;
 };
 
 export type ApiInvoiceLink = string;

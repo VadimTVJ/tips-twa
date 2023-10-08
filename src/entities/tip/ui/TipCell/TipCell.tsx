@@ -4,41 +4,46 @@ import {
   InfoRows, ListItem, Typography, TypographyVariant, ListItemProps, Skeleton,
 } from '../../../../shared/ui';
 import { Tip } from '../../model';
+import { buildAmountWithCurrency } from '../../../../shared/config';
 
 interface TipCellProps extends Omit<ListItemProps, 'children'> {
   tip: Tip;
 }
 
-export const TipCell = ({ className, ...rest }: TipCellProps) => {
+export const TipCell = ({
+  className, tip: {
+    create_date: date, amount, currency, waiter: { name, restaurant },
+  }, ...rest
+}: TipCellProps) => {
   const rootClassName = clsx(className, styles.TipCell);
 
   return (
     <ListItem className={rootClassName} {...rest}>
-      <ListItem.Side>
-        <Typography>500 руб</Typography>
-      </ListItem.Side>
-
       <ListItem.Body>
         <InfoRows
-          primary="Бахрома"
+          primary={restaurant}
           secondary={(
-            <>
+            <div className={styles.TipCell__details}>
               <Typography
                 variant={TypographyVariant.SUBTITLE1}
                 className={styles.TipCell__waiterName}
               >
-                Иванов Петр
+                {name}
               </Typography>
 
               <Typography
                 variant={TypographyVariant.SUBTITLE1}
               >
-                11.12.2023, 12:12
+                {date}
               </Typography>
-            </>
+            </div>
         )}
         />
       </ListItem.Body>
+
+      <ListItem.Side side="right">
+        <Typography>{buildAmountWithCurrency(amount, currency)}</Typography>
+      </ListItem.Side>
     </ListItem>
   );
 };
