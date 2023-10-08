@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
+import { ComponentPropsWithRef, forwardRef, ReactNode } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Section.module.scss';
@@ -11,7 +11,7 @@ export enum SectionMode {
 
 type SectionModeUnion = `${SectionMode}`;
 
-export interface SectionProps extends ComponentPropsWithoutRef<'div'> {
+export interface SectionProps extends ComponentPropsWithRef<'div'> {
   header?: ReactNode;
   description?: ReactNode;
   mode?: SectionMode | SectionModeUnion;

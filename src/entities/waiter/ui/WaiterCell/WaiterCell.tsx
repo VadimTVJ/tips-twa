@@ -14,7 +14,6 @@ export const WaiterCell = ({
 }: WaiterCellProps) => {
   const rootClassName = clsx(className, styles.WaiterCell);
 
-  // todo ...rest always as last
   return (
     <ListItem className={rootClassName} {...rest}>
       <ListItem.Side>

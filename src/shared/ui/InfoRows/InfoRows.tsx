@@ -1,10 +1,10 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
+import { ComponentPropsWithRef, forwardRef, ReactNode } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './InfoRows.module.scss';
 import { Typography } from '../Typography';
 
-export interface InfoRowsProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
+export interface InfoRowsProps extends Omit<ComponentPropsWithRef<'div'>, 'children'> {
   primary?: ReactNode;
   secondary?: ReactNode;
 }

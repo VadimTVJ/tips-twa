@@ -69,10 +69,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
 
   const rootClassName = clsx(className, styles.TipForm);
   return (
-    <form
-      className={rootClassName}
-      {...rest}
-    >
+    <form className={rootClassName} {...rest}>
       <button
         type="button"
         onClick={() => setFocus('test')}

@@ -1,9 +1,10 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { Api } from '../../shared/api';
 import { InvoiceLink, Tip } from './model';
 
 type UseTipsQueryConfig = {
-  options?: Omit<UseQueryOptions<Tip[], Error, Tip[], string[]>, 'queryFn' | 'queryKey'>
+  options?: Omit<UseQueryOptions<Tip[], AxiosError, Tip[], string[]>, 'queryFn' | 'queryKey'>
 };
 
 export const useTipsQuery = ({ options }: UseTipsQueryConfig = {}) => {
@@ -33,7 +34,7 @@ type UseInvoiceLinkQueryConfig = {
     tipsAmount: number;
     currency: string;
   };
-  options?: Omit<UseQueryOptions<InvoiceLink, Error, InvoiceLink, string[]>, 'queryFn' | 'queryKey'>;
+  options?: Omit<UseQueryOptions<InvoiceLink, AxiosError, InvoiceLink, string[]>, 'queryFn' | 'queryKey'>;
 };
 
 export const useInvoiceLinkQuery = ({ options, params }: UseInvoiceLinkQueryConfig) => {

@@ -1,8 +1,8 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithRef } from 'react';
 import { clsx } from 'clsx';
 import styles from '../ListItem.module.scss';
 
-export interface ListItemSideProps extends ComponentPropsWithoutRef<'div'> {
+export interface ListItemSideProps extends ComponentPropsWithRef<'div'> {
   side?: 'left' | 'right';
 }
 

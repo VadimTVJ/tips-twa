@@ -1,6 +1,6 @@
 import {
   ChangeEvent,
-  ComponentPropsWithoutRef, forwardRef, ReactNode, useId,
+  ComponentPropsWithRef, forwardRef, ReactNode, useId,
 } from 'react';
 
 import { clsx } from 'clsx';
@@ -10,7 +10,7 @@ import { SegmentedControlItem } from './parts';
 
 type SegmentedControlValue = string | number | undefined;
 
-export interface SegmentedControlProps extends Omit<ComponentPropsWithoutRef<'div'>, 'onChange' | 'children'> {
+export interface SegmentedControlProps extends Omit<ComponentPropsWithRef<'div'>, 'onChange' | 'children'> {
   items: {
     label: ReactNode;
     value: HTMLInputElement['value'];

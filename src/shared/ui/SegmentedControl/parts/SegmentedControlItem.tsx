@@ -1,10 +1,10 @@
-import { ComponentPropsWithoutRef, useId } from 'react';
+import { ComponentPropsWithRef, useId } from 'react';
 import styles from '../SegmentedControl.module.scss';
 import { Typography } from '../../Typography';
 
 export const SegmentedControlItem = ({
   className, children, ...rest
-}: ComponentPropsWithoutRef<'input'>) => {
+}: ComponentPropsWithRef<'input'>) => {
   const inputId = useId();
 
   return (

@@ -1,13 +1,11 @@
-import { ComponentPropsWithoutRef, useEffect } from 'react';
+import { ComponentPropsWithRef, useEffect } from 'react';
 
 import { clsx } from 'clsx';
-import {
-  useClosingBehaviour, useViewport, useWebApp,
-} from '@tma.js/sdk-react';
+import { useSDK } from '@tma.js/sdk-react';
 import { RGB } from '@tma.js/colors';
 import styles from './Page.module.scss';
 
-export interface PageProps extends ComponentPropsWithoutRef<'section'> {
+export interface PageProps extends ComponentPropsWithRef<'section'> {
   centered?: boolean;
 
   backgroundColor?: RGB | null;
@@ -25,30 +23,37 @@ export function Page({
   withCloseAppConfirmation = false,
   ...rest
 }: PageProps) {
-  const webApp = useWebApp();
-  const closingBehaviour = useClosingBehaviour();
-  const viewport = useViewport();
+  const SDK = useSDK();
+
+  const { didInit } = SDK;
+
+  const webApp = didInit && SDK.components?.webApp;
+  const closingBehaviour = didInit && SDK.components?.closingBehavior;
+  const viewport = didInit && SDK.components?.viewport;
 
   useEffect(() => {
-    if (backgroundColor && webApp.supports('setBackgroundColor')) {
+    if (backgroundColor && webApp && webApp.supports('setBackgroundColor')) {
       webApp.setBackgroundColor(backgroundColor);
     }
-    if (headerBackgroundColor && webApp.supports('setHeaderColor')) {
+    if (headerBackgroundColor && webApp && webApp.supports('setHeaderColor')) {
       webApp.setHeaderColor(headerBackgroundColor);
     }
 
-    if (withCloseAppConfirmation) {
+    if (withCloseAppConfirmation && closingBehaviour) {
       closingBehaviour.enableConfirmation();
-    } else {
+    } else if (closingBehaviour) {
       closingBehaviour.disableConfirmation();
     }
 
-    if (shouldExpanded && !viewport.isExpanded) {
+    if (shouldExpanded && viewport && !viewport.isExpanded) {
       viewport.expand();
     }
   }, []);
 
-  const rootClassName = clsx(className, styles.Page);
+  const rootClassName = clsx(className, styles.Page, {
+    [styles.Page_centered]: centered,
+  });
+
   return (
     <section className={rootClassName} {...rest} />
   );

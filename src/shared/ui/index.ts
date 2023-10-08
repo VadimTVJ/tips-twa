@@ -1,13 +1,13 @@
-export * from './Page'; // todo storybook
+export * from './Page';
 export * from './Hero';
-export * from './SegmentedControl'; // todo storybook prop
+export * from './SegmentedControl';
 export * from './Typography';
 export * from './ListItem';
 export * from './Section';
 export * from './TextField';
 export * from './Radio';
 export * from './Spinner';
-export * from './Button'; // todo storybook sdk props
+export * from './Button';
 export * from './InfoRows';
-export * from './Skeleton'; // todo storybook
+export * from './Skeleton';
 export * from './ConfigProvider';

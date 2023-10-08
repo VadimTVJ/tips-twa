@@ -1,10 +1,10 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
+import { ComponentPropsWithRef, forwardRef, ReactNode } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Hero.module.scss';
 import { Typography } from '../Typography';
 
-export interface HeroProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
+export interface HeroProps extends Omit<ComponentPropsWithRef<'div'>, 'children'> {
   heading: ReactNode;
 
   icon?: ReactNode;

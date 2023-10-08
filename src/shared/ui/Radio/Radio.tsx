@@ -1,5 +1,5 @@
 import {
-  ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId,
+  ChangeEvent, ComponentPropsWithRef, forwardRef, useId,
 } from 'react';
 
 import { clsx } from 'clsx';
@@ -7,7 +7,7 @@ import { useSDK } from '@tma.js/sdk-react';
 import styles from './Radio.module.scss';
 import { Typography } from '../Typography';
 
-const RadioIcon = (props: ComponentPropsWithoutRef<'svg'>) => {
+const RadioIcon = (props: ComponentPropsWithRef<'svg'>) => {
   return (
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <rect x="0.75" y="0.75" width="20.5" height="20.5" rx="10.25" stroke="currentcolor" strokeWidth="1.5" />
@@ -21,7 +21,7 @@ const RadioIcon = (props: ComponentPropsWithoutRef<'svg'>) => {
   );
 };
 
-export interface RadioProps extends ComponentPropsWithoutRef<'input'> {
+export interface RadioProps extends ComponentPropsWithRef<'input'> {
   withHaptic?: boolean;
 }
 
@@ -56,9 +56,9 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(({
         <input
           id={id || inputId}
           ref={ref}
-          {...rest}
           type="radio"
           onChange={changeHandler}
+          {...rest}
         />
 
         <RadioIcon className={styles.Radio__icon} />

@@ -3,7 +3,6 @@ import { AxiosError } from 'axios';
 import { Api } from '../../shared/api';
 import { Waiter } from './model';
 
-// todo replace Error to AxiosError
 type UseWaiterByIdQueryConfig = {
   params: { waiterId: Waiter['id'] },
   options?: Omit<UseQueryOptions<Waiter | null, AxiosError, Waiter | null, string[]>, 'queryFn' | 'queryKey'>

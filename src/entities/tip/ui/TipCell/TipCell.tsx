@@ -5,7 +5,7 @@ import {
 } from '../../../../shared/ui';
 import { Tip } from '../../model';
 
-interface TipCellProps extends Omit<ListItemProps, 'children'> { // todo ComponentPropsWithRef заменить везде
+interface TipCellProps extends Omit<ListItemProps, 'children'> {
   tip: Tip;
 }
 
