@@ -55,7 +55,8 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
     form: {
       waiter, tipsAmount, currency, calculationMode, checkPrice,
     },
-    onSuccess: () => navigate('/result'),
+    onSuccess: () => navigate('/success', { replace: true }),
+    onError: () => navigate('/error'),
   });
 
   const currencyInfo = currencies.find(({ code }) => code === currency) || currencies[0];

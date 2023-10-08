@@ -6,8 +6,9 @@ import { useEffect } from 'react';
 import { RouteProps } from 'react-router';
 import { PageHome } from './PageHome';
 import { PageTip } from './PageTip';
-import { PageTipResult } from './PageTipResult';
+import { PageTipSuccess } from './PageTipSuccess';
 import { PageTips } from './PageTips';
+import { PageTipError } from './PageTipError';
 
 export const Pages = () => {
   const location = useLocation();
@@ -20,7 +21,8 @@ export const Pages = () => {
     { path: '/', element: <PageHome />, withQuit: true },
     { path: '/tip/:waiterId?', element: <PageTip /> },
     { path: '/tips', element: <PageTips /> },
-    { path: '/result', element: <PageTipResult />, withQuit: true },
+    { path: '/success', element: <PageTipSuccess />, withQuit: true },
+    { path: '/error', element: <PageTipError /> },
   ];
 
   useEffect(() => {

@@ -3,6 +3,7 @@ import { useMainButton, useWebApp } from '@tma.js/sdk-react';
 import { useInvoiceLinkQuery } from '../../../entities/tip/api';
 import { buildAmountWithCurrency } from '../../../shared/config';
 import { waiterModel } from '../../../entities/waiter';
+import { useUpdateEffect } from '../../../shared/lib/use-update-effect';
 
 type Params = {
   form: {
@@ -14,10 +15,9 @@ type Params = {
   };
   onSuccess?: () => void;
   onError?: () => void;
-  onCanceled?: () => void;
 };
 
-export const useAddTip = ({ form, onSuccess }: Params) => {
+export const useAddTip = ({ form, onSuccess, onError }: Params) => {
   const {
     waiter, tipsAmount, currency, checkPrice, calculationMode,
   } = form;
@@ -42,13 +42,14 @@ export const useAddTip = ({ form, onSuccess }: Params) => {
     };
   }, []);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (invoiceLink) {
       webApp.openInvoice(invoiceLink)
         .then((invoiceStatus) => {
-          console.log('qq', invoiceStatus);
           if (invoiceStatus === 'paid') {
             onSuccess?.();
+          } else if (invoiceStatus === 'cancelled' || invoiceStatus === 'failed') {
+            onError?.();
           }
         });
     }
