@@ -43,15 +43,24 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
   }, []);
 
   useUpdateEffect(() => {
+    if (!canPay) { return; }
+
     if (invoiceLink) {
-      webApp.openInvoice(invoiceLink)
-        .then((invoiceStatus) => {
-          if (invoiceStatus === 'paid') {
-            onSuccess?.();
-          } else if (invoiceStatus === 'cancelled' || invoiceStatus === 'failed') {
-            onError?.();
-          }
-        });
+      if (!mainButton.isProgressVisible) {
+        mainButton.showProgress();
+
+        webApp.openInvoice(invoiceLink)
+          .then((invoiceStatus) => {
+            if (invoiceStatus === 'paid') {
+              onSuccess?.();
+            } else if (invoiceStatus === 'cancelled' || invoiceStatus === 'failed') {
+              onError?.();
+            }
+          })
+          .finally(() => {
+            mainButton.hideProgress();
+          });
+      }
     }
   }, [invoiceLink]);
 
@@ -72,18 +81,10 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
   }, [tipsAmount, currency, waiter, calculationMode, checkPrice]);
 
   useEffect(() => {
-    const pressHandler = async () => {
-      if (!canPay) { return; }
-
-      mainButton.showProgress();
-      await fetchInvoiceLink();
-      mainButton.hideProgress();
-    };
-
-    mainButton.on('click', pressHandler);
+    mainButton.on('click', fetchInvoiceLink);
 
     return () => {
-      mainButton.off('click', pressHandler);
+      mainButton.off('click', fetchInvoiceLink);
     };
   }, [mainButton, fetchInvoiceLink, tipsAmount, waiter]);
 
