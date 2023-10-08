@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Hero, HeroProps } from './Hero';
+import { Button } from '../Button';
 
 const meta: Meta<HeroProps> = {
   title: 'Common/Hero',
@@ -53,7 +54,11 @@ export const Playground: Story = {
         />
         )}
         {...args}
-      />
+      >
+        <Button>
+          Hero action
+        </Button>
+      </Hero>
     );
   },
 };

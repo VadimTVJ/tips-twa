@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import styles from './Hero.module.scss';
 import { Typography } from '../Typography';
 
-export interface HeroProps extends Omit<ComponentPropsWithRef<'div'>, 'children'> {
+export interface HeroProps extends ComponentPropsWithRef<'div'> {
   heading: ReactNode;
 
   icon?: ReactNode;
@@ -14,7 +14,7 @@ export interface HeroProps extends Omit<ComponentPropsWithRef<'div'>, 'children'
 }
 
 export const Hero = forwardRef<HTMLDivElement, HeroProps>(({
-  className, icon, heading, subheading, filled, stretched, ...rest
+  className, icon, heading, subheading, filled, children, stretched, ...rest
 }, ref) => {
   const rootClassName = clsx(className, styles.Hero, {
     [styles.Hero_filled]: filled,
@@ -42,6 +42,8 @@ export const Hero = forwardRef<HTMLDivElement, HeroProps>(({
           {subheading}
         </Typography>
       )}
+
+      {children && <div className={styles.Hero__body}>{children}</div>}
     </div>
   );
 });
