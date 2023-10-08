@@ -2,7 +2,6 @@ export * from './Page'; // todo storybook
 export * from './Hero';
 export * from './SegmentedControl'; // todo storybook prop
 export * from './Typography';
-export * from './Component';
 export * from './ListItem';
 export * from './Section';
 export * from './TextField';
