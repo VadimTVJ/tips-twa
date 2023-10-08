@@ -1,9 +1,9 @@
-import { CSSProperties, ElementType } from 'react';
+import {
+  ComponentPropsWithRef, CSSProperties, ElementType, forwardRef,
+} from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Typography.module.scss';
-import { Component } from '../Component';
-import { PolymorphicComponentProp } from '../generics';
 
 export enum TypographyVariant {
   H1 = 'h1',
@@ -16,24 +16,16 @@ export enum TypographyVariant {
 
 type TypographyVariantUnion = `${TypographyVariant}`;
 
-const componentMapping: Record<string, ElementType> = {
-  [TypographyVariant.H1]: 'h1',
-  [TypographyVariant.H2]: 'h2',
-  [TypographyVariant.H3]: 'h3',
-  [TypographyVariant.TEXT]: 'p',
-  [TypographyVariant.SUBTITLE1]: 'h4',
-  [TypographyVariant.SUBTITLE2]: 'h4',
-};
-
-export type TypographyProps<C extends ElementType> = PolymorphicComponentProp<C, {
+export interface TypographyProps extends ComponentPropsWithRef<ElementType> {
   variant?: TypographyVariant | TypographyVariantUnion;
   normalize?: boolean;
   weight?: 400 | 500 | 600;
-}>;
+  as?: ElementType;
+}
 
-export const Typography = <C extends ElementType>({
-  className, variant = 'text', normalize = true, style, weight = 400, as, ...rest
-}: TypographyProps<C>) => {
+export const Typography = forwardRef<HTMLElement, TypographyProps>(({
+  className, variant = 'text', normalize = true, style, weight = 400, as: Component = 'span', ...rest
+}, ref) => {
   const rootClassName = clsx(
     className,
     styles.Typography,
@@ -46,7 +38,7 @@ export const Typography = <C extends ElementType>({
   return (
     <Component
       className={rootClassName}
-      as={as || componentMapping[variant]}
+      ref={ref}
       style={{
         ...style,
         '--Typography__weight': weight,
@@ -54,4 +46,4 @@ export const Typography = <C extends ElementType>({
       {...rest}
     />
   );
-};
+});
