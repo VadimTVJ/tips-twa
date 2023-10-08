@@ -14,6 +14,8 @@
   transition: opacity .15s ease-out;
   text-decoration: none;
   font-weight: 500;
+  position: relative;
+  flex-direction: column;
 
   &:hover:not(&_disabled) {
     cursor: pointer;
@@ -62,5 +64,18 @@
       --Button_padding-horizontal: 16px;
       --Button_min-height: 50px;
     }
+  }
+
+  &__spinner {
+    --Spinner__icon-color: inherit;
+
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: inherit;
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
   }
 }

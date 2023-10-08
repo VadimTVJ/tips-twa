@@ -1,7 +1,8 @@
 .Spinner {
+  --Spinner__icon-color: var(--App__separator-color_primary);
 
   &__icon {
-    color: var(--App__separator-color_primary);
+    color: var(--Spinner__icon-color);
     animation: rotating .8s linear infinite;
   }
 }

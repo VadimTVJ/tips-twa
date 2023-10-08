@@ -4,8 +4,9 @@ import {
 
 import { clsx } from 'clsx';
 import { useSDK } from '@tma.js/sdk-react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import styles from './Button.module.scss';
+import { Spinner } from '../Spinner';
 
 export enum ButtonSize {
   SMALL = 's',
@@ -31,10 +32,11 @@ export interface ButtonProps extends ComponentPropsWithRef<'button'> {
   stretched?: boolean;
   withHaptic?: boolean;
   asChild?: boolean;
+  loading?: boolean;
 }
 
 export const Button = forwardRef<ButtonElement, ButtonProps>(({
-  className, size = 'm', asChild, mode = 'primary', stretched, children, disabled, onClick, withHaptic = false, ...rest
+  className, size = 'm', asChild, mode = 'primary', loading, stretched, children, disabled, onClick, withHaptic = false, ...rest
 }, ref) => {
   const SDK = useSDK();
 
@@ -59,8 +61,11 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(({
     {
       [styles.Button_stretched]: stretched,
       [styles.Button_disabled]: disabled,
+      [styles.Button_loading]: loading,
     },
   );
+
+  console.log('loading', loading);
 
   const Root = asChild ? Slot : 'button';
   return (
@@ -70,7 +75,8 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(({
       ref={ref}
       {...rest}
     >
-      {children}
+      {loading && <Spinner className={styles.Button__spinner} />}
+      <Slottable>{children}</Slottable>
     </Root>
   );
 });
