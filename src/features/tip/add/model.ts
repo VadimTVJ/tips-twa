@@ -2,12 +2,15 @@ import { useEffect } from 'react';
 import { useMainButton, useWebApp } from '@tma.js/sdk-react';
 import { useInvoiceLinkQuery } from '../../../entities/tip/api';
 import { buildAmountWithCurrency } from '../../../shared/config';
+import { waiterModel } from '../../../entities/waiter';
 
 type Params = {
   form: {
-    waiterId?: number;
+    waiter?: waiterModel.Waiter | null;
     tipsAmount: number;
     currency: string;
+    calculationMode: string;
+    checkPrice: number;
   };
   onSuccess?: () => void;
   onError?: () => void;
@@ -15,13 +18,17 @@ type Params = {
 };
 
 export const useAddTip = ({ form, onSuccess }: Params) => {
-  const { waiterId, tipsAmount, currency } = form;
+  const {
+    waiter, tipsAmount, currency, checkPrice, calculationMode,
+  } = form;
+
+  const canPay = waiter && tipsAmount > 0;
 
   const webApp = useWebApp();
   const mainButton = useMainButton();
 
   const { invoiceLink, fetchInvoiceLink } = useInvoiceLinkQuery({
-    params: { ...form, waiterId: form.waiterId! },
+    params: { ...form, waiterId: waiter?.id || 0 },
   });
 
   useEffect(() => {
@@ -48,36 +55,36 @@ export const useAddTip = ({ form, onSuccess }: Params) => {
   }, [invoiceLink]);
 
   useEffect(() => {
-    // todo можно сделать input focus
-    if (!waiterId) {
+    if (!waiter) {
       mainButton.setText('Enter waiter');
-    } else if (tipsAmount > 0) {
-      mainButton.setText(`Pay (${buildAmountWithCurrency(tipsAmount, currency)})`);
-    } else {
-      mainButton.setText('Enter tips amount');
+      return;
     }
-  }, [tipsAmount, currency, waiterId]);
+    if (calculationMode === 'percent' && !checkPrice) {
+      mainButton.setText('Enter check price');
+      return;
+    }
+    if (tipsAmount === 0) {
+      mainButton.setText('Enter tips amount');
+      return;
+    }
+    mainButton.setText(`Pay (${buildAmountWithCurrency(tipsAmount, currency)})`);
+  }, [tipsAmount, currency, waiter, calculationMode, checkPrice]);
 
   useEffect(() => {
-    const canPay = waiterId && tipsAmount > 0;
-
     const pressHandler = async () => {
+      if (!canPay) { return; }
+
       mainButton.showProgress();
       await fetchInvoiceLink();
       mainButton.hideProgress();
     };
 
-    if (canPay) {
-      mainButton.enable();
-      mainButton.on('click', pressHandler);
+    mainButton.on('click', pressHandler);
 
-      return () => {
-        mainButton.disable();
-        mainButton.off('click', pressHandler);
-      };
-    }
-    mainButton.disable();
+    return () => {
+      mainButton.off('click', pressHandler);
+    };
+  }, [mainButton, fetchInvoiceLink, tipsAmount, waiter]);
 
-    return () => {};
-  }, [mainButton, fetchInvoiceLink, tipsAmount, waiterId]);
+  return { canPay };
 };

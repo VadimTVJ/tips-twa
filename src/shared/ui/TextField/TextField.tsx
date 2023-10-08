@@ -22,7 +22,7 @@ export const TextField = forwardRef<TextFieldElement, TextFieldProps>(({
       <div className={styles.TextField__in}>
         <Root ref={ref} {...rest} />
 
-        {after && <div className={styles.TextField__after}>{after}</div>}
+        {!!after && <div className={styles.TextField__after}>{after}</div>}
       </div>
     </div>
   );

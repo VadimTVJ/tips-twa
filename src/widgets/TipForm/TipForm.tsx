@@ -3,7 +3,7 @@ import { ComponentPropsWithRef, useEffect } from 'react';
 import { clsx } from 'clsx';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Slot } from '@radix-ui/react-slot';
+import { useMainButton } from '@tma.js/sdk-react';
 import styles from './TipForm.module.scss';
 import {
   Button,
@@ -25,17 +25,18 @@ interface TipFormProps extends ComponentPropsWithRef<'form'> {
 export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFormProps) => {
   const navigate = useNavigate();
 
+  const mainButton = useMainButton();
+
   const {
     control, setValue, setFocus,
   } = useForm({
     defaultValues: {
-      waiterId: initialWaiterId,
+      waiterId: initialWaiterId || 0,
       calculationMode: 'percent',
       currency: currencies[0].code,
       checkPrice: 0,
       percent: 20,
       tipsAmount: 0,
-      test: '123123',
     },
   });
 
@@ -44,18 +45,40 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
     name: ['waiterId', 'calculationMode', 'checkPrice', 'percent', 'tipsAmount', 'currency'],
   });
 
-  useAddTip({
-    form: { waiterId, tipsAmount, currency },
-    onSuccess: () => navigate('/result'),
-  });
-
   const {
     isWaiterError, waiter, fetchWaiter, waiterFetchStatus,
   } = waiterApi.useWaiterByIdQuery({
     params: { waiterId: Number(waiterId) },
   });
 
+  const { canPay } = useAddTip({
+    form: {
+      waiter, tipsAmount, currency, calculationMode, checkPrice,
+    },
+    onSuccess: () => navigate('/result'),
+  });
+
   const currencyInfo = currencies.find(({ code }) => code === currency) || currencies[0];
+
+  useEffect(() => {
+    const pressHandler = async () => {
+      if (canPay) { return; }
+
+      if (!waiter) {
+        setFocus('waiterId');
+      } else if (calculationMode === 'percent' && !checkPrice) {
+        setFocus('checkPrice');
+      } else if (!tipsAmount) {
+        setFocus('tipsAmount');
+      }
+    };
+
+    mainButton.on('click', pressHandler);
+
+    return () => {
+      mainButton.off('click', pressHandler);
+    };
+  }, [waiterId, calculationMode, checkPrice, percent, tipsAmount, currency]);
 
   useEffect(() => {
     setValue('tipsAmount', Math.round((checkPrice / 100) * percent) || 0);
@@ -70,33 +93,6 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
   const rootClassName = clsx(className, styles.TipForm);
   return (
     <form className={rootClassName} {...rest}>
-      <button
-        type="button"
-        onClick={() => setFocus('test')}
-      >
-        test
-      </button>
-
-      <br />
-
-      <Controller
-        name="test"
-        control={control}
-        render={({
-          field,
-        }) => (
-          <Slot>
-            <input
-              style={{
-                background: 'red',
-                color: 'green',
-              }}
-              {...field}
-            />
-          </Slot>
-        )}
-      />
-
       {waiter && (
         <Section header="Официант">
           <WaiterCell
@@ -118,21 +114,19 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
         <Controller
           name="waiterId"
           control={control}
-          render={({
-            field,
-          }) => (
+          render={({ field: { value, ...restField } }) => (
             <Section
               header="Код официанта"
               description={isWaiterError && <span className="color_red">Официант не найден</span>}
             >
               <TextField
-                {...field}
-                placeholder="Код официанта"
+                value={value || ''}
+                placeholder="Укажите код официанта"
                 after={(
                   <>
                     {waiterFetchStatus === 'fetching' && <Spinner />}
 
-                    {waiterFetchStatus !== 'fetching' && waiterId && (
+                    {waiterFetchStatus !== 'fetching' && !!waiterId && (
                       <Button
                         type="button"
                         size={ButtonSize.SMALL}
@@ -144,6 +138,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
                     )}
                   </>
                 )}
+                {...restField}
               />
             </Section>
           )}
@@ -154,13 +149,11 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
         <Controller
           name="calculationMode"
           control={control}
-          render={({
-            field,
-          }) => (
+          render={({ field: { value, ...restField } }) => (
             <Radio
-              {...field}
               value="percent"
               checked={calculationMode === 'percent'}
+              {...restField}
             >
               Процент от покупки
             </Radio>
@@ -169,14 +162,12 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
         <Controller
           name="calculationMode"
           control={control}
-          render={({
-            field,
-          }) => (
+          render={({ field: { value, ...restField } }) => (
             <Radio
-              {...field}
               value="fix"
               // todo RadioGroup wrapper with context instead of checked prop
               checked={calculationMode === 'fix'}
+              {...restField}
             >
               Фиксированная сумма
             </Radio>
@@ -187,19 +178,17 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
       <Controller
         name="currency"
         control={control}
-        render={({
-          field,
-        }) => (
+        render={({ field }) => (
           <Section
             header="Валюта"
             description={`Min: ${buildAmountWithCurrency(currencyInfo.min, currency)}, max: ${buildAmountWithCurrency(currencyInfo.max, currency)}`}
           >
             <SegmentedControl
-              {...field}
               items={currencies.map(({ code }) => ({
                 value: code,
                 label: code,
               }))}
+              {...field}
             />
           </Section>
         )}
@@ -210,9 +199,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
           <Controller
             name="checkPrice"
             control={control}
-            render={({
-              field: { value, ...restField },
-            }) => (
+            render={({ field: { value, ...restField } }) => (
               <Section header="Сумма чека">
                 <TextField
                   placeholder="Укажите сумму чека"
@@ -226,18 +213,16 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
           <Controller
             name="percent"
             control={control}
-            render={({
-              field,
-            }) => (
+            render={({ field }) => (
               <Section header="Процент от суммы">
                 <SegmentedControl
-                  {...field}
                   items={[
                     { label: '10%', value: '10' },
                     { label: '15%', value: '15' },
                     { label: '20%', value: '20' },
                     { label: '30%', value: '30' },
                   ]}
+                  {...field}
                 />
               </Section>
             )}
@@ -248,9 +233,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
       <Controller
         name="tipsAmount"
         control={control}
-        render={({
-          field: { value, ...restField },
-        }) => (
+        render={({ field: { value, ...restField } }) => (
           <Section header="Чаевые">
             <TextField
               placeholder="Укажите размер чаевых"

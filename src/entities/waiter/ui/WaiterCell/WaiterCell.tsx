@@ -15,24 +15,26 @@ export const WaiterCell = ({
   const rootClassName = clsx(className, styles.WaiterCell);
 
   return (
-    <ListItem className={rootClassName} {...rest}>
-      <ListItem.Side>
-        <div
-          style={{ backgroundImage: `url${photo}` }}
-          className={styles.WaiterCell__avatar}
-        />
-      </ListItem.Side>
+    <ListItem className={rootClassName} {...rest} asChild>
+      <div>
+        <ListItem.Side>
+          <div
+            style={{ backgroundImage: `url${photo}` }}
+            className={styles.WaiterCell__avatar}
+          />
+        </ListItem.Side>
 
-      <ListItem.Body>
-        <InfoRows
-          primary={name}
-          secondary={restaurant}
-        />
-      </ListItem.Body>
+        <ListItem.Body>
+          <InfoRows
+            primary={name}
+            secondary={restaurant}
+          />
+        </ListItem.Body>
 
-      {after && (
+        {after && (
         <ListItem.Side side="right">{after}</ListItem.Side>
-      )}
+        )}
+      </div>
     </ListItem>
   );
 };
