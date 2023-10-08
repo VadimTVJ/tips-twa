@@ -1,4 +1,6 @@
-import { ChangeEvent, ComponentPropsWithoutRef, useId } from 'react';
+import {
+  ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId,
+} from 'react';
 
 import { clsx } from 'clsx';
 import { useSDK } from '@tma.js/sdk-react';
@@ -23,9 +25,9 @@ export interface RadioProps extends ComponentPropsWithoutRef<'input'> {
   withHaptic?: boolean;
 }
 
-export const Radio = ({
+export const Radio = forwardRef<HTMLInputElement, RadioProps>(({
   className, children, onChange, withHaptic = true, id, ...rest
-}: RadioProps) => {
+}, ref) => {
   const inputId = useId();
   const SDK = useSDK();
 
@@ -53,6 +55,7 @@ export const Radio = ({
       <div className={styles.Radio__in}>
         <input
           id={id || inputId}
+          ref={ref}
           {...rest}
           type="radio"
           onChange={changeHandler}
@@ -66,4 +69,4 @@ export const Radio = ({
       </div>
     </label>
   );
-};
+});

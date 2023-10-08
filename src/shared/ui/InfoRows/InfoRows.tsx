@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './InfoRows.module.scss';
@@ -9,13 +9,13 @@ export interface InfoRowsProps extends Omit<ComponentPropsWithoutRef<'div'>, 'ch
   secondary?: ReactNode;
 }
 
-export const InfoRows = ({
+export const InfoRows = forwardRef<HTMLDivElement, InfoRowsProps>(({
   className, primary, secondary, ...rest
-}: InfoRowsProps) => {
+}, ref) => {
   const rootClassName = clsx(className, styles.InfoRows);
 
   return (
-    <div className={rootClassName} {...rest}>
+    <div className={rootClassName} ref={ref} {...rest}>
       {primary && (
         <Typography
           variant="text"
@@ -38,4 +38,4 @@ export const InfoRows = ({
       )}
     </div>
   );
-};
+});

@@ -50,9 +50,6 @@ export function Page({
 
   const rootClassName = clsx(className, styles.Page);
   return (
-    <section
-      className={rootClassName}
-      {...rest}
-    />
+    <section className={rootClassName} {...rest} />
   );
 }

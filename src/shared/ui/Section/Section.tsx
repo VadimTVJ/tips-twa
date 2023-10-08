@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Section.module.scss';
@@ -17,9 +17,9 @@ export interface SectionProps extends ComponentPropsWithoutRef<'div'> {
   mode?: SectionMode | SectionModeUnion;
 }
 
-export const Section = ({
+export const Section = forwardRef<HTMLDivElement, SectionProps>(({
   className, children, header, description, mode = SectionMode.COMPACT, ...rest
-}: SectionProps) => {
+}, ref) => {
   const rootClassName = clsx(
     className,
     styles.Section,
@@ -27,10 +27,7 @@ export const Section = ({
   );
 
   return (
-    <div
-      className={rootClassName}
-      {...rest}
-    >
+    <div className={rootClassName} ref={ref} {...rest}>
       {header && (
         <Typography
           className={styles.Section__header}
@@ -54,4 +51,4 @@ export const Section = ({
       )}
     </div>
   );
-};
+});

@@ -1,6 +1,6 @@
 import {
   ChangeEvent,
-  ComponentPropsWithoutRef, ReactNode, useId,
+  ComponentPropsWithoutRef, forwardRef, ReactNode, useId,
 } from 'react';
 
 import { clsx } from 'clsx';
@@ -21,9 +21,9 @@ export interface SegmentedControlProps extends Omit<ComponentPropsWithoutRef<'di
   withHaptic?: boolean;
 }
 
-export function SegmentedControl({
+export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps>(({
   className, name, items, value, onChange, withHaptic = true, ...rest
-}: SegmentedControlProps) {
+}, ref) => {
   const id = useId();
   const SDK = useSDK();
 
@@ -42,7 +42,7 @@ export function SegmentedControl({
   };
 
   return (
-    <div className={rootClassName} {...rest}>
+    <div className={rootClassName} ref={ref} {...rest}>
       <div className={styles.SegmentedControl__in} role="radiogroup">
         <span
           aria-hidden
@@ -67,4 +67,4 @@ export function SegmentedControl({
       </div>
     </div>
   );
-}
+});

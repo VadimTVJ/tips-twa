@@ -7,10 +7,10 @@ import styles from './TextField.module.scss';
 
 type TextFieldElement = ElementRef<'input'>;
 
-export type TextFieldProps = ComponentPropsWithRef<'input'> & {
+export interface TextFieldProps extends ComponentPropsWithRef<'input'> {
   after?: ReactNode;
   asChild?: boolean;
-};
+}
 
 export const TextField = forwardRef<TextFieldElement, TextFieldProps>(({
   className, after, asChild, ...rest

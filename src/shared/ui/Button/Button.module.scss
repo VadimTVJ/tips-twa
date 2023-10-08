@@ -8,11 +8,12 @@
   border-radius: var(--App__radius);
   min-height: var(--Button_min-height);
   padding: 0 var(--Button_padding-horizontal);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: opacity .15s ease-out;
   text-decoration: none;
+  font-weight: 500;
 
   &:hover:not(&_disabled) {
     cursor: pointer;
