@@ -1623,7 +1623,7 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-primitive" "1.0.3"
 
-"@radix-ui/react-slot@1.0.2":
+"@radix-ui/react-slot@1.0.2", "@radix-ui/react-slot@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-1.0.2.tgz#a9ff4423eade67f501ffb32ec22064bc9d3099ab"
   integrity sha512-YeTpuq4deV+6DusvVUW4ivBgnkHwECUu0BiN43L5UCDFgdhsRUWAghhTF5MbvNTPzmiFOx90asDSUjWuCNapwg==
@@ -2602,15 +2602,15 @@
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.5.1.tgz#27337d72046d5236b32fd977edee3f74c71d332f"
   integrity sha512-UCcUKrUYGj7ClomOo2SpNVvx4/fkd/2BbIHDCle8A0ax+P3bU7yJwDBDrS6ZwdTMARWTGODX1hEsCcO+7beJjg==
 
-"@tma.js/bridge@1.3.5":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@tma.js/bridge/-/bridge-1.3.5.tgz#655861fb2b195455672ed55eb63b9778b4b3e9d5"
-  integrity sha512-iRCiGS+Y90dTmjvEj54AXDBrWZsD5EQ1z3/hQvxLRmns1yw9N+wHHjCZRyQR7iP8V6VUrRFICnC9j9ocuYBUZg==
+"@tma.js/bridge@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@tma.js/bridge/-/bridge-1.3.6.tgz#28240fd8848901ad22d5cf446845ea0cf1daf65c"
+  integrity sha512-8FDilEWBHFKI+bxkTTowQCDf3QNqWnYF3Pr0y9fmbTg4fzMgs+D6zVKT7XMBkdRgCSEz0wlGqKsXioOaYRPyQA==
   dependencies:
     "@tma.js/colors" "0.0.3"
     "@tma.js/event-emitter" "0.0.3"
     "@tma.js/logger" "0.0.2"
-    "@tma.js/parsing" "0.0.3"
+    "@tma.js/parsing" "0.1.0"
     "@tma.js/util-types" "0.0.3"
     "@tma.js/utils" "0.5.3"
 
@@ -2626,67 +2626,67 @@
   dependencies:
     "@tma.js/util-types" "0.0.3"
 
-"@tma.js/init-data@0.2.15":
-  version "0.2.15"
-  resolved "https://registry.yarnpkg.com/@tma.js/init-data/-/init-data-0.2.15.tgz#4d4ef3090ecaf6069b26c0a9e5c5fa4f12038052"
-  integrity sha512-js2YdsXBiDAjriZWp9RP68iONhXZoYDFmQ9guwrF/zHTNf+fe0k+HzgSJbv40mjOASqvKBNuf7EWJbCcSYRthQ==
+"@tma.js/init-data@0.2.16":
+  version "0.2.16"
+  resolved "https://registry.yarnpkg.com/@tma.js/init-data/-/init-data-0.2.16.tgz#85b08f0592883c4c13be8a2534158cd92b2aa2f0"
+  integrity sha512-9egwmJZgVVfKnWVwp9ehyt3BJ4q3Qwh17uBgU/hkbzkhYkufvp6uV6s2NcVHgC7BiXR3A4vgGtx9mGSecZqC7Q==
   dependencies:
-    "@tma.js/parsing" "0.0.3"
+    "@tma.js/parsing" "0.1.0"
 
-"@tma.js/launch-params@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@tma.js/launch-params/-/launch-params-0.0.1.tgz#26c54996ded161718e0b9fba2e83d6506dd22a5d"
-  integrity sha512-Qh4QLFGbTUevJTZK+EwnqmIVLD0BNY3BxUucjyrRYY0VYwOIUDvVxfBoZaUxpfKK1EqLkJEtqWMtoX5f8e8nZQ==
+"@tma.js/launch-params@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@tma.js/launch-params/-/launch-params-0.0.2.tgz#b3167a2b39ff11f963ababb3a9f7be9495f8ab81"
+  integrity sha512-g3tFEN4YR8Og6f56C626qfSO7MdQQr7ptxwkSRb9qb7sJuGuh5VmkNZDMrOfx0KrWK0Pae/XJpBbt3ZWfnVr3w==
   dependencies:
-    "@tma.js/init-data" "0.2.15"
-    "@tma.js/parsing" "0.0.3"
-    "@tma.js/theme-params" "0.0.1"
+    "@tma.js/init-data" "0.2.16"
+    "@tma.js/parsing" "0.1.0"
+    "@tma.js/theme-params" "0.0.2"
 
 "@tma.js/logger@0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@tma.js/logger/-/logger-0.0.2.tgz#ca4176363f7c1be13cee8f98506374aa09468a12"
   integrity sha512-rRR1WjgM8nCOpMP6Sp8ro/DE5k713RLIcbIKnC1FrulOCLt9btYQHNnBep+rczpcu0TBquB8iHhsGQ/blfi1Jw==
 
-"@tma.js/parsing@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@tma.js/parsing/-/parsing-0.0.3.tgz#1927056d77b63a7307a55b42e9c3fe275b9ac2ce"
-  integrity sha512-OyCHjxNkPznfRNgLxaHuUbS/4P4WdYifBOcKaWrh3ONiVTU9a436RPgr21t51xFdz1LjRK0nqlgoWvecA9sXmQ==
+"@tma.js/parsing@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@tma.js/parsing/-/parsing-0.1.0.tgz#9b8a473f251e9a8a99884f872c2ddf3f13625864"
+  integrity sha512-rXUMyJ/d4+4jZwgKAx3gS7LHrNriWcI+/nBkMILbdMt41sTcHCW5l+H7qJf2K9fDG0Ng8FRcss02P1O2Qw0Jfg==
   dependencies:
     "@tma.js/colors" "0.0.3"
     "@tma.js/util-types" "0.0.3"
 
 "@tma.js/sdk-react@^0.4.7":
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/@tma.js/sdk-react/-/sdk-react-0.4.7.tgz#3f9e986a8e04b8be902a284d50be3798d29091fc"
-  integrity sha512-wESHb3CfpxCoMjh4gHZ3o/WKRjYhDdALVjuIAIFq1hR6/75EfjZ9OMeqRydvEkr901nJ/9Au+7SSPBcpxoRoiw==
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/@tma.js/sdk-react/-/sdk-react-0.4.8.tgz#a0d163f02a3be3972fbb0ccf85fb0b2c8fac363a"
+  integrity sha512-UbcZbzj8ITmg8L7ZMUSygJuzmzarnYF3F9z/rVFcJYUxRi52q+W/Jnr15xAymcot0vj0VjuHjG4Q8BvqfnZs7w==
   dependencies:
-    "@tma.js/bridge" "1.3.5"
-    "@tma.js/launch-params" "0.0.1"
-    "@tma.js/sdk" "0.12.0"
-    "@tma.js/theme-params" "0.0.1"
+    "@tma.js/bridge" "1.3.6"
+    "@tma.js/launch-params" "0.0.2"
+    "@tma.js/sdk" "0.12.1"
+    "@tma.js/theme-params" "0.0.2"
 
-"@tma.js/sdk@0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@tma.js/sdk/-/sdk-0.12.0.tgz#19aab6eb44e3009fdd780519b992b52d88b74789"
-  integrity sha512-DWH+V8RrVGcb/YWuviX6UnJS3phVZ/VCE84x6QLuCa79R9694G71zBRg6+ZNeMR6LsDRxepVp4JHn21HZFKntw==
+"@tma.js/sdk@0.12.1":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@tma.js/sdk/-/sdk-0.12.1.tgz#da7471be98760c4fa6374c28125a563ab88a03ca"
+  integrity sha512-1GPHDBcdyCQ7poe5cZ3Iwrfh/Cgjjdt2WgbC3cSU0EAMz6ddCjz6trhAuy3+LSiOK5Jjzx7IB2yy1yZ+wFVzFA==
   dependencies:
-    "@tma.js/bridge" "1.3.5"
+    "@tma.js/bridge" "1.3.6"
     "@tma.js/colors" "0.0.3"
     "@tma.js/event-emitter" "0.0.3"
-    "@tma.js/init-data" "0.2.15"
-    "@tma.js/launch-params" "0.0.1"
-    "@tma.js/parsing" "0.0.3"
-    "@tma.js/theme-params" "0.0.1"
+    "@tma.js/init-data" "0.2.16"
+    "@tma.js/launch-params" "0.0.2"
+    "@tma.js/parsing" "0.1.0"
+    "@tma.js/theme-params" "0.0.2"
     "@tma.js/util-types" "0.0.3"
     "@tma.js/utils" "0.5.3"
 
-"@tma.js/theme-params@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@tma.js/theme-params/-/theme-params-0.0.1.tgz#34bfb9785e4653885e60f621977b1d809fb27e63"
-  integrity sha512-fTrgzUcONtUquUMAqOO+g/ymiaY8PidqYCdAUMHA1RcrtnT/Q6X9XM9bIRcuwlWPdri7h8ubuBifZzjyyT4XFA==
+"@tma.js/theme-params@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@tma.js/theme-params/-/theme-params-0.0.2.tgz#c26dcf79b5be5ea1d263e5719aef8c59095ffd37"
+  integrity sha512-F6H5Mkgj2AXfVEXTzjWWioPNr/hmd8wrsDZitmsD8NCrM3c5oJxdFEBolJPMUsLuFQXeWt/tC/qiP5GzuCpfQg==
   dependencies:
     "@tma.js/colors" "0.0.3"
-    "@tma.js/parsing" "0.0.3"
+    "@tma.js/parsing" "0.1.0"
 
 "@tma.js/util-types@0.0.3":
   version "0.0.3"
@@ -6294,9 +6294,9 @@ jsonfile@^6.0.1:
     object.values "^1.1.6"
 
 keyv@^4.5.3:
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.5.3.tgz#00873d2b046df737963157bd04f294ca818c9c25"
-  integrity sha512-QCiSav9WaX1PgETJ+SpNnx2PRRapJ/oRSXM4VO5OGYGSjrxbKPVFVhB3l2OCbLCk329N8qyAtsJjSjvVBWzEug==
+  version "4.5.4"
+  resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.5.4.tgz#a879a99e29452f942439f2a405e3af8b31d4de93"
+  integrity sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==
   dependencies:
     json-buffer "3.0.1"
 

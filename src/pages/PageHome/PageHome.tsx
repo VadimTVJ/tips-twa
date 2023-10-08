@@ -36,44 +36,46 @@ export function PageHome() {
       <Section>
         <ScanQRButton>
           {(openScanner, isSupported) => isSupported && (
-            <ListItem
-              before={<IconScan />}
-              hasAction
-              withHaptic
-              onClick={openScanner}
-            >
-              <InfoRows
-                primary="Отсканировать QR-код"
-                secondary="Отсканируйте куракод с чека, чтобы оставить чаевые официанту"
-              />
+            <ListItem hasAction withHaptic onClick={openScanner}>
+              <ListItem.Side>
+                <IconScan />
+              </ListItem.Side>
+              <ListItem.Body>
+                <InfoRows
+                  primary="Отсканировать QR-код"
+                  secondary="Отсканируйте куракод с чека, чтобы оставить чаевые официанту"
+                />
+              </ListItem.Body>
             </ListItem>
           )}
         </ScanQRButton>
 
-        <ListItem
-          before={<IconID />}
-          hasAction
-          withHaptic
-          as={Link}
-          to="/tip/3"
-        >
-          <InfoRows
-            primary="Ввести ID официанта вручную"
-            secondary="Спросите у официанта его персональный код, чтобы оставить чаевые"
-          />
+        <ListItem hasAction withHaptic asChild>
+          <Link to="/tip">
+            <ListItem.Side>
+              <IconID />
+            </ListItem.Side>
+            <ListItem.Body>
+              <InfoRows
+                primary="Ввести ID официанта вручную"
+                secondary="Спросите у официанта его персональный код, чтобы оставить чаевые"
+              />
+            </ListItem.Body>
+          </Link>
         </ListItem>
 
-        <ListItem
-          before={<IconCurrency />}
-          hasAction
-          as={Link}
-          to="/tips"
-          withHaptic
-        >
-          <InfoRows
-            primary="История чаевых"
-            secondary="История Ваших переводов"
-          />
+        <ListItem hasAction withHaptic asChild>
+          <Link to="/tips">
+            <ListItem.Side>
+              <IconCurrency />
+            </ListItem.Side>
+            <ListItem.Body>
+              <InfoRows
+                primary="История чаевых"
+                secondary="История Ваших переводов"
+              />
+            </ListItem.Body>
+          </Link>
         </ListItem>
       </Section>
     </Page>

@@ -41,10 +41,12 @@ export const Playground: Story = {
           <Radio>
             <InfoRows {...args} />
           </Radio>
-          <ListItem
-            after={<InfoRows {...args} />}
-          >
+          <ListItem>
             After ListItem
+
+            <ListItem.Side side="right">
+              <InfoRows {...args} />
+            </ListItem.Side>
           </ListItem>
         </Section>
       </>

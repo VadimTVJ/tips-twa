@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ElementType } from 'react';
 import {
   Button, ButtonMode, ButtonProps, ButtonSize,
 } from './Button';
 import { Section } from '../Section';
 
-const meta: Meta<ButtonProps<ElementType>> = {
+const meta: Meta<ButtonProps> = {
   title: 'Common/Button',
   component: Button,
 
@@ -45,12 +44,11 @@ const meta: Meta<ButtonProps<ElementType>> = {
         defaultValue: { summary: false },
       },
     },
-    as: { table: { disable: true } },
   },
 };
 
 export default meta;
-type Story = StoryObj<ButtonProps<ElementType>>;
+type Story = StoryObj<ButtonProps>;
 
 export const Playground: Story = {
   render: ({ ...args }) => {

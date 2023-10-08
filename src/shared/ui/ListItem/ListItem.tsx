@@ -1,34 +1,37 @@
 import {
-  ElementType, MouseEvent, ReactNode,
+  ComponentPropsWithRef,
+  ElementRef,
+  forwardRef, MouseEvent,
 } from 'react';
 
 import { clsx } from 'clsx';
 import { useSDK } from '@tma.js/sdk-react';
+import { Slot } from '@radix-ui/react-slot';
 import styles from './ListItem.module.scss';
-import { PolymorphicComponentProp } from '../generics';
-import { Component } from '../Component';
-import { InfoRows } from '../InfoRows';
-import { IconChevronRight } from '../../lib/icons';
+import { ListItemBody, ListItemSide } from './parts';
 
-export type ListItemProps<C extends ElementType = 'div'> = PolymorphicComponentProp<C, {
-  before?: ReactNode;
-  after?: ReactNode;
+type ListItemElement = ElementRef<'button'>;
+
+export interface ListItemProps extends ComponentPropsWithRef<'button'> {
   disabled?: boolean;
   hasAction?: boolean;
+  asChild?: boolean;
   withHaptic?: boolean;
-}>;
+}
 
-export const ListItem = <C extends ElementType>({
-  className, children, before, after, disabled, onClick, hasAction, withHaptic = false, ...rest
-}: ListItemProps<C>) => {
+const ListItem = forwardRef<ListItemElement, ListItemProps>(({
+  className,
+  asChild,
+  disabled,
+  onClick,
+  hasAction,
+  children,
+  withHaptic = false,
+  ...rest
+}, ref) => {
   const SDK = useSDK();
 
-  const rootClassName = clsx(className, styles.ListItem, {
-    [styles.ListItem_interactive]: hasAction,
-    [styles.ListItem_disabled]: disabled,
-  });
-
-  const clickHandler = (e: MouseEvent<C>) => {
+  const clickHandler = (e: MouseEvent<ListItemElement>) => {
     if (disabled) { return; }
     onClick?.(e);
 
@@ -41,23 +44,27 @@ export const ListItem = <C extends ElementType>({
     }
   };
 
+  const rootClassName = clsx(className, styles.ListItem, {
+    [styles.ListItem_interactive]: hasAction,
+    [styles.ListItem_disabled]: disabled,
+  });
+
+  const Root = asChild ? Slot : 'button';
   return (
-    <Component
+    <Root
       className={rootClassName}
       onClick={clickHandler}
+      ref={ref}
       {...rest}
     >
-      {before && <div className={styles.ListItem__before}>{before}</div>}
-
-      <div className={styles.ListItem__content}>
-        {typeof children === 'string'
-          ? <InfoRows primary={children} />
-          : children}
-      </div>
-
-      {after && <div className={styles.ListItem__after}>{after}</div>}
-
-      {hasAction && <IconChevronRight className={styles.ListItem__arrow} />}
-    </Component>
+      {children}
+    </Root>
   );
-};
+});
+
+const ListItemNamespace = Object.assign({}, ListItem, {
+  Body: ListItemBody,
+  Side: ListItemSide,
+});
+
+export { ListItemNamespace as ListItem };

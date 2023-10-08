@@ -1,11 +1,12 @@
-import { ElementType, MouseEvent } from 'react';
+import {
+  ComponentPropsWithRef, ElementRef, forwardRef, MouseEvent,
+} from 'react';
 
 import { clsx } from 'clsx';
 import { useSDK } from '@tma.js/sdk-react';
+import { Slot } from '@radix-ui/react-slot';
 import styles from './Button.module.scss';
 import { Typography } from '../Typography';
-import { PolymorphicComponentProp } from '../generics';
-import { Component } from '../Component';
 
 export enum ButtonSize {
   SMALL = 's',
@@ -23,30 +24,22 @@ export enum ButtonMode {
 
 type ButtonModeUnion = `${ButtonMode}`;
 
-export type ButtonProps<C extends ElementType> = PolymorphicComponentProp<C, {
+type ButtonElement = ElementRef<'button'>;
+
+export interface ButtonProps extends ComponentPropsWithRef<'button'> {
   size?: ButtonSize | ButtonSizeUnion;
   mode?: ButtonMode | ButtonModeUnion;
   stretched?: boolean;
   withHaptic?: boolean;
-}>;
+  asChild?: boolean;
+}
 
-export const Button = <C extends ElementType = 'button'>({
-  className, size = 'm', mode = 'primary', stretched, children, disabled, onClick, as = 'button' as C, withHaptic = false, ...rest
-}: ButtonProps<C>) => {
+export const Button = forwardRef<ButtonElement, ButtonProps>(({
+  className, size = 'm', asChild, mode = 'primary', stretched, children, disabled, onClick, withHaptic = false, ...rest
+}, ref) => {
   const SDK = useSDK();
 
-  const rootClassName = clsx(
-    className,
-    styles.Button,
-    styles[`Button_size_${size}`],
-    styles[`Button_mode_${mode}`],
-    {
-      [styles.Button_stretched]: stretched,
-      [styles.Button_disabled]: disabled,
-    },
-  );
-
-  const clickHandler = (e: MouseEvent<C>) => {
+  const clickHandler = (e: MouseEvent<ButtonElement>) => {
     if (disabled) { return; }
     onClick?.(e);
 
@@ -59,16 +52,28 @@ export const Button = <C extends ElementType = 'button'>({
     }
   };
 
+  const rootClassName = clsx(
+    className,
+    styles.Button,
+    styles[`Button_size_${size}`],
+    styles[`Button_mode_${mode}`],
+    {
+      [styles.Button_stretched]: stretched,
+      [styles.Button_disabled]: disabled,
+    },
+  );
+
+  const Root = asChild ? Slot : 'button';
   return (
-    <Component
+    <Root
       className={rootClassName}
       onClick={clickHandler}
-      as={as as ElementType}
+      ref={ref}
       {...rest}
     >
       <Typography variant="text" as="span" weight={500}>
         {children}
       </Typography>
-    </Component>
+    </Root>
   );
-};
+});

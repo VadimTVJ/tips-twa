@@ -3,7 +3,7 @@ import { TextField, TextFieldProps } from './TextField';
 import { Section } from '../Section';
 import { Spinner } from '../Spinner';
 
-const meta: Meta<TextFieldProps<'input' | 'textarea'>> = {
+const meta: Meta<TextFieldProps> = {
   title: 'Forms/TextField',
   component: TextField,
 
@@ -21,12 +21,11 @@ const meta: Meta<TextFieldProps<'input' | 'textarea'>> = {
       description: 'After (right) node, e.g. spinner, button',
       options: ['Unset', 'Loader'],
     },
-    as: { table: { disable: true } },
   },
 };
 
 export default meta;
-type Story = StoryObj<TextFieldProps<'input' | 'textarea'>>;
+type Story = StoryObj<TextFieldProps>;
 
 export const Playground: Story = {
   render: ({ after, ...args }) => {
@@ -54,9 +53,11 @@ export const Playground: Story = {
           <TextField
             placeholder="Last name"
             after={<Spinner />}
-            as="textarea"
+            asChild
             {...args}
-          />
+          >
+            <textarea />
+          </TextField>
         </Section>
       </>
     );

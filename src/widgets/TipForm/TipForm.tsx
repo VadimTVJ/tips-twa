@@ -3,6 +3,7 @@ import { ComponentPropsWithRef, useEffect } from 'react';
 import { clsx } from 'clsx';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { Slot } from '@radix-ui/react-slot';
 import styles from './TipForm.module.scss';
 import {
   Button,
@@ -25,7 +26,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
   const navigate = useNavigate();
 
   const {
-    control, setValue,
+    control, setValue, setFocus,
   } = useForm({
     defaultValues: {
       waiterId: initialWaiterId,
@@ -34,6 +35,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
       checkPrice: 0,
       percent: 20,
       tipsAmount: 0,
+      test: '123123',
     },
   });
 
@@ -71,6 +73,33 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
       className={rootClassName}
       {...rest}
     >
+      <button
+        type="button"
+        onClick={() => setFocus('test')}
+      >
+        test
+      </button>
+
+      <br />
+
+      <Controller
+        name="test"
+        control={control}
+        render={({
+          field,
+        }) => (
+          <Slot>
+            <input
+              style={{
+                background: 'red',
+                color: 'green',
+              }}
+              {...field}
+            />
+          </Slot>
+        )}
+      />
+
       {waiter && (
         <Section header="Официант">
           <WaiterCell
