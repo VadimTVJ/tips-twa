@@ -1,13 +1,15 @@
 import { ComponentType, useMemo } from 'react';
-import {
-  SDKProvider, SDKInitOptions, useSDK,
-} from '@tma.js/sdk-react';
+import { SDKInitOptions, SDKProvider, useSDK } from '@tma.js/sdk-react';
 import compose from 'compose-function';
+import {
+  Hero, Page, Spinner, Typography, TypographyVariant,
+} from '../../shared/ui';
+import emojiMonkey from '../../shared/assets/emoji-monkey.webp';
 
 const options: SDKInitOptions = {
   acceptScrollbarStyle: true,
   checkCompat: true,
-  debug: true, // todo if dev env
+  debug: import.meta.env.DEV,
   cssVars: true,
 };
 
@@ -22,6 +24,12 @@ const withTelegramSDK = (Component: ComponentType) => () => {
 const withTelegramLoader = (Component: ComponentType) => () => {
   const { didInit, components, error } = useSDK();
 
+  const loaderNode = (
+    <Page centered>
+      <Spinner />
+    </Page>
+  );
+
   const errorMessage = useMemo<null | string>(() => {
     if (!error) {
       return null;
@@ -30,27 +38,44 @@ const withTelegramLoader = (Component: ComponentType) => () => {
     return error instanceof Error ? error.message : 'Unknown error';
   }, [error]);
 
-  // todo
   if (!didInit) {
-    return <div>SDK init function is not yet called.</div>;
+    return loaderNode;
   }
 
   if (error !== null) {
     return (
-      <>
-        <p>
-          SDK was unable to initialize. Probably, current application is being used
-          not in Telegram Web Apps environment.
-        </p>
-        <blockquote>
-          <p>{errorMessage}</p>
-        </blockquote>
-      </>
+      <Page>
+        <Hero
+          icon={(
+            <img
+              src={emojiMonkey}
+              alt=""
+              style={{ width: 112, height: 112 }}
+            />
+          )}
+          heading="SDK was unable to initialize"
+          subheading={(
+            <div>
+              <Typography
+                as="div"
+                variant={TypographyVariant.SUBTITLE1}
+                style={{ marginBottom: 12 }}
+              >
+                Probably, current application is being used
+                not in Telegram Web Apps environment.
+              </Typography>
+
+              <code>{errorMessage}</code>
+            </div>
+          )}
+          stretched
+        />
+      </Page>
     );
   }
 
   if (components === null) {
-    return <div>Loading..</div>;
+    return loaderNode;
   }
 
   return <Component />;

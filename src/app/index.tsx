@@ -7,11 +7,8 @@ import {
   withQuery, withRouter, withTelegram, withUIKit,
 } from './hocks';
 
-console.log('11', window.location.hash);
-
-// todo
 try {
-  if (window.localStorage) {
+  if (import.meta.env.DEV && window.localStorage) {
     import('eruda')
       .then((eruda) => {
         eruda.default.init();
@@ -19,9 +16,9 @@ try {
       });
   }
 } catch (error) {
-  console.log(error);
+  console.error('[Eruda]', error);
 }
 
-const App = compose(withTelegram, withRouter, withUIKit, withQuery)(Pages);
+const App = compose(withUIKit, withTelegram, withRouter, withQuery)(Pages);
 const root = createRoot(document.getElementById('root')!);
 root.render(<App />);

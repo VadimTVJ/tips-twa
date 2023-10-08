@@ -2,7 +2,7 @@ import axios from 'axios';
 import { retrieveLaunchParams } from '@tma.js/sdk';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3333/api', // todo to env
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 axiosInstance.interceptors.request.use((config) => {
