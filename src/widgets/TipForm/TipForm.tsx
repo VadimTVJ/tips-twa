@@ -3,7 +3,6 @@ import { ComponentPropsWithRef, useEffect } from 'react';
 import { clsx } from 'clsx';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useMainButton } from '@tma.js/sdk-react';
 import styles from './TipForm.module.scss';
 import {
   Button,
@@ -25,10 +24,8 @@ interface TipFormProps extends ComponentPropsWithRef<'form'> {
 export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFormProps) => {
   const navigate = useNavigate();
 
-  const mainButton = useMainButton();
-
   const {
-    control, setValue, setFocus,
+    control, setValue,
   } = useForm({
     defaultValues: {
       waiterId: initialWaiterId || 0,
@@ -51,7 +48,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
     params: { waiterId: Number(waiterId) },
   });
 
-  const { canPay } = useAddTip({
+  useAddTip({
     form: {
       waiter, tipsAmount, currency, calculationMode, checkPrice,
     },
@@ -60,26 +57,6 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
   });
 
   const currencyInfo = currencies.find(({ code }) => code === currency) || currencies[0];
-
-  useEffect(() => {
-    const pressHandler = async () => {
-      if (canPay) { return; }
-
-      if (!waiter) {
-        setFocus('waiterId');
-      } else if (calculationMode === 'percent' && !checkPrice) {
-        setFocus('checkPrice');
-      } else if (!tipsAmount) {
-        setFocus('tipsAmount');
-      }
-    };
-
-    mainButton.on('click', pressHandler);
-
-    return () => {
-      mainButton.off('click', pressHandler);
-    };
-  }, [waiterId, calculationMode, checkPrice, percent, tipsAmount, currency]);
 
   useEffect(() => {
     setValue('tipsAmount', Math.round((checkPrice / 100) * percent) || 0);
@@ -123,6 +100,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
               <TextField
                 value={value || ''}
                 placeholder="Укажите код официанта"
+                autoFocus
                 after={(
                   <>
                     {waiterFetchStatus === 'fetching' && <Spinner />}

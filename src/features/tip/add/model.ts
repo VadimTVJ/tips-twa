@@ -34,7 +34,7 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
   useEffect(() => {
     mainButton.hideProgress();
     mainButton.setText('Pay');
-    mainButton.disable();
+    mainButton.enable();
     mainButton.show();
 
     return () => {
@@ -81,12 +81,20 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
   }, [tipsAmount, currency, waiter, calculationMode, checkPrice]);
 
   useEffect(() => {
-    mainButton.on('click', fetchInvoiceLink);
+    const pressHandler = async () => {
+      if (canPay || !mainButton.isProgressVisible) {
+        return;
+      }
+
+      mainButton.showProgress();
+      await fetchInvoiceLink();
+      mainButton.hideProgress();
+    };
+
+    mainButton.on('click', pressHandler);
 
     return () => {
-      mainButton.off('click', fetchInvoiceLink);
+      mainButton.off('click', pressHandler);
     };
   }, [mainButton, fetchInvoiceLink, tipsAmount, waiter]);
-
-  return { canPay };
 };
