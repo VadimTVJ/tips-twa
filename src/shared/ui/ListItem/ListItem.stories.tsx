@@ -13,6 +13,13 @@ const meta: Meta<ListItemProps> = {
   },
 
   argTypes: {
+    withHaptic: {
+      description: 'Send web_app_trigger_haptic_feedback event (selectionChanged) on click throw @tma.js/sdk-react (if sdk inited and method supports)',
+      table: {
+        defaultValue: { summary: false },
+        control: false,
+      },
+    },
     disabled: {
       description: 'Is item disabled',
     },

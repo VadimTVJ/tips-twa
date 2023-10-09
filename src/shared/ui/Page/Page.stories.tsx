@@ -11,6 +11,9 @@ const meta: Meta<PageProps> = {
   },
 
   argTypes: {
+    withQuit: {
+      description: 'Sends event web_app_setup_back_button.visible = false throw @tma.js/sdk-react (if sdk inited and method supports)',
+    },
     centered: {
       description: 'Center page content',
     },
