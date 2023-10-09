@@ -65,17 +65,4 @@
       --Button_min-height: 50px;
     }
   }
-
-  &__spinner {
-    --Spinner__icon-color: inherit;
-
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: inherit;
-    border-radius: inherit;
-    width: 100%;
-    height: 100%;
-  }
 }

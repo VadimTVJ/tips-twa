@@ -13,7 +13,6 @@ const meta: Meta<ButtonProps> = {
     mode: ButtonMode.PRIMARY,
     stretched: false,
     disabled: false,
-    loading: false,
   },
 
   argTypes: {
@@ -42,12 +41,6 @@ const meta: Meta<ButtonProps> = {
     },
     stretched: {
       description: 'Is full width button',
-      table: {
-        defaultValue: { summary: false },
-      },
-    },
-    loading: {
-      description: 'Show spinner instead children',
       table: {
         defaultValue: { summary: false },
       },

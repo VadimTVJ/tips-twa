@@ -1,4 +1,5 @@
 import { clsx } from 'clsx';
+import dayjs from 'dayjs';
 import styles from './TipCell.module.scss';
 import {
   InfoRows, ListItem, Typography, TypographyVariant, ListItemProps, Skeleton,
@@ -34,7 +35,7 @@ export const TipCell = ({
               <Typography
                 variant={TypographyVariant.SUBTITLE1}
               >
-                {date}
+                {dayjs(date).format('D MMM, HH:mm')}
               </Typography>
             </div>
         )}

@@ -16,7 +16,7 @@ export const useTipsQuery = ({ options }: UseTipsQueryConfig = {}) => {
     ...options,
   });
 
-  const hasTips = !isLoading && !isError && data?.length > 0;
+  const hasTips = !isError && data && data?.length > 0;
 
   return {
     fetchTips: refetch,

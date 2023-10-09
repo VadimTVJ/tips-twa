@@ -8,12 +8,27 @@ export const useScanQR = () => {
   const isSupported = scanner.supports('open');
 
   const scan = async () => {
-    scanner.open('hello workd')
+    const regex = /^waiter_(\d+)$/;
+
+    scanner.open('hello workd') // todo text
       .then((qrHash) => {
-        console.log(qrHash);
+        if (!qrHash) {
+          return; // todo проверить, будут ли дальне приходить сканы
+        }
+        console.log('qrHash', qrHash);
+
+        const valid = regex.test(qrHash);
+        if (!valid) {
+          return; // todo handler
+        }
+
+        const waiterId = Number(qrHash.match(regex));
+        if (!waiterId) {
+          return; // todo
+        }
 
         scanner.close();
-        navigate('/tip/1');
+        navigate(`/tip/${waiterId}`);
       });
   };
 
