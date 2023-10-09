@@ -1,23 +1,25 @@
-import { useWebApp } from '@tma.js/sdk-react';
+import { useThemeParams, useWebApp } from '@tma.js/sdk-react';
 import styles from './PageTipSuccess.module.scss';
-import { Button, Hero, Page } from '../../shared/ui';
-import emojiSuccess from '../../shared/assets/emoji-success.webp';
+import {
+  Button, Emoji, Hero, Page,
+} from '../../shared/ui';
 
 export const PageTipSuccess = () => {
   const webApp = useWebApp();
 
+  const { secondaryBackgroundColor } = useThemeParams();
+
   return (
-    <Page className={styles.PageTipSuccess}>
+    <Page
+      className={styles.PageTipSuccess}
+      backgroundColor={secondaryBackgroundColor}
+      headerBackgroundColor={secondaryBackgroundColor}
+      withQuit
+    >
       <Hero
-        icon={(
-          <img
-            className={styles.PageTipSuccess__heroIcon}
-            src={emojiSuccess}
-            alt=""
-          />
-        )}
-        heading="Официанту уже приятно!"
-        subheading="Вы оставили чаевые официанту, спасибо!"
+        icon={<Emoji size={80} emoji="🎉" />}
+        heading="Success!"
+        subheading="Tip successfully sent to the waiter, thank you!"
         stretched
       />
 
@@ -28,7 +30,7 @@ export const PageTipSuccess = () => {
           mode="secondary"
           onClick={() => webApp.close()}
         >
-          Закрыть приложение
+          Close app
         </Button>
       </div>
     </Page>

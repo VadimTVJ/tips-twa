@@ -12,7 +12,7 @@ export const startSentry = (initialHash = window.location.hash) => {
       const { request } = event;
       if (!request?.url) { return event; }
 
-      // Remove #hash from event
+      // Remove #hash from request
       const url = new URL(request.url);
       url.hash = '';
 
@@ -22,27 +22,27 @@ export const startSentry = (initialHash = window.location.hash) => {
       };
 
       // Add sentry context with useful information, without sensitive (e.g. hash, auth_date)
-      const hashParams = new URLSearchParams(initialHash.slice(1));
       const tgContext: Record<string, string> = {};
+      const hashParams = new URLSearchParams(initialHash.slice(1));
       hashParams.forEach((value, key) => {
         if (key === 'tgWebAppThemeParams') { return; }
 
         if (key === 'tgWebAppData') {
-          const initData = new URLSearchParams(value);
+          const tgWebAppData = new URLSearchParams(value);
 
-          initData.forEach((initDataValue, initDataKey) => {
+          tgWebAppData.forEach((appDataValue, appDataKey) => {
             const allowedFields = ['can_send_after', 'start_param', 'user'];
 
-            if (allowedFields.includes(initDataKey)) {
-              if (initDataKey === 'user') {
+            if (allowedFields.includes(appDataKey)) {
+              if (appDataKey === 'user') {
                 try {
-                  const user = JSON.parse(initDataValue);
+                  const user = JSON.parse(appDataValue);
                   tgContext.user_id = user.id;
                 } catch (error) {
-                  // skip
+                  // ignore
                 }
               } else {
-                tgContext[initDataKey] = initDataValue;
+                tgContext[appDataKey] = appDataValue;
               }
             }
           });

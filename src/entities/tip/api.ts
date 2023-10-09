@@ -13,10 +13,11 @@ export const useTipsQuery = ({ options }: UseTipsQueryConfig = {}) => {
   } = useQuery({
     queryKey: ['tips'],
     queryFn: async () => Api.tip.get(),
+
     ...options,
   });
 
-  const hasTips = !isError && data && data?.length > 0;
+  const hasTips = rest.isFetched && data && data?.length > 0;
 
   return {
     fetchTips: refetch,

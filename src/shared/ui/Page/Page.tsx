@@ -12,6 +12,7 @@ export interface PageProps extends ComponentPropsWithRef<'section'> {
   headerBackgroundColor?: RGB | null;
   withCloseAppConfirmation?: boolean;
   shouldExpanded?: boolean;
+  withQuit?: boolean;
 }
 
 export function Page({
@@ -20,6 +21,7 @@ export function Page({
   backgroundColor,
   headerBackgroundColor,
   shouldExpanded,
+  withQuit = false,
   withCloseAppConfirmation = false,
   ...rest
 }: PageProps) {
@@ -30,6 +32,7 @@ export function Page({
   const webApp = didInit && SDK.components?.webApp;
   const closingBehaviour = didInit && SDK.components?.closingBehavior;
   const viewport = didInit && SDK.components?.viewport;
+  const backButton = didInit && SDK.components?.backButton;
 
   useEffect(() => {
     if (backgroundColor && webApp && webApp.supports('setBackgroundColor')) {
@@ -47,6 +50,14 @@ export function Page({
 
     if (shouldExpanded && viewport && !viewport.isExpanded) {
       viewport.expand();
+    }
+
+    if (withQuit) {
+      if (backButton && backButton.isVisible && backButton.supports('hide')) {
+        backButton.hide();
+      }
+    } else if (backButton && !backButton.isVisible && backButton.supports('show')) {
+      backButton.show();
     }
   }, []);
 

@@ -22,7 +22,11 @@ export const TipCell = ({
     <ListItem className={rootClassName} {...rest}>
       <ListItem.Body>
         <InfoRows
-          primary={restaurant}
+          primary={(
+            <Typography weight={500}>
+              {restaurant}
+            </Typography>
+          )}
           secondary={(
             <div className={styles.TipCell__details}>
               <Typography
@@ -42,7 +46,7 @@ export const TipCell = ({
         />
       </ListItem.Body>
 
-      <ListItem.Side side="right">
+      <ListItem.Side side="right" className={styles.TipCell__amount}>
         <Typography>{buildAmountWithCurrency(amount, currency)}</Typography>
       </ListItem.Side>
     </ListItem>

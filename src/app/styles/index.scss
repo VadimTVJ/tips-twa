@@ -1,9 +1,14 @@
 @import './normalize';
-@import './transitions';
 @import './variables';
 
 html, body, #root {
   height: 100%;
+}
+
+body {
+  background: var(--App__background-color_body);
+  color: var(--App__text-color_primary);
+  font-family: var(--App__font);
 }
 
 *:not(input):not(textarea),
@@ -18,6 +23,10 @@ html, body, #root {
 .color {
 
   &_red {
-    color: red;
+    color: var(--App_text-color_red);
+  }
+
+  &_green {
+    color: var(--App__text-color_green);
   }
 }

@@ -5,8 +5,8 @@ import { InfoRows, ListItem, ListItemProps } from '../../../../shared/ui';
 import { Waiter } from '../../model';
 
 interface WaiterCellProps extends Omit<ListItemProps, 'children'> {
-  after?: ReactNode;
   waiter: Waiter;
+  after?: ReactNode;
 }
 
 export const WaiterCell = ({
@@ -32,7 +32,7 @@ export const WaiterCell = ({
         </ListItem.Body>
 
         {after && (
-        <ListItem.Side side="right">{after}</ListItem.Side>
+          <ListItem.Side side="right">{after}</ListItem.Side>
         )}
       </div>
     </ListItem>

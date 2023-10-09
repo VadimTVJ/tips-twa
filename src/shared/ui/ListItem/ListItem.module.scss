@@ -1,5 +1,9 @@
 @import '../Typography/Typography.module';
 
+@mixin hover {
+  background: var(--App__background-color_hover);
+}
+
 .ListItem {
   @extend .Typography_variant_text;
 
@@ -14,6 +18,7 @@
   color: inherit;
   position: relative;
   justify-content: space-between;
+  transition: background .15s ease-out, opacity .15s ease-out;
 
   &_disabled {
     opacity: .5;
@@ -35,10 +40,17 @@
     &:not(&_disabled) {
       cursor: pointer;
 
-      &:hover {
-        background: var(--App__background-color_hover);
-        transition: background .15s ease-out, opacity .15s ease-out;
-      }
+      @media (pointer: fine) {
+          &:hover {
+            @include hover;
+          }
+        }
+
+        @media (pointer: coarse) {
+          &:active {
+            @include hover;
+          }
+        }
     }
   }
 }
@@ -48,11 +60,11 @@
   &_side {
 
     &_left {
-      margin-right: var(--App_gap);
+      margin-right: var(--App__gap);
     }
 
     &_right {
-      margin-left: var(--App_gap);
+      margin-left: var(--App__gap);
       text-align: right;
     }
   }

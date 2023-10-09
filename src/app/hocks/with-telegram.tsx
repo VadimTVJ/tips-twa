@@ -2,9 +2,9 @@ import { ComponentType, useMemo } from 'react';
 import { SDKInitOptions, SDKProvider, useSDK } from '@tma.js/sdk-react';
 import compose from 'compose-function';
 import {
+  Emoji,
   Hero, Page, Spinner, Typography, TypographyVariant,
 } from '../../shared/ui';
-import emojiMonkey from '../../shared/assets/emoji-monkey.webp';
 
 const options: SDKInitOptions = {
   acceptScrollbarStyle: true,
@@ -46,13 +46,7 @@ const withTelegramLoader = (Component: ComponentType) => () => {
     return (
       <Page>
         <Hero
-          icon={(
-            <img
-              src={emojiMonkey}
-              alt=""
-              style={{ width: 112, height: 112 }}
-            />
-          )}
+          icon={<Emoji size={80} emoji="❗" />}
           heading="SDK was unable to initialize"
           subheading={(
             <div>
@@ -61,8 +55,7 @@ const withTelegramLoader = (Component: ComponentType) => () => {
                 variant={TypographyVariant.SUBTITLE1}
                 style={{ marginBottom: 12 }}
               >
-                Probably, current application is being used
-                not in Telegram Web Apps environment.
+                Probably, current application is being used not in Telegram Web Apps environment.
               </Typography>
 
               <code>{errorMessage}</code>

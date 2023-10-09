@@ -20,14 +20,14 @@
 
   &__subheading {
     color: var(--App__text-color_secondary);
-    margin: var(--App_gap) 0 0;
+    margin: var(--App__gap) 0 0;
     width: 100%;
   }
 
   &__heading {}
 
   &__icon {
-    margin-bottom: var(--App_gap);
+    margin-bottom: var(--App__gap);
   }
 
   &__body {

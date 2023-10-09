@@ -2,10 +2,10 @@ import { useThemeParams } from '@tma.js/sdk-react';
 import { useParams } from 'react-router-dom';
 import styles from './PageTip.module.scss';
 import {
+  Emoji,
   Hero, Page,
 } from '../../shared/ui';
 import { TipForm } from '../../widgets';
-import emojiPen from '../../shared/assets/emoji-pen.webp';
 
 export const PageTip = () => {
   const { waiterId } = useParams<{ waiterId?: string; }>();
@@ -21,15 +21,11 @@ export const PageTip = () => {
       shouldExpanded
     >
       <Hero
-        icon={(
-          <img
-            className={styles.PageTip__heroIcon}
-            src={emojiPen}
-            alt=""
-          />
-        )}
-        heading="Официанту будет приятно"
-        subheading={'Запросите у\u00A0официанта его индивидуальный код и\u00A0заполните все поля'}
+        icon={<Emoji size={80} emoji="💸" />}
+        heading="The waiter will be pleased"
+        subheading={waiterId
+          ? ''
+          : 'Ask the waiter for his individual code and\u00A0fill\u00A0out\u00A0all\u00A0fields'}
       />
 
       <TipForm waiterId={Number(waiterId) || undefined} />

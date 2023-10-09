@@ -14,11 +14,12 @@ type SectionModeUnion = `${SectionMode}`;
 export interface SectionProps extends ComponentPropsWithRef<'div'> {
   header?: ReactNode;
   description?: ReactNode;
+  error?: ReactNode;
   mode?: SectionMode | SectionModeUnion;
 }
 
 export const Section = forwardRef<HTMLDivElement, SectionProps>(({
-  className, children, header, description, mode = SectionMode.COMPACT, ...rest
+  className, children, header, description, error, mode = SectionMode.COMPACT, ...rest
 }, ref) => {
   const rootClassName = clsx(
     className,
@@ -40,12 +41,13 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(({
 
       <div className={styles.Section__in}>{children}</div>
 
-      {description && (
+      {(description || error) && (
         <Typography
           className={styles.Section__description}
           variant="subtitle2"
           as="div"
         >
+          {error && <div className={styles.Section__error}>{error}</div>}
           {description}
         </Typography>
       )}

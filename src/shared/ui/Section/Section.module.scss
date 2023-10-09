@@ -19,6 +19,11 @@
     color: var(--App__text-color_secondary);
   }
 
+  &__error {
+    color: var(--App_text-color_red);
+    margin-bottom: 4px;
+  }
+
   &__header {
     text-transform: uppercase;
 

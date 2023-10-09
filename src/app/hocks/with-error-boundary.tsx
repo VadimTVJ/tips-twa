@@ -1,18 +1,11 @@
 import { ComponentType } from 'react';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
-import { Hero } from '../../shared/ui';
-import emojiMonkey from '../../shared/assets/emoji-monkey.webp';
+import { Emoji, Hero } from '../../shared/ui';
 
 const fallbackRender = ({ error }: FallbackProps) => {
   return (
     <Hero
-      icon={(
-        <img
-          src={emojiMonkey}
-          alt=""
-          style={{ width: 112, height: 112 }}
-        />
-      )}
+      icon={<Emoji size={80} emoji="❗" />}
       stretched
       heading="Something went wrong"
       subheading={<pre>{error.message}</pre>}

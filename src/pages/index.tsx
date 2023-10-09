@@ -1,7 +1,7 @@
 import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
-import { useBackButton, useWebApp } from '@tma.js/sdk-react';
+import { useBackButton, useLaunchParams, useWebApp } from '@tma.js/sdk-react';
 import { useEffect } from 'react';
 import { RouteProps } from 'react-router';
 import { PageHome } from './PageHome';
@@ -9,6 +9,7 @@ import { PageTip } from './PageTip';
 import { PageTipSuccess } from './PageTipSuccess';
 import { PageTips } from './PageTips';
 import { PageTipError } from './PageTipError';
+import { isNumeric } from '../shared/lib/is-numeric';
 
 export const Pages = () => {
   const location = useLocation();
@@ -16,28 +17,24 @@ export const Pages = () => {
 
   const backButton = useBackButton();
   const webApp = useWebApp();
+  const { initData } = useLaunchParams();
 
-  const routes: (RouteProps & { withQuit?: boolean; })[] = [
-    { path: '/', element: <PageHome />, withQuit: true },
+  const routes: RouteProps[] = [
+    { path: '/', element: <PageHome /> },
     { path: '/tip/:waiterId?', element: <PageTip /> },
     { path: '/tips', element: <PageTips /> },
-    { path: '/success', element: <PageTipSuccess />, withQuit: true },
+    { path: '/success', element: <PageTipSuccess /> },
     { path: '/error', element: <PageTipError /> },
   ];
 
   useEffect(() => {
-    const curPathname = location.pathname;
-    const route = routes.find(({ path }) => path === curPathname);
-
-    if (route?.withQuit) {
-      backButton.hide();
-    } else {
-      backButton.show();
+    if (initData?.startParam && isNumeric(initData.startParam)) {
+      navigate(`/tip/${initData.startParam}`);
     }
-  }, [location]);
+  }, [initData?.startParam]);
 
   useEffect(() => {
-    webApp.ready(); // todo after prefetches
+    webApp.ready();
 
     const listener = () => navigate(-1);
 
@@ -51,7 +48,7 @@ export const Pages = () => {
 
   return (
     <Routes location={location}>
-      {routes.map(({ withQuit, ...route }) => <Route key={route.path} {...route} />)}
+      {routes.map((route) => <Route key={route.path} {...route} />)}
     </Routes>
   );
 };

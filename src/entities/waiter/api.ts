@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useQuery, useQueryClient, UseQueryOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { Api } from '../../shared/api';
 import { Waiter } from './model';
@@ -9,6 +9,8 @@ type UseWaiterByIdQueryConfig = {
 };
 
 export const useWaiterByIdQuery = ({ options, params }: UseWaiterByIdQueryConfig) => {
+  const queryClient = useQueryClient();
+
   const {
     data, isError, isLoading, refetch, fetchStatus, ...rest
   } = useQuery({
@@ -25,10 +27,13 @@ export const useWaiterByIdQuery = ({ options, params }: UseWaiterByIdQueryConfig
     ...options,
   });
 
+  const removeWaiter = () => queryClient.setQueryData(['waiter'], null);
+
   return {
     fetchWaiter: refetch,
     waiterFetchStatus: fetchStatus,
     waiter: data,
+    removeWaiter,
     isWaiterError: isError,
     isWaiterLoading: isLoading,
     ...rest,

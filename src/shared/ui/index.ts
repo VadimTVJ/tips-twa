@@ -11,3 +11,4 @@ export * from './Button';
 export * from './InfoRows';
 export * from './Skeleton';
 export * from './ConfigProvider';
+export * from './Emoji';

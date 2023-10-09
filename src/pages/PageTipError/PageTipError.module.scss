@@ -1,18 +1,10 @@
 .PageTipError {
 
-  &__hero {
-
-    &Icon {
-      width: 112px;
-      aspect-ratio: 1;
-    }
-  }
-
   &__footer {
     padding: var(--App__padding-vertical) var(--App__padding-horizontal);
 
     & > *:not(:last-child) {
-      margin-bottom: vaR(--App_gap);
+      margin-bottom: vaR(--App__gap);
     }
   }
 }

@@ -1,5 +1,9 @@
 .TipCell {
 
+  &__amount {
+    color: var(--App__text-color_green);
+  }
+
   &__details {
     display: flex;
     flex-direction: column;

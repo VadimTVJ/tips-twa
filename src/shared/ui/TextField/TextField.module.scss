@@ -15,7 +15,7 @@
   }
 
   &__after {
-    margin: 0 var(--App_gap);
+    margin: 0 var(--App__gap);
   }
 
   textarea, input {
@@ -25,7 +25,7 @@
     flex-grow: 1;
 
     &::placeholder {
-      color: var(--App__separator-color_primary);
+      color: var(--App__text-color_secondary);
     }
   }
 
@@ -37,5 +37,13 @@
   input {
     padding: 0 var(--App__padding-horizontal);
     min-height: 42px;
+
+    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    &[type=number] {
+      -moz-appearance:textfield;
+    }
   }
 }

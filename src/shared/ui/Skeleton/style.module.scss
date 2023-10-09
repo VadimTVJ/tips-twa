@@ -1,7 +1,7 @@
 .Skeleton {
   --Skeleton_background: var(--App__background-color_body);
   --Skeleton_foregroundFrom: transparent;
-  --Skeleton_foregroundTo: rgb(44 45 46 / 8%);
+  --Skeleton_foregroundTo: rgb(44 45 46 / 20%);
 
   background-color: var(--Skeleton_background);
   background-image: linear-gradient(90deg, var(--Skeleton_foregroundFrom), var(--Skeleton_foregroundTo) 50%, var(--Skeleton_foregroundFrom));

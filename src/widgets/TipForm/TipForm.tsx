@@ -3,6 +3,7 @@ import { ComponentPropsWithRef, useEffect } from 'react';
 import { clsx } from 'clsx';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useMainButton, useQRScanner } from '@tma.js/sdk-react';
 import styles from './TipForm.module.scss';
 import {
   Button,
@@ -17,16 +18,19 @@ import { waiterApi, WaiterCell } from '../../entities/waiter';
 import { useAddTip } from '../../features/tip';
 import { buildAmountWithCurrency, currencies } from '../../shared/config';
 
-interface TipFormProps extends ComponentPropsWithRef<'form'> {
+interface TipFormProps extends Omit<ComponentPropsWithRef<'form'>, 'onSubmit'> {
   waiterId?: number;
 }
 
 export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFormProps) => {
   const navigate = useNavigate();
+  const mainButton = useMainButton();
+  const qrScanner = useQRScanner();
 
   const {
-    control, setValue,
+    control, setValue, handleSubmit, formState,
   } = useForm({
+    mode: 'all',
     defaultValues: {
       waiterId: initialWaiterId || 0,
       calculationMode: 'percent',
@@ -43,14 +47,14 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
   });
 
   const {
-    isWaiterError, waiter, fetchWaiter, waiterFetchStatus,
+    isWaiterError, waiter, fetchWaiter, waiterFetchStatus, removeWaiter,
   } = waiterApi.useWaiterByIdQuery({
     params: { waiterId: Number(waiterId) },
   });
 
   useAddTip({
     form: {
-      waiter, tipsAmount, currency, calculationMode, checkPrice,
+      waiter, tipsAmount, currency,
     },
     onSuccess: () => navigate('/success', { replace: true }),
     onError: () => navigate('/error'),
@@ -63,16 +67,34 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
   }, [checkPrice, percent]);
 
   useEffect(() => {
-    if (initialWaiterId) {
-      fetchWaiter();
-    }
+    const pressHandler = () => {
+      handleSubmit(() => {})();
+    };
+
+    mainButton.on('click', pressHandler);
+
+    return () => {
+      mainButton.off('click', pressHandler);
+    };
   }, []);
+
+  useEffect(() => {
+    if (initialWaiterId) {
+      (async () => {
+        await fetchWaiter();
+
+        if (qrScanner.supports('close')) {
+          qrScanner.close();
+        }
+      })();
+    }
+  }, [initialWaiterId]);
 
   const rootClassName = clsx(className, styles.TipForm);
   return (
     <form className={rootClassName} {...rest}>
       {waiter && (
-        <Section header="Официант">
+        <Section header="Waiter">
           <WaiterCell
             waiter={waiter}
             after={(
@@ -80,8 +102,9 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
                 type="button"
                 size={ButtonSize.SMALL}
                 mode={ButtonMode.TERTIARY}
+                onClick={removeWaiter}
               >
-                Отвенить
+                Undo
               </Button>
             )}
           />
@@ -92,15 +115,23 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
         <Controller
           name="waiterId"
           control={control}
+          rules={{
+            min: { value: 1, message: 'Enter waiter ID' },
+            pattern: /^[0-9]/,
+          }}
           render={({ field: { value, ...restField } }) => (
             <Section
-              header="Код официанта"
-              description={isWaiterError && <span className="color_red">Официант не найден</span>}
+              header="Waiter ID"
+              error={formState.errors.waiterId?.message
+                ? formState.errors.waiterId.message
+                : isWaiterError && <span className="color_red">No waiter found</span>}
             >
               <TextField
                 value={value || ''}
-                placeholder="Укажите код официанта"
-                autoFocus
+                placeholder="Enter waiter ID"
+                inputMode="numeric"
+                type="number"
+                pattern="^[0-9]"
                 after={(
                   <>
                     {waiterFetchStatus === 'fetching' && <Spinner />}
@@ -112,7 +143,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
                         mode={ButtonMode.TERTIARY}
                         onClick={() => fetchWaiter()}
                       >
-                        Найти
+                        Apply
                       </Button>
                     )}
                   </>
@@ -124,7 +155,23 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
         />
       )}
 
-      <Section header="Чаевые">
+      <Controller
+        name="currency"
+        control={control}
+        render={({ field }) => (
+          <Section header="Currency">
+            <SegmentedControl
+              items={currencies.map(({ code }) => ({
+                value: code,
+                label: code,
+              }))}
+              {...field}
+            />
+          </Section>
+        )}
+      />
+
+      <Section header="Mode">
         <Controller
           name="calculationMode"
           control={control}
@@ -134,7 +181,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
               checked={calculationMode === 'percent'}
               {...restField}
             >
-              Процент от покупки
+              Percent of bill
             </Radio>
           )}
         />
@@ -148,41 +195,32 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
               checked={calculationMode === 'fix'}
               {...restField}
             >
-              Фиксированная сумма
+              Fixed tip amount
             </Radio>
           )}
         />
       </Section>
-
-      <Controller
-        name="currency"
-        control={control}
-        render={({ field }) => (
-          <Section
-            header="Валюта"
-            description={`Min: ${buildAmountWithCurrency(currencyInfo.min, currency)}, max: ${buildAmountWithCurrency(currencyInfo.max, currency)}`}
-          >
-            <SegmentedControl
-              items={currencies.map(({ code }) => ({
-                value: code,
-                label: code,
-              }))}
-              {...field}
-            />
-          </Section>
-        )}
-      />
 
       {calculationMode === 'percent' && (
         <>
           <Controller
             name="checkPrice"
             control={control}
+            rules={{
+              min: { value: 1, message: 'Enter bill amount' },
+              pattern: /^[0-9]/,
+            }}
             render={({ field: { value, ...restField } }) => (
-              <Section header="Сумма чека">
+              <Section
+                header="Bill Amount"
+                error={formState.errors.checkPrice?.message}
+              >
                 <TextField
-                  placeholder="Укажите сумму чека"
+                  placeholder="Enter bill amount"
                   value={value || ''}
+                  inputMode="numeric"
+                  type="number"
+                  pattern="^[0-9]"
                   {...restField}
                 />
               </Section>
@@ -193,7 +231,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
             name="percent"
             control={control}
             render={({ field }) => (
-              <Section header="Процент от суммы">
+              <Section header="Percent of bill">
                 <SegmentedControl
                   items={[
                     { label: '10%', value: '10' },
@@ -212,11 +250,28 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
       <Controller
         name="tipsAmount"
         control={control}
-        render={({ field: { value, ...restField } }) => (
-          <Section header="Чаевые">
+        rules={{
+          minLength: { value: 1, message: 'Enter tip amount' },
+          min: { value: currencyInfo.min, message: `Minimum tip amount — ${buildAmountWithCurrency(currencyInfo.min, currency)}` },
+          max: { value: currencyInfo.max, message: `Maximum tip amount — ${buildAmountWithCurrency(currencyInfo.max, currency)}` },
+        }}
+        render={({ field: { value, onChange, ...restField } }) => (
+          <Section
+            header="Tip"
+            error={formState.errors.tipsAmount?.message}
+            description={`Min: ${buildAmountWithCurrency(currencyInfo.min, currency)}, max: ${buildAmountWithCurrency(currencyInfo.max, currency)}`}
+          >
             <TextField
-              placeholder="Укажите размер чаевых"
+              onChange={(e) => {
+                setValue('calculationMode', 'fix');
+
+                onChange(e);
+              }}
+              placeholder="Enter amount of the tip"
               value={value || ''}
+              inputMode="numeric"
+              type="number"
+              pattern="^[0-9]"
               {...restField}
             />
           </Section>

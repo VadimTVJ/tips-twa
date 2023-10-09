@@ -127,6 +127,8 @@ template {
 	display: none;
 }
 input, label, select, button, textarea {
+    -webkit-tap-highlight-color: unset;
+
 	margin:0;
 	border:0;
 	padding:0;
@@ -136,6 +138,7 @@ input, label, select, button, textarea {
 	background:none;
 	line-height:1;
 	font-size:13px;
+    outline: 0;
 }
 input:focus, textarea:focus {
 	outline:0;

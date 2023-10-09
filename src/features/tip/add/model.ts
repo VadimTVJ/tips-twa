@@ -10,8 +10,6 @@ type Params = {
     waiter?: waiterModel.Waiter | null;
     tipsAmount: number;
     currency: string;
-    calculationMode: string;
-    checkPrice: number;
   };
   onSuccess?: () => void;
   onError?: () => void;
@@ -19,7 +17,7 @@ type Params = {
 
 export const useAddTip = ({ form, onSuccess, onError }: Params) => {
   const {
-    waiter, tipsAmount, currency, checkPrice, calculationMode,
+    waiter, tipsAmount, currency,
   } = form;
 
   const canPay = waiter && tipsAmount > 0;
@@ -32,8 +30,9 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
   });
 
   useEffect(() => {
+    // Reset main button config
     mainButton.hideProgress();
-    mainButton.setText('Pay');
+    mainButton.setText('Leave a tip');
     mainButton.enable();
     mainButton.show();
 
@@ -53,7 +52,7 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
           .then((invoiceStatus) => {
             if (invoiceStatus === 'paid') {
               onSuccess?.();
-            } else if (invoiceStatus === 'cancelled' || invoiceStatus === 'failed') {
+            } else if (invoiceStatus === 'failed') {
               onError?.();
             }
           })
@@ -65,24 +64,16 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
   }, [invoiceLink]);
 
   useEffect(() => {
-    if (!waiter) {
-      mainButton.setText('Enter waiter');
-      return;
-    }
-    if (calculationMode === 'percent' && !checkPrice) {
-      mainButton.setText('Enter check price');
-      return;
-    }
-    if (tipsAmount === 0) {
-      mainButton.setText('Enter tips amount');
-      return;
-    }
-    mainButton.setText(`Pay (${buildAmountWithCurrency(tipsAmount, currency)})`);
-  }, [tipsAmount, currency, waiter, calculationMode, checkPrice]);
+    const label = tipsAmount
+      ? `Leave a tip (${buildAmountWithCurrency(tipsAmount, currency)})`
+      : 'Leave a tip';
+
+    mainButton.setText(label);
+  }, [tipsAmount]);
 
   useEffect(() => {
     const pressHandler = async () => {
-      if (canPay || !mainButton.isProgressVisible) {
+      if (!canPay || mainButton.isProgressVisible) {
         return;
       }
 
