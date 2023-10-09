@@ -10,9 +10,8 @@ import {
 import { startSentry } from '../shared/lib/sentry';
 import { startEruda } from '../shared/lib/eduda';
 
-startSentry(); // todo remove
-if (import.meta.env.PROD) { startSentry(); }
-if (import.meta.env.DEV) { startEruda(); }
+if (import.meta.env.MODE === 'production') { startSentry(); }
+if (import.meta.env.MODE === 'development') { startEruda(); }
 
 const App = compose(withUIKit, withErrorBoundary, withTelegram, withRouter, withQuery)(Pages);
 const root = createRoot(document.getElementById('root')!);
