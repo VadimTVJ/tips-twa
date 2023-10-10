@@ -153,7 +153,7 @@ In addition to filtering data, you can create your own Sentry context, for examp
 | --- | --- |
 | ![Preview](.readme-assets/sentry-before.png) _Sentry stores the tgWebAppData, along with a hash parameter for authorization on the backend_ | ![Preview](.readme-assets/sentry-after-1.png) _Sentry does not save the #hash of the request_ |
 | _Initially, there is no user information available in a convenient way_ | ![Preview](.readme-assets/sentry-after-2.png) _Only useful information about the user (from launch params) is displayed in a convenient way_ |
-[**Example**](src/shared/lib/sentry/index.ts)
+[**Example**](client/src/shared/lib/sentry/index.ts)
 #### Mobile debugging
 While developing Telegram Mini App, you may need to debug on a real device.
 [**Eruda**](https://github.com/liriliri/eruda), a mobile developer console, can help you with that
@@ -188,4 +188,4 @@ To improve UX, you can disable text selection in the application, leaving the ab
 
 
 ### License
-This project is licensed under the MIT - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT - see the [LICENSE](client/LICENSE) file for details
