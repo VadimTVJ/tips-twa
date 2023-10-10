@@ -87,6 +87,7 @@ Create the `.env` file in the client side directory of the project and specify v
 | `VITE_SENTRY` | False | Sentry DSN | `https://fw89ew89g7g8ew7g8we8@k3940287.ingest.sentry.io/234234543635523`
 
 #### Starting the project
+- Move to the /client directory ```cd client```
 - Run the ``yarn install`` command to install the project dependencies
 - To start the application in development mode, run the ``yarn dev`` command.
 - To build the project in production mode, run the ``yarn build`` command.
@@ -122,7 +123,8 @@ Create an `.env` file in the server-side directory and specify values for the fo
 | `TG_BOT_NAME` | **True** | Telegram BOT username (t.me/USERNAME) | tips_web_app_bot
 | `TG_BOT_APP_NAME` | **True** | Telegram Mini App name (t.me/username/APP_NAME) | tip
 | `TG_BOT_QR_URL` | **True** | Link to the image that the bot will send to the user when sending the /qr command |
-| `DOMAIN` | **True** | Application domain, used for webhook | https://my-server.com
+| `HOST` | **True** | | localhost
+| `DOMAIN` | **True** | Application domain, used for webhook (without last slash) | https://my-server.com
 | `PORT` | **True** | Port |
 | `DB_HOST` | **True** | Database host |
 | `DB_PORT` | **True** | Database port |
@@ -131,6 +133,7 @@ Create an `.env` file in the server-side directory and specify values for the fo
 | `DB_DATABASE` | **True** | Database name |
 
 #### Starting the project
+- Move to the /server directory ```cd server```
 - Run the ``yarn install`` command to install the project dependencies
 - To start the application in development mode, run the ``yarn dev`` command.
 - To build the project in production mode, run the ``yarn build`` command, then run the ``yarn start`` command to start the project.
@@ -153,7 +156,7 @@ In addition to filtering data, you can create your own Sentry context, for examp
 | --- | --- |
 | ![Preview](.readme-assets/sentry-before.png) _Sentry stores the tgWebAppData, along with a hash parameter for authorization on the backend_ | ![Preview](.readme-assets/sentry-after-1.png) _Sentry does not save the #hash of the request_ |
 | _Initially, there is no user information available in a convenient way_ | ![Preview](.readme-assets/sentry-after-2.png) _Only useful information about the user (from launch params) is displayed in a convenient way_ |
-[**Example**](src/shared/lib/sentry/index.ts)
+[**Example**](client/src/shared/lib/sentry/index.ts)
 #### Mobile debugging
 While developing Telegram Mini App, you may need to debug on a real device.
 [**Eruda**](https://github.com/liriliri/eruda), a mobile developer console, can help you with that
@@ -188,4 +191,4 @@ To improve UX, you can disable text selection in the application, leaving the ab
 
 
 ### License
-This project is licensed under the MIT - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT - see the [LICENSE](client/LICENSE) file for details

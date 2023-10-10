@@ -16,7 +16,7 @@ storybook-static
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+../.idea
 .DS_Store
 *.suo
 *.ntvs*
