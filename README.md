@@ -14,17 +14,17 @@ Demo: [t.me/tips_web_app_bot](https://t.me/tips_web_app_bot)
 - [x] 🛠 Support for multiple entry points: Main Bot Button, Inline Button, Direct Link, Direct Link with _startapp_ parameter<br>
 ____
 ## 📋 Table of contents
-1. [Client side](#client-side)
-   1. [Tech Stack and features](#стек-и-фичи)
-   2. [Frontend architecture](#архитектура-проекта)
+1. [Client side](#%EF%B8%8F-client-side)
+   1. [Tech Stack and features](#tech-stack-and-features)
+   2. [Frontend architecture](#frontend-architecture)
    3. [UI kit](#ui-kit)
-   4. [Build and run](#установка-и-сборка)
-2. [Server side](#серверная-часть)
-   1. [Tech Stack and features](#стек-и-фичи-1)
-   2. [Build and run](#установка-и-сборка-1)
-3. [Tips for Telegram Mini Apps](#советы-для-telegram-mini-apps)
-4. [Learn More](#полезные-ресурсы)
-5. [License](#лицензия)
+   4. [Build and run](#build-and-run)
+2. [Server side](#%EF%B8%8F-server-side)
+   1. [Tech Stack and features](#tech-stack-and-features-1)
+   2. [Build and run](#build-and-run-1)
+3. [Tips for Telegram Mini Apps](#-tips-for-telegram-mini-apps)
+4. [Learn More](#-learn-more)
+5. [License](#license)
 ____
 ## ⭐️ Client side
 ### Tech Stack and features
