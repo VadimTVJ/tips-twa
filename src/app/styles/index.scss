@@ -11,14 +11,14 @@ body {
   font-family: var(--App__font);
 }
 
-*:not(input):not(textarea),
-::after,
-::before {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+//*:not(input):not(textarea),
+//::after,
+//::before {
+//  -moz-user-select: none;
+//  -webkit-user-select: none;
+//  -ms-user-select: none;
+//  user-select: none;
+//}
 
 .color {
 
