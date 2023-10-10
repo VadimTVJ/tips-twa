@@ -9,6 +9,13 @@ const meta: Meta<SegmentedControlProps> = {
   component: SegmentedControl,
 
   argTypes: {
+    withHaptic: {
+      description: 'Send web_app_trigger_haptic_feedback event (selectionChanged) on change throw @tma.js/sdk-react (if sdk inited and method supports)',
+      table: {
+        defaultValue: { summary: false },
+        control: false,
+      },
+    },
     items: {
       description: 'Array of items',
       control: false,

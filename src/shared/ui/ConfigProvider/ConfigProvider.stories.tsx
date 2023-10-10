@@ -10,13 +10,6 @@ import { SegmentedControl } from '../SegmentedControl';
 const meta: Meta<ConfigProviderProps> = {
   title: 'App/ConfigProvider',
   component: ConfigProvider,
-
-  args: {
-    theme: 'light',
-  },
-
-  argTypes: {
-  },
 };
 
 export default meta;

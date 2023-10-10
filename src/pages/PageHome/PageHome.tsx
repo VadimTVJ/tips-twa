@@ -1,68 +1,79 @@
-import { ComponentPropsWithRef } from 'react';
-
-import { clsx } from 'clsx';
 import { Link } from 'react-router-dom';
+import { useThemeParams } from '@tma.js/sdk-react';
 import styles from './PageHome.module.scss';
 import {
+  Emoji,
   Hero, InfoRows, ListItem,
   Page,
   Section,
 } from '../../shared/ui';
 import { IconCurrency, IconID, IconScan } from '../../shared/lib/icons';
+import { ScanQRButton } from '../../features/tip';
 
-interface PageHomeProps extends ComponentPropsWithRef<'div'> {}
-
-// todo проверять, доступен ли скан куаркода, если нет, то делать listItem disabled
-export function PageHome({ className }: PageHomeProps) {
-  const rootClassName = clsx(className, styles.PageHome);
+export function PageHome() {
+  const { backgroundColor, secondaryBackgroundColor } = useThemeParams();
 
   return (
-    <Page className={rootClassName}>
+    <Page
+      className={styles.PageHome}
+      backgroundColor={secondaryBackgroundColor}
+      headerBackgroundColor={backgroundColor}
+      withQuit
+    >
       <Hero
         className={styles.PageHome__hero}
         filled
-        icon={(
-          <img
-            className={styles.PageHome__heroIcon}
-            src="./emoji-money.webp"
-            alt="Telegram web app tips"
-          />
-        )}
-        heading="Отправим чаевые?"
-        subheading={'Выберите более подходящий\u00A0вариант'}
+        icon={<Emoji size={80} emoji="🍽️" />}
+        heading="Leave a tip?"
+        subheading="Choose a more suitable option"
       />
 
       <Section>
-        <ListItem
-          before={<IconScan />}
-          as={Link}
-          to="tip"
-          hasAction
-        >
-          <InfoRows
-            primary="Отсканировать QR-код"
-            secondary="Отсканируйте куракод с чека, чтобы оставить чаевые официанту"
-          />
-        </ListItem>
+        <ScanQRButton>
+          {(openScanner, isSupported) => isSupported && (
+            <ListItem hasAction withHaptic onClick={openScanner}>
+              <ListItem.Side>
+                <IconScan />
+              </ListItem.Side>
 
-        <ListItem
-          before={<IconID />}
-          hasAction
-        >
-          <InfoRows
-            primary="Ввести ID официанта вручную"
-            secondary="Спросите у официанта его персональный код, чтобы оставить чаевые"
-          />
-        </ListItem>
+              <ListItem.Body>
+                <InfoRows
+                  primary="Scan QR"
+                  secondary="Scan the QR from the receipt to tip the waiter"
+                />
+              </ListItem.Body>
+            </ListItem>
+          )}
+        </ScanQRButton>
 
-        <ListItem
-          before={<IconCurrency />}
-          hasAction
-        >
-          <InfoRows
-            primary="История чаевых"
-            secondary="История Ваших переводов"
-          />
+        <ListItem hasAction withHaptic asChild>
+          <Link to="/tip">
+            <ListItem.Side>
+              <IconID />
+            </ListItem.Side>
+            <ListItem.Body>
+              <InfoRows
+                primary="Enter waiter ID"
+                secondary="Ask the waiter for his personalized code to leave a tip"
+              />
+            </ListItem.Body>
+          </Link>
+        </ListItem>
+      </Section>
+
+      <Section>
+        <ListItem hasAction withHaptic asChild>
+          <Link to="/tips">
+            <ListItem.Side>
+              <IconCurrency />
+            </ListItem.Side>
+            <ListItem.Body>
+              <InfoRows
+                primary="Tip History"
+                secondary="History of your transfers"
+              />
+            </ListItem.Body>
+          </Link>
         </ListItem>
       </Section>
     </Page>

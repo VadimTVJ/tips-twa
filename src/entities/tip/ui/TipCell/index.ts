@@ -1,0 +1,1 @@
+export { TipCell } from './TipCell';

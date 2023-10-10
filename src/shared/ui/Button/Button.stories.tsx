@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ElementType } from 'react';
 import {
   Button, ButtonMode, ButtonProps, ButtonSize,
 } from './Button';
 import { Section } from '../Section';
 
-const meta: Meta<ButtonProps<ElementType>> = {
+const meta: Meta<ButtonProps> = {
   title: 'Common/Button',
   component: Button,
 
@@ -17,6 +16,13 @@ const meta: Meta<ButtonProps<ElementType>> = {
   },
 
   argTypes: {
+    withHaptic: {
+      description: 'Send web_app_trigger_haptic_feedback event (selectionChanged) on click throw @tma.js/sdk-react (if sdk inited and method supports)',
+      table: {
+        defaultValue: { summary: false },
+        control: false,
+      },
+    },
     size: {
       description: 'Button size',
       control: 'select',
@@ -45,24 +51,40 @@ const meta: Meta<ButtonProps<ElementType>> = {
         defaultValue: { summary: false },
       },
     },
-    as: { table: { disable: true } },
   },
 };
 
 export default meta;
-type Story = StoryObj<ButtonProps<ElementType>>;
+type Story = StoryObj<ButtonProps>;
 
 export const Playground: Story = {
   render: ({ ...args }) => {
     return (
-      <Section
-        header="Button component"
-        description="The Button is a wrapper for the native HTML button element"
-      >
-        <Button {...args}>
-          Button
-        </Button>
-      </Section>
+      <>
+        <Section
+          header="Button component"
+          description="The Button is a wrapper for the native HTML button element"
+        >
+          <Button {...args}>
+            Button
+          </Button>
+        </Section>
+
+        <Section
+          header="Button component as anchor"
+          description="Wrap anchor into Button component and add asChild prop"
+        >
+          <Button {...args} asChild>
+            <a
+              href="https://i.imgur.com/KFEnxtU.png"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Im link!
+            </a>
+          </Button>
+        </Section>
+      </>
     );
   },
 };

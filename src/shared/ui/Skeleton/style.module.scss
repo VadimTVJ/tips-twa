@@ -1,0 +1,24 @@
+.Skeleton {
+  --Skeleton_background: var(--App__background-color_body);
+  --Skeleton_foregroundFrom: transparent;
+  --Skeleton_foregroundTo: rgb(44 45 46 / 20%);
+
+  background-color: var(--Skeleton_background);
+  background-image: linear-gradient(90deg, var(--Skeleton_foregroundFrom), var(--Skeleton_foregroundTo) 50%, var(--Skeleton_foregroundFrom));
+  border-radius: var(--App__radius);
+  animation-name: skeleton;
+  background-repeat: no-repeat;
+  background-position-x: -600px;
+  background-size: 600px 100%;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+  animation-delay: 1.2s;
+  animation-iteration-count: infinite;
+  will-change: background-position;
+  position: relative;
+}
+
+@keyframes skeleton {
+    66% { background-position-x: 600px }
+    to { background-position-x: 600px }
+}

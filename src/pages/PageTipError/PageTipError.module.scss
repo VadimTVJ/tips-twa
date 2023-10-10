@@ -1,0 +1,10 @@
+.PageTipError {
+
+  &__footer {
+    padding: var(--App__padding-vertical) var(--App__padding-horizontal);
+
+    & > *:not(:last-child) {
+      margin-bottom: vaR(--App__gap);
+    }
+  }
+}

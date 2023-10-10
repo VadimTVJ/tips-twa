@@ -1,42 +1,75 @@
+@import '../Typography/Typography.module';
+
+@mixin hover {
+  background: var(--App__background-color_hover);
+}
+
 .ListItem {
+  @extend .Typography_variant_text;
+
   padding: var(--App__padding-vertical) var(--App__padding-horizontal);
   border-radius: var(--App__radius);
   background: var(--App__background-color_content);
   min-height: 48px;
+  width: 100%;
   display: flex;
   align-items: center;
-  width: 100%;
   text-decoration: none;
   color: inherit;
+  position: relative;
+  justify-content: space-between;
+  transition: background .15s ease-out, opacity .15s ease-out;
 
   &_disabled {
     opacity: .5;
   }
 
-  &_interactive:not(&_disabled) {
-    cursor: pointer;
+  &_interactive {
 
-    &:hover {
-      background: var(--App__background-color_hover);
-      transition: background .15s ease-out,opacity .15s ease-out;
+    &:after {
+      content: '';
+      width: 7px;
+      height: 12px;
+      background-image: url('../../lib/icons/chevron-right.svg');
+      background-size: cover;
+      background-position: center;
+      margin-left: 12px;
+      flex-shrink: 0;
+    }
+
+    &:not(&_disabled) {
+      cursor: pointer;
+
+      @media (pointer: fine) {
+          &:hover {
+            @include hover;
+          }
+        }
+
+        @media (pointer: coarse) {
+          &:active {
+            @include hover;
+          }
+        }
     }
   }
+}
 
-  &__content {
-    flex-grow: 1;
-  }
+.ListItemSide {
 
-  &__before {
-    margin-right: var(--App_gap);
-  }
+  &_side {
 
-  &__after {
-    margin-left: var(--App_gap);
-    text-align: right;
-  }
+    &_left {
+      margin-right: var(--App__gap);
+    }
 
-  &__arrow {
-    margin-left: 12px;
-    flex-shrink: 0;
+    &_right {
+      margin-left: var(--App__gap);
+      text-align: right;
+    }
   }
+}
+
+.ListItemBody {
+  flex-grow: 1;
 }

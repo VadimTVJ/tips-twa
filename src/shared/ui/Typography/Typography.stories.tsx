@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ElementType } from 'react';
 import { Typography, TypographyProps } from './Typography';
 import { Section } from '../Section';
 
-const meta: Meta<TypographyProps<ElementType>> = {
+const meta: Meta<TypographyProps> = {
   title: 'Common/Typography',
   component: Typography,
 
@@ -13,7 +12,7 @@ const meta: Meta<TypographyProps<ElementType>> = {
     variant: 'h1',
     normalize: true,
     weight: 400,
-    as: 'h1',
+    as: 'span',
   },
 
   argTypes: {
@@ -29,12 +28,15 @@ const meta: Meta<TypographyProps<ElementType>> = {
     weight: {
       description: 'Weight (or boldness) of the font',
     },
-    as: { table: { disable: true } },
+    as: {
+      control: 'select',
+      options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div'],
+    },
   },
 };
 
 export default meta;
-type Story = StoryObj<TypographyProps<ElementType>>;
+type Story = StoryObj<TypographyProps>;
 
 export const Playground: Story = {
   render: ({ ...args }) => (

@@ -1,10 +1,11 @@
-import { ElementType, MouseEvent } from 'react';
+import {
+  ComponentPropsWithRef, ElementRef, forwardRef, MouseEvent,
+} from 'react';
 
 import { clsx } from 'clsx';
+import { useSDK } from '@tma.js/sdk-react';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import styles from './Button.module.scss';
-import { Typography } from '../Typography';
-import { PolymorphicComponentProp } from '../generics';
-import { Component } from '../Component';
 
 export enum ButtonSize {
   SMALL = 's',
@@ -17,19 +18,39 @@ type ButtonSizeUnion = `${ButtonSize}`;
 export enum ButtonMode {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
+  TERTIARY = 'tertiary',
 }
 
 type ButtonModeUnion = `${ButtonMode}`;
 
-export type ButtonProps<C extends ElementType> = PolymorphicComponentProp<C, {
+type ButtonElement = ElementRef<'button'>;
+
+export interface ButtonProps extends ComponentPropsWithRef<'button'> {
   size?: ButtonSize | ButtonSizeUnion;
   mode?: ButtonMode | ButtonModeUnion;
   stretched?: boolean;
-}>;
+  withHaptic?: boolean;
+  asChild?: boolean;
+}
 
-export const Button = <C extends ElementType>({
-  className, size = 'm', mode = 'primary', stretched, children, disabled, onClick: onClickProp, as = 'button' as C, ...rest
-}: ButtonProps<C>) => {
+export const Button = forwardRef<ButtonElement, ButtonProps>(({
+  className, size = 'm', asChild, mode = 'primary', stretched, children, disabled, onClick, withHaptic = false, ...rest
+}, ref) => {
+  const SDK = useSDK();
+
+  const clickHandler = (e: MouseEvent<ButtonElement>) => {
+    if (disabled) { return; }
+    onClick?.(e);
+
+    if (
+      SDK.didInit
+      && SDK.components
+      && SDK.components.haptic.supports('impactOccurred')
+      && withHaptic) {
+      SDK.components.haptic.impactOccurred('light');
+    }
+  };
+
   const rootClassName = clsx(
     className,
     styles.Button,
@@ -41,22 +62,15 @@ export const Button = <C extends ElementType>({
     },
   );
 
-  const onClick = (e: MouseEvent<C>) => {
-    if (disabled) { return; }
-
-    onClickProp?.(e);
-  };
-
+  const Root = asChild ? Slot : 'button';
   return (
-    <Component
+    <Root
       className={rootClassName}
-      onClick={onClick}
-      as={as as ElementType}
+      onClick={clickHandler}
+      ref={ref}
       {...rest}
     >
-      <Typography variant="text" as="span">
-        {children}
-      </Typography>
-    </Component>
+      <Slottable>{children}</Slottable>
+    </Root>
   );
-};
+});

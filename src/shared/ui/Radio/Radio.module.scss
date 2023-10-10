@@ -1,13 +1,29 @@
+@mixin hover {
+  background: var(--App__background-color_hover);
+}
+
 .Radio {
   background: var(--App__background-color_content);
   border-radius: var(--App__radius);
   padding: var(--App__padding-vertical) var(--App__padding-horizontal);
   width: 100%;
-  transition: background .15s ease-out,opacity .15s ease-out;
+  transition: background .15s ease-out, opacity .15s ease-out;
+  cursor: pointer;
 
-  &:hover:not(&_disabled) {
+  &:not(&_disabled) {
     cursor: pointer;
-    background: var(--App__background-color_hover);
+
+    @media (pointer: fine) {
+      &:hover {
+        @include hover;
+      }
+    }
+
+    @media (pointer: coarse) {
+      &:active {
+        @include hover;
+      }
+    }
   }
 
   &__in {
@@ -20,13 +36,21 @@
   }
 
   &__icon {
-    margin-right: var(--App_gap);
+    margin-right: var(--App__gap);
     width: 22px;
     height: 22px;
     color: var(--App__separator-color_secondary);
+
+    &Check {
+      display: none;
+    }
   }
 
   input[type=radio] {
     @include visuallyHidden;
+
+    &:checked + .Radio__icon .Radio__iconCheck {
+      display: block;
+    }
   }
 }

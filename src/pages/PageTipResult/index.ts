@@ -1,1 +1,0 @@
-export { PageTipResult } from './PageTipResult';

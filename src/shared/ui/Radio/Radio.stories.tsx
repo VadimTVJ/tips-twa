@@ -6,6 +6,16 @@ import { Section } from '../Section';
 const meta: Meta<RadioProps> = {
   title: 'Forms/Radio',
   component: Radio,
+
+  argTypes: {
+    withHaptic: {
+      description: 'Send web_app_trigger_haptic_feedback event (selectionChanged) on change throw @tma.js/sdk-react (if sdk inited and method supports)',
+      table: {
+        defaultValue: { summary: false },
+        control: false,
+      },
+    },
+  },
 };
 
 export default meta;

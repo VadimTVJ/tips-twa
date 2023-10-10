@@ -4,7 +4,6 @@ import '../src/app/styles/index.scss';
 
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { withUIWrapper } from './decoratots';
-import { Theme } from '../src/shared/ui';
 
 const preview: Preview = {
   parameters: {
@@ -27,12 +26,12 @@ const preview: Preview = {
   globalTypes: {
     theme: {
       name: 'Theme',
-      defaultValue: Theme.LIGHT,
+      defaultValue: 'light',
       toolbar: {
         icon: 'sun',
         items: [
-          { value: Theme.LIGHT, title: 'Light Telegram theme' },
-          { value: Theme.DARK, title: 'Dark Telegram theme' },
+          { value: 'light', title: 'Light Telegram theme' },
+          { value: 'dark', title: 'Dark Telegram theme' },
         ],
         title: 'Theme',
         dynamicTitle: true,

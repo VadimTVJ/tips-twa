@@ -1,1 +1,0 @@
-export { PageTransactions } from './PageTransactions';

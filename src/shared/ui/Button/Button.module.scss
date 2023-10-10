@@ -1,17 +1,37 @@
+@import '../Typography/Typography.module';
+
+@mixin hover {
+  cursor: pointer;
+  opacity: .85;
+}
+
 .Button {
+  @extend .Typography_variant_text;
+
   background: var(--Button_background);
   color: var(--Button_color);
   border-radius: var(--App__radius);
   min-height: var(--Button_min-height);
-  padding: 0 16px;
-  display: flex;
+  padding: 0 var(--Button_padding-horizontal);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: opacity .15s ease-out;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  flex-direction: column;
 
-  &:hover:not(&_disabled) {
-    cursor: pointer;
-    opacity: .85;
+  @media (pointer: fine) {
+    &:hover:not(&_disabled) {
+      @include hover;
+    }
+  }
+
+  @media (pointer: coarse) {
+    &:active:not(&_disabled) {
+      @include hover;
+    }
   }
 
   &_disabled {
@@ -33,19 +53,27 @@
       --Button_background: var(--App__background-color_secondary);
       --Button_color: var(--App__text-color_primary);
     }
+
+    &_tertiary {
+      --Button_background: transparent;
+      --Button_color: var(--App__text-color_link);
+    }
   }
 
   &_size {
 
     &_s {
+      --Button_padding-horizontal: 8px;
       --Button_min-height: 28px;
     }
 
     &_m {
+      --Button_padding-horizontal: 16px;
       --Button_min-height: 40px;
     }
 
     &_l {
+      --Button_padding-horizontal: 16px;
       --Button_min-height: 50px;
     }
   }

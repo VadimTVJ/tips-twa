@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithRef, forwardRef, ReactNode } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Section.module.scss';
@@ -11,15 +11,16 @@ export enum SectionMode {
 
 type SectionModeUnion = `${SectionMode}`;
 
-export interface SectionProps extends ComponentPropsWithoutRef<'div'> {
-  header?: string;
-  description?: string;
+export interface SectionProps extends ComponentPropsWithRef<'div'> {
+  header?: ReactNode;
+  description?: ReactNode;
+  error?: ReactNode;
   mode?: SectionMode | SectionModeUnion;
 }
 
-export const Section = ({
-  className, children, header, description, mode = SectionMode.COMPACT, ...rest
-}: SectionProps) => {
+export const Section = forwardRef<HTMLDivElement, SectionProps>(({
+  className, children, header, description, error, mode = SectionMode.COMPACT, ...rest
+}, ref) => {
   const rootClassName = clsx(
     className,
     styles.Section,
@@ -27,14 +28,12 @@ export const Section = ({
   );
 
   return (
-    <div
-      className={rootClassName}
-      {...rest}
-    >
+    <div className={rootClassName} ref={ref} {...rest}>
       {header && (
         <Typography
           className={styles.Section__header}
           variant="subtitle2"
+          as="div"
         >
           {header}
         </Typography>
@@ -42,14 +41,16 @@ export const Section = ({
 
       <div className={styles.Section__in}>{children}</div>
 
-      {description && (
+      {(description || error) && (
         <Typography
           className={styles.Section__description}
           variant="subtitle2"
+          as="div"
         >
+          {error && <div className={styles.Section__error}>{error}</div>}
           {description}
         </Typography>
       )}
     </div>
   );
-};
+});

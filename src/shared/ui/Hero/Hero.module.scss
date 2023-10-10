@@ -2,7 +2,7 @@
   --Hero_background: transparent;
 
   background: var(--Hero__background);
-  padding: 40px 28px 56px;
+  padding: 40px 28px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,13 +20,18 @@
 
   &__subheading {
     color: var(--App__text-color_secondary);
-
-    margin: var(--App_gap) 0 0;
+    margin: var(--App__gap) 0 0;
+    width: 100%;
   }
 
   &__heading {}
 
   &__icon {
-    margin-bottom: var(--App_gap);
+    margin-bottom: var(--App__gap);
+  }
+
+  &__body {
+    margin: var(--App__padding-horizontal) 0 0;
+    width: 100%;
   }
 }

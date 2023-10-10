@@ -1,10 +1,10 @@
-import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { ComponentPropsWithRef, forwardRef, ReactNode } from 'react';
 
 import { clsx } from 'clsx';
 import styles from './Hero.module.scss';
 import { Typography } from '../Typography';
 
-export interface HeroProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
+export interface HeroProps extends ComponentPropsWithRef<'div'> {
   heading: ReactNode;
 
   icon?: ReactNode;
@@ -13,19 +13,16 @@ export interface HeroProps extends Omit<ComponentPropsWithoutRef<'div'>, 'childr
   stretched?: boolean;
 }
 
-export const Hero = ({
-  className, icon, heading, subheading, filled, stretched, ...rest
-}: HeroProps) => {
+export const Hero = forwardRef<HTMLDivElement, HeroProps>(({
+  className, icon, heading, subheading, filled, children, stretched, ...rest
+}, ref) => {
   const rootClassName = clsx(className, styles.Hero, {
     [styles.Hero_filled]: filled,
     [styles.Hero_stretched]: stretched,
   });
 
   return (
-    <div
-      className={rootClassName}
-      {...rest}
-    >
+    <div className={rootClassName} ref={ref} {...rest}>
       {icon && <div className={styles.Hero__icon}>{icon}</div>}
 
       <Typography
@@ -45,6 +42,8 @@ export const Hero = ({
           {subheading}
         </Typography>
       )}
+
+      {children && <div className={styles.Hero__body}>{children}</div>}
     </div>
   );
-};
+});

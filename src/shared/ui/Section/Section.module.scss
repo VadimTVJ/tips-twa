@@ -11,12 +11,17 @@
     }
 
     &_compact {
-      --Section_padding: var(--App__padding-horizontal);
+      --Section_padding: var(--App__padding-vertical) var(--App__padding-horizontal);
     }
   }
 
   &__header, &__description {
     color: var(--App__text-color_secondary);
+  }
+
+  &__error {
+    color: var(--App_text-color_red);
+    margin-bottom: 4px;
   }
 
   &__header {
@@ -27,7 +32,7 @@
     }
 
     .Section_mode_full & {
-      padding: 16px var(--App__padding-horizontal) 5px;
+      padding: 16px var(--App__padding-horizontal) 0;
     }
   }
 
@@ -59,5 +64,9 @@
         border-top-right-radius: 0;
       }
     }
+  }
+
+  &:last-child {
+    margin-bottom: var(--App__padding-vertical);
   }
 }

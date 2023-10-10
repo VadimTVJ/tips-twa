@@ -1,35 +1,33 @@
-.tipsUI {
-  --App__theme: var(--tg-color-scheme, light);
-  --App__viewport-height: var(--tg-viewport-height, 100vh);
-  --App__viewport-height_stable: var(--tg-viewport-stable-height, 100vh);
+:root {
+  --App__font: -apple-system,system-ui,"Helvetica Neue",Roboto,sans-serif;
 
   --App__radius: 12px;
 
-  --App_gap: 8px;
+  --App__gap: 8px;
   --App__padding-horizontal: 16px;
   --App__padding-vertical: 10px;
 
+  --App_tg-background: var(--tg-theme-button-color, #3390ec);
+  --App_tg-color: var(--tg-theme-button-text-color, #ffffff);
+
+  --App__background-color_body: var(--tg-theme-secondary-bg-color, #f4f4f5);
+  --App__background-color_content: var(--tg-theme-bg-color, #ffffff);
+  --App__background-color_secondary: #74748014;
   --App__background-color_hover: rgba(0, 16, 61, 0.04);
 
+  --App__text-color_primary: var(--tg-theme-text-color, #000000);
+  --App__text-color_secondary: var(--tg-theme-hint-color, #707579);
+  --App__text-color_link: var(--tg-theme-link-color, #00488f);
 
-  &_light {
-    --App_tg-background: var(--tg-theme-button-color, #3390ec);
-    --App_tg-color: var(--tg-theme-button-text-color, #ffffff);
+  --App__text-color_green: green;
+  --App_text-color_red: red;
 
-    --App__background-color_body: var(--tg-theme-secondary-bg-color, #f4f4f5);
-    --App__background-color_content: var(--tg-theme-bg-color, #ffffff);
-    --App__background-color_secondary: #74748014;
+  --App__separator-color: #dce1e6;
+  --App__separator-color_secondary: #dce1e6;
+}
 
-    --App__text-color_primary: var(--tg-theme-text-color, #000000);
-    --App__text-color_secondary: var(--tg-theme-hint-color, #707579);
-    --App__text-color_link: var(--tg-theme-link-color, #00488f);
-
-    --App__separator-color_primary: #8E8E93;
-    --App__separator-color_secondary: #dce1e6;
-    --App__separator-color: #dce1e6;
-  }
-
-  &_dark {
+@media (prefers-color-scheme: dark) {
+  :root {
     --App_tg-background: var(--tg-theme-button-color, #8774e1);
     --App_tg-color: var(--tg-theme-button-text-color, #ffffff);
 
@@ -41,14 +39,6 @@
     --App__text-color_secondary: var(--tg-theme-hint-color, #aaaaaa);
     --App__text-color_link: var(--tg-theme-link-color, #8774e1);
 
-    --App__separator-color_primary: #797979;
     --App__separator-color_secondary: #535353;
   }
-}
-
-body {
-  background: var(--App__background-color_body);
-  color: var(--App__text-color_primary);
-
-  font-family: -apple-system,system-ui,"Helvetica Neue",Roboto,sans-serif;
 }

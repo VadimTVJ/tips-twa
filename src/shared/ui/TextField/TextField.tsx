@@ -1,45 +1,29 @@
 import { clsx } from 'clsx';
-import { ReactNode } from 'react';
+import {
+  ComponentPropsWithRef, ElementRef, forwardRef, ReactNode,
+} from 'react';
+import { Slot } from '@radix-ui/react-slot';
 import styles from './TextField.module.scss';
-import { PolymorphicComponentProp } from '../generics';
-import { Component } from '../Component';
 
-type AllowedElementTypes = 'input' | 'textarea';
+type TextFieldElement = ElementRef<'input'>;
 
-export type TextFieldProps<C extends AllowedElementTypes> = PolymorphicComponentProp<C, {
+export interface TextFieldProps extends ComponentPropsWithRef<'input'> {
   after?: ReactNode;
-}>;
+  asChild?: boolean;
+}
 
-export const TextField = <C extends AllowedElementTypes = 'input'>({
-  className, as = 'input' as C, after, disabled, ...rest
-}: TextFieldProps<C>) => {
-  const rootClassName = clsx(
-    className,
-    styles.TextField,
-    styles[`TextField_as_${as}`],
-    {
-      [styles.TextField_disabled]: disabled,
-    },
-  );
-
-  const fieldClassName = clsx(
-    styles.TextField__field,
-    styles[`TextField_as_${as}`],
-  );
-
+export const TextField = forwardRef<TextFieldElement, TextFieldProps>(({
+  className, after, asChild, ...rest
+}, ref) => {
+  const Root = asChild ? Slot : 'input';
+  const rootClassName = clsx(className, styles.TextField);
   return (
     <div className={rootClassName}>
       <div className={styles.TextField__in}>
-        <Component
-          className={fieldClassName}
-          as={as as AllowedElementTypes}
-          rows={5}
-          disabled={disabled}
-          {...rest}
-        />
+        <Root ref={ref} {...rest} />
 
-        {after && <div className={styles.TextField__after}>{after}</div>}
+        {!!after && <div className={styles.TextField__after}>{after}</div>}
       </div>
     </div>
   );
-};
+});
