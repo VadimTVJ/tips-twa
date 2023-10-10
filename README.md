@@ -1,10 +1,11 @@
 [**EN**](README.md) | [**RU**](README-ru.md)
+
 ____
+
 ## Tips — Telegram Mini App Example
 > [!NOTE]  
-> APP DESCRIPTION
-
-Demo: [t.me/tips_web_app_bot](https://t.me/tips_web_app_bot)
+> [@tips_web_app_bot](https://t.me/tips_web_app_bot) — a Mini App that provides a demonstration of the process of paying a tip to a waiter by QR code or waiter ID. 
+> The user is offered to choose the currency, calculate the tip amount - a fixed amount or a percentage of the bill and pay through the payment system. The user can also view the history of tips left.
 
 <img src="/.readme-assets/preview.png" width="100%" alt="Preview">
 

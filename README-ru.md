@@ -1,10 +1,11 @@
 [**EN**](README.md) | [**RU**](README-ru.md)
 
+____
+
 ## Tips — Telegram Mini App Example
 > [!NOTE]  
-> APP DESCRIPTION
-
-Demo: [t.me/tips_web_app_bot](https://t.me/tips_web_app_bot)
+> [@tips_web_app_bot](https://t.me/tips_web_app_bot) — Мини-приложение, которое предоставляет демонстрационный процесс оплаты чаевых официанту по QR-коду, либо ID официанта. 
+> Пользователю предлагается выбрать валюту, расчитать размер чаевых — фиксированная сумма, либо процент от счета и оплатить через платежную систему. Пользователь также может просматривать историю оставленных чаевых.
 
 <img src="/.readme-assets/preview.png" width="100%" alt="Preview">
 
