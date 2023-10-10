@@ -19,7 +19,7 @@ export const WaiterCell = ({
       <div>
         <ListItem.Side>
           <div
-            style={{ backgroundImage: `url${photo}` }}
+            style={{ backgroundImage: `url(${photo})` }}
             className={styles.WaiterCell__avatar}
           />
         </ListItem.Side>
