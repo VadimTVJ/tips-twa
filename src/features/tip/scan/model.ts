@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQrScannerListener } from '../../../shared/lib/use-qr-scanner-listener';
 
 export const useScanQR = () => {
-  const regex = /^waiter_(\d+)$/;
+  const regex = /(?:https?:\/\/)?t\.me\/\w+\/\w+\?startapp=(\d+)/;
 
   const navigate = useNavigate();
   const scanner = useQRScanner();
