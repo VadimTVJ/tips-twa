@@ -1,8 +1,10 @@
 ## Tips — Telegram Mini App Example
+Demo: [t.me/tips_web_app_bot](https://t.me/tips_web_app_bot)
+
 <img src="/.readme-assets/preview.png" width="100%" alt="Preview">
 
 ## Features
-:white_check_mark: Разработанный с нуля простой UI kit с интеграцией Telegram Mini Apps API ([@tma.js/sdk](https://feature-sliced.design))<br>
+:white_check_mark: Разработанный с нуля простой UI kit с имплементацией методов [@tma.js/sdk](https://feature-sliced.design)<br>
 :white_check_mark: Интеграция с Telegram платежами<br>
 :white_check_mark: Поддержка нескольких точек входа: Main Bot Button, Inline Button, Direct Link, Direct Link с хендлером startapp параметра<br>
 :white_check_mark: Проработанный developer experience: eruda для дебага в режиме development, Sentry в режиме production. Sentry настроена так, чтобы сенситив данные (например, хеш пользователя) не логгировались<br>
@@ -13,7 +15,7 @@ ____
    2. [Архитектура проекта](#Клиентская_часть_архитектура)
    3. [UI kit](#Клиентская_часть_uikit)
    4. [Установка и сборка](#Клиентская_часть_установка_и_сборка)
-2. [Серверная часть (бот, апи)](#Серверная_часть)
+2. [Серверная часть](#Серверная_часть)
    1. [Стек и фичи](#Серверная_часть_стек)
    2. [Установка и сборка](#Серверная_часть_архитектура)
 3. [Полезные советы для разработчиков Telegram Mini Apps](#Советы)
@@ -27,7 +29,7 @@ ____
 - Feature-sliced design в качестве архитектуры проекта
 - Axios + @tanstack/react-query
 - React-router-dom
-- Разработанный с нуля простой UI kit с интеграцией Telegram Mini Apps API (@tma.js/sdk)
+- Разработанный с нуля простой UI kit с имплементацией методов @tma.js/sdk
 - Eruda для дебага в режиме development, Sentry в режиме production
 ### Архитектура проекта
 <img src=".readme-assets/fsd.jpg" width="100%" alt="FSD">
@@ -39,7 +41,7 @@ ____
 3. **widgets** (виджеты) — композиционный слой для соединения сущностей и фич в самостоятельные блоки
 4. **features** (фичи) — взаимодействия с пользователем, действия, которые несут бизнес-ценность для пользователя
 5. **entities** (сущности) — бизнес-сущности приложения (tip, waiter)
-6. **shared** — переиспользуемый код, не имеющий отношения к специфике приложения/бизнеса
+6. **shared** — переиспользуемый код, не имеющий отношения к специфике приложения/бизнеса: UI kit, api, libs
 
 Данная методология обеспечивает низкую связанность компонентов приложения и высокую сплоченность, что делает код приложения более структурированным и масштабируемым
 
