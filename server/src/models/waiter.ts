@@ -1,7 +1,8 @@
 import {
   BaseEntity, Column,
-  Entity, PrimaryGeneratedColumn,
+  Entity, OneToMany, PrimaryGeneratedColumn,
 } from 'typeorm';
+import { TipModel } from './tip';
 
 @Entity({ name: 'waiter' })
 export class WaiterModel extends BaseEntity {
@@ -16,4 +17,7 @@ export class WaiterModel extends BaseEntity {
 
   @Column({ type: 'varchar' })
     restaurant!: string;
+
+  @OneToMany(() => TipModel, ({ waiter }) => waiter)
+    tips!: TipModel[];
 }
