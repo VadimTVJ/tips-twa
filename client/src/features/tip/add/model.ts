@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useMainButton, useWebApp } from '@tma.js/sdk-react';
 import { useInvoiceLinkQuery } from '../../../entities/tip/api';
-import { buildAmountWithCurrency } from '../../../shared/config';
+import { buildAmountWithCurrency, currencies } from '../../../shared/config';
 import { waiterModel } from '../../../entities/waiter';
 import { useUpdateEffect } from '../../../shared/lib/use-update-effect';
 
@@ -20,7 +20,9 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
     waiter, tipsAmount, currency,
   } = form;
 
-  const canPay = waiter && tipsAmount > 0;
+  const currencyInfo = currencies.find(({ code }) => code === currency) || currencies[0];
+
+  const canPay = waiter && tipsAmount >= currencyInfo.min;
 
   const webApp = useWebApp();
   const mainButton = useMainButton();
@@ -69,7 +71,7 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
       : 'Leave a tip';
 
     mainButton.setText(label);
-  }, [tipsAmount]);
+  }, [tipsAmount, currency]);
 
   useEffect(() => {
     const pressHandler = async () => {
@@ -87,5 +89,5 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
     return () => {
       mainButton.off('click', pressHandler);
     };
-  }, [mainButton, fetchInvoiceLink, tipsAmount, waiter]);
+  }, [mainButton, fetchInvoiceLink, tipsAmount, waiter, canPay]);
 };

@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import { WaiterModel } from '../../models/waiter';
 import { currencies } from '../../constants';
+import { checkLaunchParams } from '../../hooks';
 
 type BodyParams = {
   waiterId: number;
@@ -13,6 +14,7 @@ export const getInvoiceLink = async (fastify: FastifyInstance) => {
     method: 'POST',
     url: '/tip.getInvoiceLink',
 
+    preHandler: [checkLaunchParams],
     handler: async (request, reply) => {
       const { waiterId, tipsAmount, currency: currencyCode } = request.body;
 

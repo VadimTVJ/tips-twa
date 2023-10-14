@@ -1,7 +1,7 @@
 import {
   BaseEntity, Column,
   CreateDateColumn,
-  Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn,
+  Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserModel } from './user';
 import { WaiterModel } from './waiter';
@@ -24,7 +24,7 @@ export class TipModel extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
     user!: UserModel;
 
-  @OneToOne(() => WaiterModel)
+  @ManyToOne(() => WaiterModel, ({ tips }) => tips)
   @JoinColumn({ name: 'waiter_id' })
     waiter!: WaiterModel;
 

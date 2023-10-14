@@ -36,7 +36,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
       calculationMode: 'percent',
       currency: currencies[0].code,
       checkPrice: 0,
-      percent: 20,
+      percent: 10,
       tipsAmount: 0,
     },
   });
@@ -230,7 +230,7 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
           <Controller
             name="percent"
             control={control}
-            render={({ field }) => (
+            render={({ field: { value, ...restField } }) => (
               <Section header="Percent of bill">
                 <SegmentedControl
                   items={[
@@ -239,7 +239,8 @@ export const TipForm = ({ className, waiterId: initialWaiterId, ...rest }: TipFo
                     { label: '20%', value: '20' },
                     { label: '30%', value: '30' },
                   ]}
-                  {...field}
+                  value={value.toString()}
+                  {...restField}
                 />
               </Section>
             )}
