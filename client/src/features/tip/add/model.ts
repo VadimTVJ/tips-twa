@@ -69,7 +69,7 @@ export const useAddTip = ({ form, onSuccess, onError }: Params) => {
       : 'Leave a tip';
 
     mainButton.setText(label);
-  }, [tipsAmount]);
+  }, [tipsAmount, currency]);
 
   useEffect(() => {
     const pressHandler = async () => {
