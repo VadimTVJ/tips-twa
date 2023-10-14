@@ -8,12 +8,12 @@ import { useSDK } from '@tma.js/sdk-react';
 import styles from './SegmentedControl.module.scss';
 import { SegmentedControlItem } from './parts';
 
-type SegmentedControlValue = string | number | undefined;
+type SegmentedControlValue = HTMLInputElement['value'];
 
 export interface SegmentedControlProps extends Omit<ComponentPropsWithRef<'div'>, 'onChange' | 'children'> {
   items: {
     label: ReactNode;
-    value: HTMLInputElement['value'];
+    value: SegmentedControlValue;
   }[];
   name?: string;
   onChange?: (value: SegmentedControlValue) => void;
